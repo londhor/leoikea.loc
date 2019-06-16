@@ -472,8 +472,9 @@ p b {
 #header.min>.header-container {}
 
 .header-logo {
-    width: 26px;
     line-height: 0;
+    font-size: 24px;
+    color: #000;
 }
 .header-logo:hover {}
 
@@ -972,19 +973,16 @@ p b {
     text-align: center;
     z-index: 3;
     background-color: #dadada;
-    font-size: 14px;
+    font-size: initial;
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
 }
 #google-map {
     position: absolute;
-    right: 0;
     left: 0;
     top: 0;
-    margin: 0 auto;
-    width: 101%;
+    width: 100%;
     height: 100%;
     z-index: 3;
     background-image: url(../img/map.png);
@@ -1034,7 +1032,7 @@ p b {
 }
 
 .hero-header {
-    font-size: 36px;
+    font-size: 34px;
     line-height: 1.24;
     color: inherit;
     font-weight: bold;
@@ -1055,6 +1053,10 @@ p b {
 }
 
 /************** our-advantages ****************/
+
+.container-our-advantage {
+    
+}
 
 .our-advantages-container {
     display: flex;
@@ -1106,8 +1108,7 @@ p b {
     background-color: #fff;
     box-shadow: 0px 2px 20px -5px rgba(0,0,0, .1);
     overflow: hidden;
-    /* font-size: inherit; */
-    font-size: 0;
+    font-size: inherit;
 }
 
 .container-header+.swiper-container {overflow: visible;max-width: 100%;}

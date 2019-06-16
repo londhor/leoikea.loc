@@ -120,7 +120,13 @@
 	<div class="cart-container">
 
 		<div class="cart-items-wp">
-			<div class="cart-item">
+			<!-- cart-item -->
+			<div class="cart-item"
+				v-for="(item, i, key) in cart"
+				:key="key"
+				:data-item="i"
+				:data-key="i"
+				>
 				<div class="cart-item-img-wp">
 					<img src="../img/demo/item.png">
 				</div>
@@ -154,7 +160,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="cart-item">
+			<!-- #cart-item -->
+<!-- 			<div class="cart-item">
 				<div class="cart-item-img-wp">
 					<img src="../img/demo/item.png">
 				</div>
@@ -187,7 +194,7 @@
 						<div class="item-card-price cart-item-price">11 599<span>&#8372;</span></div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="cart-footer">
@@ -323,17 +330,15 @@ if (sSelects) {
 				showSearch: false,
 				valuesUseText: true,
 				showContent: 'down',
-				beforeOnChange: (info) => {
-				    info.innerHTML = 'asdfasd'+info.innerHTML;
+				onChange: (info) => {
 				    console.log(info);
-				    return  info;
 				},
 				valuesUseText: false, // Use text instead of innerHTML for selected values - default false
 				data: [
-				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Bold Text', value: 'bold text1'},
-				  {innerHTML: '<span>размер:</span>Bold Text', text: 'Bold Text', value: 'bold text2'},
-				  {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Bold Text', value: 'bold text3'},
-				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Bold Text', value: 'bold text4'},
+				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Цвет', value: 'bold text1'},
+				  {innerHTML: '<span>размер:</span>Bold Text', text: 'Размер', value: 'bold text2'},
+				  {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Дно кровати', value: 'bold text3'},
+				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Парам', value: 'bold text4'},
 				],
 			})
 		} catch {

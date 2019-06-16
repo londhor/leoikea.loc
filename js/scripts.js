@@ -35,11 +35,64 @@ var app = new Vue({
     data: {
         pageScroll: 0,
         modalPageScroll: 0,
-        search: false,
         searchString: '',
         menu: false,
         menuSubCat: false,
         siTab: 1,
+        cart: {
+            23: {
+                img: '../img/demo/item.png',
+                title: 'Massangeana',
+                header: 'Диван розкладной. Серебро. Бронза. Золото.',
+                price: 150,
+                count: 3,
+                options: {
+                    0: {
+                        name: 'артикль',
+                        value: '193.88.190',
+                    },
+                    1: {
+                        name: 'цвет',
+                        value: 'Голубой',
+                    },
+                    2: {
+                        name: 'размер',
+                        value: '153х200х130',
+                    },
+                    3: {
+                        name: 'Опция',
+                        value: 'Опция-1',
+                    },
+                    
+                },
+            },
+            24: {
+                img: '../img/demo/item.png',
+                title: 'Milano',
+                header: 'Деревянный стол',
+                price: 130,
+                count: 1,
+                options: {
+                    0: {
+                        name: 'артикль',
+                        value: '193.8203.190',
+                    },
+                    1: {
+                        name: 'цвет',
+                        value: 'Серый',
+                    },
+                    2: {
+                        name: 'размер',
+                        value: '220х140х30',
+                    },
+                    3: {
+                        name: 'Опция',
+                        value: 'Опция-2',
+                    },
+                    
+                },
+            },
+        },
     },
     methods: {
         headerFix: function() {

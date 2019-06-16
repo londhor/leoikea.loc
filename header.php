@@ -35,8 +35,8 @@
 
 <header id="header" :class="{ min:pageScroll >= 60 }">
     <div class="container header-container">
-        <a href='/' class="header-logo">
-            <img src="../img/logo.svg">
+        <a href='/' class="header-logo ic-logo-1">
+            <!-- <img src="../img/logo.svg"> -->
         </a>
         <ul class="header-menu">
             <a href="#" class="ic-arrow-down" :class="{active: menu}" @mouseover="menu=true">Каталог Ikea</a>
@@ -48,7 +48,9 @@
             <button @click="modal('cart')" class="btn icon round header-button ic-cart">
                 <span class="cart-point active"></span>
             </button>
-            <button @click="menu=true" class="btn icon round header-button ic-burger openMenuBtn"></button>
+            <button @click="menu=!menu" class="btn icon round header-button openMenuBtn"
+                :class="[{'ic-close':menu}, 'ic-burger']"
+            ></button>
         </div>
     </div>
 </header>

@@ -13,68 +13,71 @@
 	</div>
 </article>
 
-<article class="container">
-	<h2 class="container-header">
-		Почему стоить заказывать достаку товаров из Икея у нас
-	</h2>
-	<div class="our-advantages-container">
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">1</div>
-			<div class="our-advantage-icon ic-ben-1"></div>
-			<div class="our-advantage-text">
-				Быстрая доставка
-			</div>
-		</div>
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">2</div>
-			<div class="our-advantage-icon ic-ben-2"></div>
-			<div class="our-advantage-text">
-				Большой асортимент товаров на складе
-			</div>
-		</div>
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">3</div>
-			<div class="our-advantage-icon ic-ben-3"></div>
-			<div class="our-advantage-text">
-				Более 800 позитивных отзывов в социальных сетях
-			</div>
-		</div>
+<article>
+	<div class="container our-advantage-container">
 		
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">4</div>
-			<div class="our-advantage-icon ic-ben-4"></div>
-			<div class="our-advantage-text">
-				Более 80.000 отправок
+		<h2 class="container-header">
+			Почему стоить заказывать достаку товаров из Икея у нас
+		</h2>
+
+		<div class="our-advantages-container">
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">1</div>
+				<div class="our-advantage-icon ic-ben-1"></div>
+				<div class="our-advantage-text">
+					Быстрая доставка
+				</div>
+			</div>
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">2</div>
+				<div class="our-advantage-icon ic-ben-2"></div>
+				<div class="our-advantage-text">
+					Большой асортимент товаров на складе
+				</div>
+			</div>
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">3</div>
+				<div class="our-advantage-icon ic-ben-3"></div>
+				<div class="our-advantage-text">
+					Более 800 позитивных отзывов в социальных сетях
+				</div>
+			</div>
+			
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">4</div>
+				<div class="our-advantage-icon ic-ben-4"></div>
+				<div class="our-advantage-text">
+					Более 80.000 отправок
+				</div>
+			</div>
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">5</div>
+				<div class="our-advantage-icon ic-ben-5"></div>
+				<div class="our-advantage-text">
+					Большой асортимент на сайте и в соцсетях
+				</div>
+			</div>
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">6</div>
+				<div class="our-advantage-icon ic-ben-6"></div>
+				<div class="our-advantage-text">
+					Скидки и акции
+				</div>
+			</div>
+	
+			<div class="our-advantage-row">
+				<div class="our-advantage-num">7</div>
+				<div class="our-advantage-icon ic-ben-7"></div>
+				<div class="our-advantage-text">
+					Работаем с корпоративными клиентами
+				</div>
 			</div>
 		</div>
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">5</div>
-			<div class="our-advantage-icon ic-ben-5"></div>
-			<div class="our-advantage-text">
-				Большой асортимент на сайте и в соцсетях
-			</div>
-		</div>
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">6</div>
-			<div class="our-advantage-icon ic-ben-6"></div>
-			<div class="our-advantage-text">
-				Скидки и акции
-			</div>
-		</div>
-
-		<div class="our-advantage-row">
-			<div class="our-advantage-num">7</div>
-			<div class="our-advantage-icon ic-ben-7"></div>
-			<div class="our-advantage-text">
-				Работаем с корпоративными клиентами
-			</div>
-		</div>
-
 	</div>
 </article>
 
