@@ -1,9 +1,68 @@
-@keyframes slideToLeft {
-    0% {
-        transform: translateX(-100%);
+@-webkit-keyframes slideUpFromButtom {
+    from {
+        -ms-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        -moz-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        transform: translateY(100%);
     }
-    100% {
-        transform: translateX(0%);
+    to {
+        -ms-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+
+}
+@-o-keyframes slideUpFromButtom {
+    from {
+        -ms-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        -moz-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        transform: translateY(100%);
+    }
+    to {
+        -ms-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+
+}
+@-moz-keyframes slideUpFromButtom {
+    from {
+        -ms-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        -moz-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        transform: translateY(100%);
+    }
+    to {
+        -ms-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+
+}
+@keyframes slideUpFromButtom {
+    from {
+        -ms-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        -moz-transform: translateY(100%);
+        -o-transform: translateY(100%);
+        transform: translateY(100%);
+    }
+    to {
+        -ms-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
     }
 }
 @keyframes pagiSlide {
@@ -508,4 +567,21 @@
     100% {
         opacity: 1;
     }
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+@-o-keyframes fadeOut {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+@-moz-keyframes fadeOut {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+@keyframes fadeOut {
+    from { opacity: 1 }
+    to { opacity: 0 }
 }

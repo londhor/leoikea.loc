@@ -2,28 +2,12 @@
 
 @media all and (min-width: 1200px) {}
 
+
 @media all and (min-width: 320px) {}
 
 @media all and (min-width: 480px) {}
 
-@media all and (min-width: 640px) {
-    .hero-content {
-        color: #000;
-        max-width: 440px;
-        padding: 15px 25px;
-        padding-left: 0;
-        background-color: rgba(255, 255, 255, 1);
-    }
-
-    .hero-subheader+.btn {
-        background-color: var(--main);
-        color: #fff;
-    }
-
-    .hero-illustration {
-        left: -30%;
-    }
-}
+@media all and (min-width: 640px) {}
 
 @media all and (min-width: 768px) {
 
@@ -67,9 +51,33 @@
     .swiper-slide.si-slide {
     	width: calc(100% - 60px);
     }
+	.doc-row {
+		flex-wrap: nowrap;
+	}
+	.doc-link-td {
+		white-space: nowrap;
+	}
 }
 
 @media all and (min-width: 980px) {
+
+    .hero-content {
+    	max-width: 430px;
+        margin-left: 0;
+        color: #000;
+    }
+
+    .hero-subheader+.btn {
+        background-color: var(--main);
+        color: #fff;
+    }
+
+    .hero-illustration {
+        left: 46%;
+        height: 130%;
+        background-position: left center;
+    }
+
     .our-advantage-row {
         width: 33.3333%;
     }
@@ -90,6 +98,22 @@
 	}
 	.si-tab:first-child:before {
 		display: none;
+	}
+	.si-tabs-article {
+		background-color: #fff;
+	}
+	.si-tab:after,
+	.si-tab:before {
+		background-color: #e4e9ef;
+	}
+	.si-tab-header-pc-wp {
+		border-color: #e4e9ef;
+	}
+}
+
+@media all and (min-width: 1100px) {
+	.hero-illustration {
+		left: 40%;
 	}
 }
 

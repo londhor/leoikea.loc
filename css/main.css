@@ -60,6 +60,7 @@ article {
 
 #site_main {
     padding-top: 56px;
+    overflow: hidden;
 }
 
 img {
@@ -971,18 +972,25 @@ p b {
     text-align: center;
     z-index: 3;
     background-color: #dadada;
-    font-size: initial;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
 }
 #google-map {
     position: absolute;
+    right: 0;
     left: 0;
     top: 0;
-    width: 100%;
+    margin: 0 auto;
+    width: 101%;
     height: 100%;
     z-index: 3;
+    background-image: url(../img/map.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 
@@ -992,7 +1000,7 @@ p b {
 
 /************** hero ****************/
 .hero-article {
-    overflow: hidden;
+    overflow: visible;
     margin-top: -30px;
 }
 .hero-container {
@@ -1009,6 +1017,7 @@ p b {
     z-index: 1;
     position: relative;
     color: #fff;
+    margin: 0 auto;
 }
 
 .hero-illustration {
@@ -1021,6 +1030,7 @@ p b {
     background-position: center center;
     background-repeat: no-repeat;
     z-index: 0;
+    pointer-events: none;
 }
 
 .hero-header {
@@ -1096,7 +1106,8 @@ p b {
     background-color: #fff;
     box-shadow: 0px 2px 20px -5px rgba(0,0,0, .1);
     overflow: hidden;
-    font-size: inherit;
+    /* font-size: inherit; */
+    font-size: 0;
 }
 
 .container-header+.swiper-container {overflow: visible;max-width: 100%;}
@@ -1731,8 +1742,8 @@ main>article:first-of-type>.container:not(.hero-container) {
     width: auto;
     padding: 10px 15px;
     margin-right: 10px;
-    background-color: #fff;
-    box-shadow: var(--shadow);
+    background-color: transparent;
+    /* box-shadow: var(--shadow); */
     border-radius: 4px;
 }
 .si-tab-header-pc-wp {
@@ -1742,7 +1753,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     justify-content: flex-start;
     flex-wrap: nowrap;
     padding-bottom: 15px;
-    border-bottom: 1px solid #dadada;
+    border-bottom: 2px solid #dadada;
 }
 .si-tab-header-pc:hover {
     background-color: var(--selection-colors-bg);
@@ -1829,7 +1840,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     line-height: 1.24;
 }
 .doc-row:nth-child(2n) {
-    background-color: #e6e6e6;
+    background-color: #f0f4f7;
 }
 
 .doc-title {
@@ -1840,14 +1851,17 @@ main>article:first-of-type>.container:not(.hero-container) {
     margin-bottom: 5px;
 }
 .doc-link-td {}
-.doc-link-td>a {}
+.doc-link-td>a {
+    font-weight: bold;
+    text-decoration: none !important;
+}
 .doc-link-td>a:visited {
     color: #333;
 }
 .doc-link-td>a:hover,
 .doc-link-td>a:focus,
 .doc-link-td>a:focus:hover {
-    color: var(--main-hover);
+    color: var(--main);
 }
 
 
@@ -2040,7 +2054,6 @@ main>article:first-of-type>.container:not(.hero-container) {
     right: 0;
     top: 0;
     z-index: 87;
-    background-color: rgba(0, 0, 0, .5);
     height: 100vh;
     overflow: auto;
     display: none;
@@ -2048,11 +2061,16 @@ main>article:first-of-type>.container:not(.hero-container) {
     justify-content: center;
     -webkit-overflow-scrolling: touch;
     padding-top: 56px;
+    transition: bacground-color.15s linear;
 }
 
 .modal.leave {
-    animation: .3s slideFromCenter cubic-bezier(0.4, 0, 1, 1) both;
     display: flex;
+    background-color: transparent;
+}
+
+.modal.leave>.modal_scroll {
+     animation: .3s slideFromCenter cubic-bezier(0.4, 0, 1, 1) both; 
 }
 
 .modal:after {
@@ -2063,10 +2081,15 @@ main>article:first-of-type>.container:not(.hero-container) {
     height: 100%;
     left: 0;
     z-index: 1;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal.leave:after {
+     animation: .3s fadeOut cubic-bezier(0.4, 0, 1, 1) both; 
 }
 
 .modal.active:after {
-    /* animation: .3s slideToRight cubic-bezier(0, 0, 0.2, 1) both; */
+    animation: .15s fade cubic-bezier(0, 0, 0.2, 1) both;
 }
 
 .modal_scroll {
@@ -2081,6 +2104,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     z-index: 3;
     position: relative;
     padding-top: 40px;
+    animation: .3s slideUpFromButtom linear;
 }
 
 .modal_wp {
