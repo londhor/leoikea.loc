@@ -5,9 +5,9 @@
 	    	<div class="modal_wp">
 	        	<slot></slot>
 	    	</div>
-				<div class="modal-footer">
-	        		<button class="modal_close ic-close" @click="close()"></button>
-	        	</div>
+			<div class="modal-footer">
+	        	<button class="modal_close ic-close" @click="close()"></button>
+	        </div>
 	    </div>
 	</div>
 </template>

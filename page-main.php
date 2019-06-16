@@ -1,13 +1,15 @@
 <article class="hero-article">
 	<div class="container hero-container">
 		<div class="hero-illustration"></div>
-		<div class="hero-header">
-			Быстрая доставка<br>товаров с&nbsp;Икея
+		<div class="hero-content">
+			<div class="hero-header">
+				Быстрая доставка<br>товаров с&nbsp;Икея
+			</div>
+			<div class="hero-subheader">
+				Отправка в день заказа. За необходимости доставим прямо под двери 
+			</div>
+			<a href="../page-catalog.php" class="btn btn-row btn-white">В каталог</a>
 		</div>
-		<div class="hero-subheader">
-			Отправка в день заказа. За необходимости доставим прямо под двери 
-		</div>
-		<a href="../page-catalog.php" class="btn btn-row btn-white">В каталог</a>
 	</div>
 </article>
 

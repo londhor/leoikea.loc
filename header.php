@@ -30,7 +30,6 @@
     <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-
 </head>
 <body><div id="app">
 
@@ -40,48 +39,8 @@
             <img src="../img/logo.svg">
         </a>
         <ul class="header-menu">
-            <li>
-                <a href="#" class="ic-arrow">Каталог Ikea</a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="#" class="ic-cart">Submenu item</a>
-                        <ul class="sub-menu">
-                            <li><a href="#">Sub menu</a></li>
-                            <li><a href="#">Sub menu1</a></li>
-                            <li><a href="#">Sub menu2</a></li>
-                            <li><a href="#">Sub menu3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="ic-cart">Lorem ipsum dolor.</a>
-                        <ul class="sub-menu">
-                            <li><a href="#">Sub menu</a></li>
-                            <li><a href="#">Sub menu11</a></li>
-                            <li><a href="#">Sub menu12</a></li>
-                            <li><a href="#">Sub menu13</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="ic-cart">Lorem ipsum dolor.</a></li>
-                    <li><a href="#" class="ic-cart">Диваны и кресла</a></li>
-                    <li><a href="#" class="ic-cart">Стеллажи и хранение</a></li>
-                    <li><a href="#" class="ic-cart">Столы, столы, стулья и скамейки</a></li>
-                    <li><a href="#" class="ic-cart">Текстиль и ковры</a></li>
-                    <li><a href="#" class="ic-cart">освещение</a></li>
-                    <li><a href="#" class="ic-cart">Украшения и растения</a></li>
-                    <li><a href="#" class="ic-cart">Наука и работа</a></li>
-                    <li><a href="#" class="ic-cart">Мебель для детей и подростков</a></li>
-                    <li><a href="#" class="ic-cart">Шкафы и шкафы для хранения одежды</a></li>
-                    <li><a href="#" class="ic-cart">Кровати и матрасы</a></li>
-                    <li><a href="#" class="ic-cart">Мебель и аксессуары для ванных комнат</a></li>
-                    <li><a href="#" class="ic-cart">Организация дома и уборка</a></li>
-                    <li><a href="#" class="ic-cart">Кухонная мебель и бытовая техника</a></li>
-                    <li><a href="#" class="ic-cart">Кулинарные аксессуары</a></li>
-                    <li><a href="#" class="ic-cart">Еда и подача блюд</a></li>
-                    <li><a href="#" class="ic-cart">Бытовая электроника</a></li>
-                    <li><a href="#" class="ic-cart">Садовая мебель</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Контакты</a></li>
+            <a href="#" class="ic-arrow-down" :class="{active: menu}" @mouseover="menu=true">Каталог Ikea</a>
+            <a href="../page-contacts.php">Контакты</a>
         </ul>
         <div class="header-buttons">
             <button class="btn icon round header-button ic-phone-call"></button>
@@ -89,13 +48,59 @@
             <button @click="modal('cart')" class="btn icon round header-button ic-cart">
                 <span class="cart-point active"></span>
             </button>
-            <button @click="mm=true" class="btn icon round header-button ic-burger"></button>
+            <button @click="menu=true" class="btn icon round header-button ic-burger openMenuBtn"></button>
         </div>
     </div>
 </header>
 
-<div id="mm" class="mobile-menu active" :class="{active:mm}">
-    
+<div id="menu" class="main-menu" :class="{active:menu}">
+    <div class="card menu-container" @mouseleave="menu=false">
+        <div class="menu-cats">
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=1">Диваны и кресла</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=3">Стеллажи и хранение</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=4">Столы, столы, стулья и скамейки</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=5">Текстиль и ковры</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=6">освещение</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=7">Украшения и растения</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=8">Наука и работа</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=9">Мебель для детей и подростков</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=10">Шкафы и шкафы для хранения одежды</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=11">Кровати и матрасы</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=12">Мебель и аксессуары для ванных комнат</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=13">Организация дома и уборка</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=14">Кухонная мебель и бытовая техника</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=15">Кулинарные аксессуары</a>
+            <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=16">Еда и подача блюд</a>
+        </div>
+        <div class="menu-grid menu-subcats">
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Столы, столы, стулья и скамейки</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Текстиль и ковры</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">освещение</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Украшения и растения</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Наука и работа</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Мебель для детей и подростков</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Шкафы и шкафы для хранения одежды</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Кровати и матрасы</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Мебель и аксессуары для ванных комнат</a>
+            <a href="#" v-show="menuSubCat==10" class="menu-subcat">Организация дома и уборка</a>
+            <a href="#" v-show="menuSubCat==10" class="menu-subcat">Кухонная мебель и бытовая техника</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Кулинарные аксессуары</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Еда и подача блюд</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Столы, столы, стулья и скамейки</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Текстиль и ковры</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">освещение</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Украшения и растения</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Наука и работа</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Мебель для детей и подростков</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Шкафы и шкафы для хранения одежды</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Кровати и матрасы</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Мебель и аксессуары для ванных комнат</a>
+            <a href="#" v-show="menuSubCat==10" class="menu-subcat">Организация дома и уборка</a>
+            <a href="#" v-show="menuSubCat==10" class="menu-subcat">Кухонная мебель и бытовая техника</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Кулинарные аксессуары</a>
+            <a href="#" v-show="menuSubCat==1" class="menu-subcat">Еда и подача блюд</a>
+        </div>
+    </div>
 </div>
 
 <main class="site_main" id="site_main">

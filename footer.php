@@ -50,12 +50,6 @@
 	</div>
 </div>
 
-
-<v-modal ref="modal" name="modal"></v-modal>
-<v-modal ref="cart" name="cart">
-	<h2>cart</h2>
-</v-modal>
-
 <v-modal ref="search" name="search">
     <div class="search-container">
         <form class="search-form" action="/" method="get">
@@ -85,7 +79,10 @@
 </v-modal>
 
 <v-modal ref="booking" name="booking">
-	<form class="search-form" action="/" method="get">
+	<form class="booking-form" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking','booking-form')">
+		<div class="container-header">
+			Оформить заказ
+		</div>
 	    <div class="input-wp">
 	        <input type="text" name="fio" required>
 	        <label>Имя и Фамилия</label>
@@ -110,11 +107,103 @@
 	</form>
 </v-modal>
 
+<v-modal ref="tnx" name="tnx">
+	<div class="modal-tnx-container">
+		<div class="modal-tnx-icon ic-cart"></div>
+		<div class="modal-tnx-header">Благодарим за заказ!</div>
+		<div class="modal-tnx-subheader">Наши менеджеры свяжутся<br>с вами в ближайшее время</div>
+	</div>
+</v-modal>
+
+<v-modal ref="cart" name="cart">
+	<div class="container-header">Моя корзина</div>
+	<div class="cart-container">
+
+		<div class="cart-items-wp">
+			<div class="cart-item">
+				<div class="cart-item-img-wp">
+					<img src="../img/demo/item.png">
+				</div>
+				<div class="cart-item-content">
+					<div class="cart-item-title">Massangeana</div>
+					<div class="cart-item-header">Диван розкладной. Серебро. Бронза. Золото.</div>
+					<div class="cart-item-price-wp">
+						<div class="item-card-price cart-item-price">
+							11 599<span>&#8372;</span>
+							<span class="per-item">за шт.</span>
+						</div>
+					</div>
+					<div class="cart-item-options-wp">
+						<div class="cart-item-option">Артикул:<span>133.321.120</span></div>
+						<div class="cart-item-option">Цвет:<span>Голубой</span></div>
+						<div class="cart-item-option">Реечное дно кровати:<span>Бальзак</span></div>
+					</div>
+					<div class="input-count-box cart-item-count">
+						<button type="button" class="form-count-btn ic-m-minus minus"></button>
+						<div class="form-count-wp" data-text="шт.">
+							<input type="text" value="1" class="form-count" required>
+						</div>
+						<button type="button" class="form-count-btn ic-m-plus plus"></button>
+					</div>
+				</div>
+				<div class="cart-item-footer">
+					<button class="ic-bin cart-item-delete" type="button"></button>
+					<div class="cart-item-total-price-wp">
+						<div class="cart-item-total-price-text">Общая стоимость</div>
+						<div class="item-card-price cart-item-price">11 599<span>&#8372;</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="cart-item">
+				<div class="cart-item-img-wp">
+					<img src="../img/demo/item.png">
+				</div>
+				<div class="cart-item-content">
+					<div class="cart-item-title">Massangeana</div>
+					<div class="cart-item-header">Диван розкладной. Серебро. Бронза. Золото.</div>
+					<div class="cart-item-price-wp">
+						<div class="item-card-price cart-item-price">
+							11 599<span>&#8372;</span>
+							<span class="per-item">за шт.</span>
+						</div>
+					</div>
+					<div class="cart-item-options-wp">
+						<div class="cart-item-option">Артикул:<span>133.321.120</span></div>
+						<div class="cart-item-option">Цвет:<span>Голубой</span></div>
+						<div class="cart-item-option">Реечное дно кровати:<span>Бальзак</span></div>
+					</div>
+					<div class="input-count-box cart-item-count">
+						<button type="button" class="form-count-btn ic-m-minus minus"></button>
+						<div class="form-count-wp" data-text="шт.">
+							<input type="text" value="1" class="form-count" required>
+						</div>
+						<button type="button" class="form-count-btn ic-m-plus plus"></button>
+					</div>
+				</div>
+				<div class="cart-item-footer">
+					<button class="ic-bin cart-item-delete" type="button"></button>
+					<div class="cart-item-total-price-wp">
+						<div class="cart-item-total-price-text">Общая стоимость</div>
+						<div class="item-card-price cart-item-price">11 599<span>&#8372;</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="cart-footer">
+			<div class="cart-price-wp">
+				<div class="cart-price-text">Общая стоимость</div>
+				<div class="item-card-price cart-total-price">13 150<span>&#8372;</span></div>
+			</div>
+			<button class="btn btn-row" type="button">Заказать</button>
+		</div>
+
+	</div>
+</v-modal>
+
 </div> <!-- #APP  -->
 
 <?php include('components/modal.php') ?>
-<?php //include('components/item.php') ?>
-<?php //include('components/slider.php') ?>
 
 <!-- ---------------------------------- SCRIPTS ----------------------------------- -->
 <link rel="stylesheet" href="../css/normalize.css?ver=1.1">
@@ -206,11 +295,11 @@ try {
 	var siThumbs = new Swiper('.si-thumbs', {
 		spaceBetween: 8,
 		slidesPerView: 'auto',
- watchSlidesVisibility: true,
+ 		watchSlidesVisibility: true,
     });
 
 	var swiper = new Swiper('.si-slider', {
-		slidesPerView: 1,
+		slidesPerView: 'auto',
       	centeredSlides: true,
 		spaceBetween: 5,
 		thumbs: {

@@ -2,9 +2,9 @@
 <article class="item-article">
 	<div class="container item-container">
 		<div class="breadcrubs">
-			<a href="#" class="ic-icon breadcrubs-element">Главная</a>
-			<a href="#" class="ic-icon breadcrubs-element">Спальня и прихожая</a>
-			<a href="#" class="ic-icon breadcrubs-element breadcrubs-element-current">Hammarn</a>
+			<a href="#" class="ic-arrow-right breadcrubs-element">Главная</a>
+			<a href="#" class="ic-arrow-right breadcrubs-element">Спальня и прихожая</a>
+			<a href="#" class="ic-arrow-right breadcrubs-element breadcrubs-element-current">Hammarn</a>
 		</div>
 
 		<div class="single-item-content-container">
@@ -32,39 +32,41 @@
 				</div>
 			</div>
 
-			<div class="si-main-content">
-				<div class="si-article"><span>Артикул</span>302.130.76</div>
-				<h1 class="si-title">Massangeana</h1>
-				<h2 class="si-subheader">Диван раскладной, Knis темно-серый, черный</h2>
-				<div class="item-card-price-wp si-item-card-price-wp">
-					<div class="item-card-price">11 599<span>&#8372;</span></div>
-					<div class="item-card-price item-card-price-sale">13 891<span>&#8372;</span></div>
+			<div class="si-main-content-wp">
+				<div class="si-main-content">
+					<div class="si-article"><span>Артикул</span>302.130.76</div>
+					<h1 class="si-title">Massangeana</h1>
+					<h2 class="si-subheader">Диван раскладной, Knis темно-серый, черный</h2>
+					<div class="item-card-price-wp si-item-card-price-wp">
+						<div class="item-card-price">11 599<span>&#8372;</span></div>
+						<div class="item-card-price item-card-price-sale">13 891<span>&#8372;</span></div>
+					</div>
 				</div>
-			</div>
-
-			<form action="/" class="si-form" method="POST">
-
-				<div class="si-form-row">
-					<div class="form-count-row">
-						<div class="input-header form-count-title">Количество:</div>
-						<div class="input-count-box">
-							<button type="button" class="form-count-btn ic-cart minus"></button>
-							<div class="form-count-wp" data-text="шт.">
-								<input type="text" value="1" class="form-count" required>
+	
+				<form action="/" class="si-form" method="POST">
+	
+					<div class="si-form-row">
+						<div class="form-count-row">
+							<div class="input-header form-count-title">Количество:</div>
+							<div class="input-count-box">
+								<button type="button" class="form-count-btn ic-m-minus minus"></button>
+								<div class="form-count-wp" data-text="шт.">
+									<input type="text" value="1" class="form-count" required>
+								</div>
+								<button type="button" class="form-count-btn ic-m-plus plus"></button>
 							</div>
-							<button type="button" class="form-count-btn ic-cart plus"></button>
 						</div>
 					</div>
-				</div>
-
-				<div class="si-form-row">
-					<div class="input-wp input-select-wp">
-						<select class="ss-select" required></select>
+	
+					<div class="si-form-row">
+						<div class="input-wp input-select-wp">
+							<select class="ss-select" required></select>
+						</div>
 					</div>
-				</div>
-
-				<button class="btn btn-row ic-cart-add" type="submit">Добавить в корзину</button>
-			</form>
+	
+					<button class="btn btn-row ic-cart-add" type="submit">Добавить в корзину</button>
+				</form>
+			</div>	
 
 		</div>
 
@@ -72,10 +74,16 @@
 </article>
 <article class="si-tabs-article">
 	<div class="container si-tabs-contaioner">
+		<div class="si-tab-header-pc-wp">
+			<button @click="siTab=1" :class="{active:siTab==1}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button">Описание и размеры</button>
+			<button @click="siTab=2" :class="{active:siTab==2}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button">Инструкции по сборке</button>
+			<button @click="siTab=3" :class="{active:siTab==3}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button">И еще</button>
+			<button @click="siTab=4" :class="{active:siTab==4}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button">Полезно знать</button>
+		</div>
 		<div class="si-tabs">
 
-			<div class="si-tab active">
-				<button type="button" class="si-tab-btn si-tab-header ic-icon">Описание и размеры</button>
+			<div class="si-tab" :class="{active:siTab==1}">
+				<button type="button" @click="siTab=1" class="si-tab-btn si-tab-header ic-arrow-down">Описание и размеры</button>
 				<div class="content si-tab-container">
 					<!-- HARDCODE field 'info' -->
 					<div class="prodInfoLeft">
@@ -100,8 +108,8 @@
 				</div>
 			</div>
 
-			<div class="si-tab">
-				<button type="button" class="si-tab-btn si-tab-header ic-icon">Полезно знать</button>
+			<div class="si-tab" :class="{active:siTab==2}">
+				<button type="button" @click="siTab=2" class="si-tab-btn si-tab-header ic-arrow-down">Полезно знать</button>
 				<div class="content si-tab-container">
 
 					<div class="doc-table">
@@ -126,8 +134,8 @@
 				</div>
 			</div>
 
-			<div class="si-tab">
-				<button type="button" class="si-tab-btn si-tab-header ic-icon">Упаковка и инструкции</button>
+			<div class="si-tab" :class="{active:siTab==3}">
+				<button type="button" @click="siTab=3" class="si-tab-btn si-tab-header ic-arrow-down">Упаковка и инструкции</button>
 				<div class="content si-tab-container">
 					<!-- HARDCODE field 'info' -->
 					<div class="prodInfoLeft">
@@ -152,8 +160,8 @@
 				</div>
 			</div>
 
-			<div class="si-tab">
-				<button type="button" class="si-tab-btn si-tab-header ic-icon">Что-либо еще</button>
+			<div class="si-tab" :class="{active:siTab==4}">
+				<button type="button" @click="siTab=4" class="si-tab-btn si-tab-header ic-arrow-down">Что-либо еще</button>
 				<div class="content si-tab-container">
 					<!-- HARDCODE field 'info' -->
 					<div class="prodInfoLeft">

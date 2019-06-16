@@ -37,7 +37,9 @@ var app = new Vue({
         modalPageScroll: 0,
         search: false,
         searchString: '',
-        mm: false,
+        menu: false,
+        menuSubCat: false,
+        siTab: 1,
     },
     methods: {
         headerFix: function() {
@@ -69,7 +71,20 @@ var app = new Vue({
             if (!results) return null;
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
+        },
+        ajaxForm: function(action, el) {
+            var form = document.querySelector("#" + el + "");
+            var data = new FormData(form);
+            formTnxEl = form.querySelector(".form_tnx");
+            if (formTnxEl) {
+                formTnxEl.classList.add("active");
+            }
+            setTimeout(function() {
+                form.reset();
+            }, 500);
+            ajax(action, data);
+            return false;
+        },
     },
     computed: {
 
@@ -87,19 +102,19 @@ var app = new Vue({
     }
 });
 
-function ajaxForm(action, el) {
-    var form = document.querySelector("#" + el + "");
-    var data = new FormData(form);
-    formTnxEl = form.querySelector(".form_tnx");
-    if (formTnxEl) {
-        formTnxEl.classList.add("active");
-    }
-    setTimeout(function() {
-        form.reset();
-    }, 500);
-    ajax(action, data);
-    return false;
-}
+// function ajaxForm(action, el) {
+//     var form = document.querySelector("#" + el + "");
+//     var data = new FormData(form);
+//     formTnxEl = form.querySelector(".form_tnx");
+//     if (formTnxEl) {
+//         formTnxEl.classList.add("active");
+//     }
+//     setTimeout(function() {
+//         form.reset();
+//     }, 500);
+//     ajax(action, data);
+//     return false;
+// }
 
 function ajax(action, data) {
     var req = new XMLHttpRequest();
@@ -116,3 +131,5 @@ function ajax(action, data) {
     req.open("POST", "" + window.location.protocol + "//" + window.location.hostname + "/js/ajax/main.php", true);
     req.send(data);
 }
+
+app.modal('cart');
