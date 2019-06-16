@@ -131,5 +131,3 @@ function ajax(action, data) {
     req.open("POST", "" + window.location.protocol + "//" + window.location.hostname + "/js/ajax/main.php", true);
     req.send(data);
 }
-
-app.modal('cart');
