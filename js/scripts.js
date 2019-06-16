@@ -56,6 +56,7 @@ var app = new Vue({
             }
         },
         modalClose: function(name) {
+            console.log('ml');
             if (name) {
                 this.$refs[name].close();
                 document.body.classList.remove("body_fixed");
@@ -101,20 +102,6 @@ var app = new Vue({
         window.removeEventListener("scroll", this.headerFix);
     }
 });
-
-// function ajaxForm(action, el) {
-//     var form = document.querySelector("#" + el + "");
-//     var data = new FormData(form);
-//     formTnxEl = form.querySelector(".form_tnx");
-//     if (formTnxEl) {
-//         formTnxEl.classList.add("active");
-//     }
-//     setTimeout(function() {
-//         form.reset();
-//     }, 500);
-//     ajax(action, data);
-//     return false;
-// }
 
 function ajax(action, data) {
     var req = new XMLHttpRequest();

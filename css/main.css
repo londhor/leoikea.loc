@@ -762,6 +762,7 @@ p b {
 
 .cart-item-count.input-count-box {
     padding: 2px 2px;
+    max-width: 128px;
 }
 
 .cart-item-footer {
@@ -1650,7 +1651,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     flex-wrap: nowrap;
     padding: 7px 10px;
     position: relative;
-    max-width: 128px;
+    max-width: 147px;
 }
 .form-count-btn {
     color: var(--main);
