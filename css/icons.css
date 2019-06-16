@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'icons';
+  src:  url('../fonts/icons/leoikea.eot?alfmhz');
+  src:  url('../fonts/icons/leoikea.eot?alfmhz#iefix') format('embedded-opentype'),
+    url('../fonts/icons/leoikea.ttf?alfmhz') format('truetype'),
+    url('../fonts/icons/leoikea.woff?alfmhz') format('woff'),
+    url('../fonts/icons/leoikea.svg?alfmhz#icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="ic-"]:before,
+[class*=" ic-"]:before {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic-404:before {
+  content: "\e900";
+}
+.ic-arrow:before {
+  content: "\e901";
+}
+.ic-ben-1:before {
+  content: "\e902";
+}
+.ic-ben-2:before {
+  content: "\e903";
+}
+.ic-ben-3:before {
+  content: "\e904";
+}
+.ic-ben-4:before {
+  content: "\e905";
+}
+.ic-ben-5:before {
+  content: "\e906";
+}
+.ic-ben-6:before {
+  content: "\e907";
+}
+.ic-ben-7:before {
+  content: "\e908";
+}
+.ic-bin:before {
+  content: "\e909";
+}
+.ic-burger:before {
+  content: "\e90a";
+}
+.ic-cart-add:before {
+  content: "\e90b";
+}
+.ic-cart:before {
+  content: "\e90c";
+}
+.ic-close:before {
+  content: "\e90d";
+}
+.ic-facebook:before {
+  content: "\e90e";
+}
+.ic-instagram:before {
+  content: "\e90f";
+}
+.ic-magnifier:before {
+  content: "\e910";
+}
+.ic-mail:before {
+  content: "\e911";
+}
+.ic-phone-call:before {
+  content: "\e912";
+}
+.ic-phone:before {
+  content: "\e913";
+}
+.ic-pin:before {
+  content: "\e914";
+}

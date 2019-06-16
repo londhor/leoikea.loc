@@ -1,0 +1,33 @@
+@media all and (min-width: 1440px) {}
+
+@media all and (min-width: 1200px) {
+
+}
+@media all and (min-width: 980px) {}
+@media all and (min-width: 768px) {}
+@media all and (min-width: 480px) {}
+@media all and (min-width: 320px) {}
+
+
+@media (any-pointer: fine) { /* Styles for NOT touch screens */
+
+}
+
+@media (any-pointer: coarse) { /* Styles for TOUCH screens */
+  
+}
+
+@media screen and (orientation: landscape) {
+    .container {
+        padding-right: calc(max(30px, env(safe-area-inset-right)));
+        padding-left: calc(max(30px, env(safe-area-inset-left)));
+        
+    }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+	.modal_scroll {
+		top: -55px;
+		max-height: calc(100vh - 200px);
+	}
+}
