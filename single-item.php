@@ -43,8 +43,25 @@
 					</div>
 				</div>
 	
-				<form action="/" class="si-form" method="POST">
-	
+				<form action="/" class="si-form" method="POST"
+					@submit.prevent="addToCart(
+						{
+							233:{
+								img: '../img/demo/item.png',
+                    			title: 'Massangeana',
+                    			header: 'Диван розкладной. Серебро. Бронза. Золото.',
+                    			price: 150,
+                    			count: 103,
+							}
+						}
+					)"
+				>
+
+					<input type="hidden" name="id" value="233">
+					<input type="hidden" name="title" value="Messangenta">
+					<input type="hidden" name="header" value="Диван раскладной, Knis темно-серый, черный">
+					<input type="hidden" name="price" value="150">
+
 					<div class="si-form-row">
 						<div class="form-count-row">
 							<div class="input-header form-count-title">Количество:</div>
@@ -52,14 +69,25 @@
 						</div>
 					</div>
 	
-					<div class="si-form-row">
+					<div class="si-form-row" v-if="optionsData">
 						<div class="input-wp input-select-wp">
-							<select class="ss-select" required></select>
+							<select v-model="pageSlug" name="options" class="ss-select" required id="ssselect">
+								<option data-placeholder="true">Пл</option>
+							</select>
 						</div>
 					</div>
 	
 					<button class="btn btn-row ic-cart-add" v-if="!itemInCart('124')" type="submit">Добавить в корзину</button>
 					<div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="">Товар уже в корзине</div>
+					
+					<div class="form_tnx">
+						<div class="form_tnx_header">Товар добавлен в корзину</div>
+						<div class="form_tnx_subheader">
+							Откройте корзину, чтобы перейти к заказу или удалить товар з корзины
+						</div>
+						<button type="button" @click="modal('cart')" class="btn sm btn-white form_tnx_btn">Открыть корзину</button>
+					</div>
+
 				</form>
 			</div>	
 

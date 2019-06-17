@@ -1,3 +1,5 @@
+var ssSelect = false;
+
 Vue.filter('price', function(price){
     // console.log('vf');
     return formatMoney(price,0, " ", " ");
@@ -279,6 +281,12 @@ var app = new Vue({
         mobileMenu: false,
         menuSubCat: false,
         siTab: 1,
+
+        //// hadrcode
+        optionsData: false,
+        ssSelect: false,
+        pageSlug: false,
+        //// hadrcode - end
     },
     methods: {
         itemInCart: function(id) {
@@ -292,6 +300,20 @@ var app = new Vue({
         headerFix: function() {
             this.pageScroll = window.pageYOffset || document.documentElement.scrollTop;
         },
+        // addToCart //////////////////////////////////////////////////////////////////////////
+        addToCart: function(item) {
+            objId = Object.keys(item)[0];
+            var itemObject = item[objId];
+            // console.log(typeof(itemObject));
+            itemObject.options = [];
+            itemObject.options[0] = {
+                name: '',
+                value: '',
+            };
+
+            console.log(itemObject);
+        },
+        // addToCart - END //////////////////////////////////////////////////////////////////////////
         // modal //////////////////////////////////////////////////////////////////////////
         modal: function(name) {
             if (name) {
@@ -321,52 +343,51 @@ var app = new Vue({
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         },
         ajaxForm: function(action, el) {
-            var form = document.querySelector("#" + el + "");
+            var form = el.target;
             var data = new FormData(form);
+
             formTnxEl = form.querySelector(".form_tnx");
+
             if (formTnxEl) {
-                formTnxEl.classList.add("active");
+               formTnxEl.classList.add("active");
             }
+
             setTimeout(function() {
-                form.reset();
+                if (action!='booking') {
+                    form.reset();
+                }
             }, 500);
             ajax(action, data);
             return false;
         },
+
+        //// hardcode..............................................................................................................
         getProductOptions: function() {
-            d= new FormData;
+            d = new FormData;
             d.set('action','getProductOptions');
             d.set('id','24');
             ajax('getProductOptions',d);
         },
         getProductOptions_callback: function(req) {
-
-            var sSelects = document.querySelectorAll('.ss-select');
-            if (sSelects) {
-                for (sSelect in sSelects) {
-                    try {
-                        new SlimSelect({
-                            select: sSelects[sSelect],
-                            closeOnSelect: true,
-                            showSearch: false,
-                            valuesUseText: true,
-                            showContent: 'down',
-                            onChange: (info) => {
-                                console.log(info);
-                            },
-                            valuesUseText: false, // Use text instead of innerHTML for selected values - default false
-                            data: [
-                              {innerHTML: '<span>цвет:</span>Bold Text', text: 'Цвет', value: 'bold text1'},
-                              {innerHTML: '<span>размер:</span>Bold Text', text: 'Размер', value: 'bold text2'},
-                              {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Дно кровати', value: 'bold text3'},
-                              {innerHTML: '<span>цвет:</span>Bold Text', text: 'Парам', value: 'bold text4'},
-                            ],
-                        })
-                    } catch {
-                        console.warn('SlimSelect is not ready');
-                    }
+            if (req) {
+                try {
+                    reqFilteredData = req.replace(/\\n/g, '');
+                    dataArr = JSON.parse(reqFilteredData);
+                    // Vue.set(this.optionsData, dataArr);
+                    this.optionsData = dataArr;
+                    setTimeout(function() {
+                        createInputSelect();
+                    }, 100);
+                } catch {
+                    dataArr = false;
                 }
             }
+        },
+        //// hardcode -- END ..............................................................................................................
+    },
+    watch: {
+        optionsData: function() {
+            createInputSelect();
         },
     },
     component: {
@@ -379,10 +400,10 @@ var app = new Vue({
         window.addEventListener("scroll", this.headerFix);
         this.headerFix();
         this.searchString = this.getParameterByName('query');
-        this.getProductOptions();
+        this.pageSlug = this.getParameterByName('page-slug');
     },
     mounted: function() {
-
+        this.getProductOptions();        
     },
     destroyed: function() {
         window.removeEventListener("scroll", this.headerFix);
@@ -419,4 +440,27 @@ function formatMoney(n, c, d, t) {
   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
-// app.modal('cart');
+createInputSelect();
+function createInputSelect() {
+    var sSelectInput = document.querySelector('#ssselect');
+    if (sSelectInput) {
+        ssSelect = new SlimSelect({
+            select: sSelectInput,
+            closeOnSelect: true,
+            showSearch: false,
+            valuesUseText: true,
+            showContent: 'down',
+            placeholder: 'Выберите опцию...',
+            onChange: (info) => {
+                if (app.getParameterByName('page-slug') != info.value && app.pageSlug!=app.getParameterByName('page-slug')) {
+                    window.location.href = window.location.protocol + "//" + window.location.hostname+'/single-item.php?page-slug='+ info.value +'';
+                }
+            },
+            valuesUseText: false, 
+            data: app.optionsData,
+        });
+        if (app.getParameterByName('page-slug')) {
+            ssSelect.set(app.pageSlug);
+        }
+    }
+}

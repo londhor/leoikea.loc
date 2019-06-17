@@ -138,10 +138,12 @@
 <link rel="stylesheet" href="../css/slimselect.css?ver=1.1">
 
 <script type="text/javascript" src="../js/vue.js?ver=1.1"></script>
+
+<script type="text/javascript" src="../js/slimselect.js?ver=1.1"></script>
 <script type="text/javascript" src="../js/scripts.js?ver=1.1"></script>
 
 <script type="text/javascript" src="../js/swiper.min.js?ver=1.1"></script>
-<script type="text/javascript" src="../js/slimselect.js?ver=1.1"></script>
+
 
 <script>
 try {
@@ -235,6 +237,8 @@ try {
 </script>
 
 <script type="text/javascript">
+
+
 //var sSelects = document.querySelectorAll('.ss-select');
 //if (sSelects) {
 //	for (sSelect in sSelects) {

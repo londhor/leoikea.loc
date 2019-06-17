@@ -16,7 +16,17 @@ function filterOptions($options=false) {
 	if ($options) {
 		$options = str_replace('\t','', $options);
 		$options = preg_replace("/\s+/", "", $options);
-		return $options;
+		$options = json_decode($options);
+		if ($options) {
+			$i=0;
+			foreach ($options as $opt) {
+				$options[$i]->text = $options[$i]->title;
+				$options[$i]->value = $options[$i]->text;
+				$i++;
+			}
+		}
+
+		return json_encode($options);
 	}
 }
 
@@ -40,7 +50,7 @@ function filterOptions($options=false) {
 
 
 
-if($_POST['action']) {
+if(isset($_POST['action'])) {
 	$action = $_POST['action'];
 	unset($_POST['action']);
 	$data = $_POST;

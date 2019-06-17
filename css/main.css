@@ -1746,6 +1746,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     border-top: 2px solid #dadada;
     padding-top: 24px;
     margin-top: 27px;
+    position: relative;
 }
 
 .si-form-row {
@@ -1812,6 +1813,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     padding: 7px 10px;
     position: relative;
     max-width: 147px;
+    user-select: none;
 }
 .form-count-btn {
     color: var(--main);
@@ -2393,6 +2395,10 @@ main>article:first-of-type>.container:not(.hero-container) {
     z-index: 2;
     margin-top: 15px;
     animation: .5s ease-out fadeToUp both .6s;
+}
+.form_tnx_btn {
+    margin-top: 25px;
+    animation: .5s ease-out fadeToUp both .8s;
 }
 
 .form_tnx.add_to_cart_tnx {}

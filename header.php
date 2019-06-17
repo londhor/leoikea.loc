@@ -56,7 +56,7 @@
 </header>
 
 <div id="menu" class="main-menu" :class="{active:menu}">
-    <div class="card menu-container" @mouseleave="mesnu=false">
+    <div class="card menu-container" @mouseleave="menu=false">
         <div class="menu-cats">
             <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=1">Диваны и кресла</a>
             <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=3">Стеллажи и хранение</a>

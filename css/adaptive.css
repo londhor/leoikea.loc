@@ -116,6 +116,28 @@
     .si-tab-header-pc-wp {
         border-color: #e4e9ef;
     }
+    .footer-box {
+        width: calc(33.3333% - 20px);
+        margin-right: auto;
+        margin-top: 0;
+        align-items: center;
+    }
+    .footer-box:not(:last-of-type) {
+        
+    }
+    #footer .footer-menu {
+        padding-left: 75px;
+        padding-right: 20px;
+        padding-top: 38px;
+        padding-bottom: 38px;
+        border-right: 1px solid #DADADA;
+        border-left: 1px solid #DADADA;
+        border-top: none;
+        border-bottom: none;
+    }
+    .footer-content-wp {
+        align-items: center;
+    }
 }
 
 @media all and (min-width: 1100px) {
