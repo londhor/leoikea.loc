@@ -4,6 +4,8 @@
 if ($_POST) {
 
 
+print_r($_POST);
+
 function booking($data) {
 	define('DB_DRIVER','mysql');
 	define('DB_HOST','localhost');
@@ -20,13 +22,18 @@ function booking($data) {
 	$db = new PDO("$driver:host=$host;dbname=$dbname;",$user,$pass);
 
 
+	if (isset($data['active'])) {
+		unset($data['active']);
+	}
+
 	$dataKeys = array_keys($data);
 	$keys = implode(',', $dataKeys);
 	$tags = ':' . implode(', :', $dataKeys);
 	
+	$table='bookings';
 	
 	$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
-	$stm = $this->pdo->prepare($sql);
+	$stm = $db->prepare($sql);
 	$stm->execute($data);
 
 

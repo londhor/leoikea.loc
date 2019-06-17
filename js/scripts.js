@@ -334,6 +334,7 @@ var app = new Vue({
         ajaxForm: function(action, el) {
             var form = el.target;
             var data = new FormData(form);
+            data.set('action',action);
 
             formTnxEl = form.querySelector(".form_tnx");
 
@@ -468,7 +469,7 @@ function createInputSelect() {
 
 
 
-var f = new FormData();
-f.set('action','booking');
-f.set('data','bookingData');
-ajax('booking',f);
+// var f = new FormData();
+// f.set('action','booking');
+// f.set('data','bookingData');
+// ajax('booking',f);
