@@ -21,13 +21,16 @@ Vue.component('qtcounter', {
             if (this.qt<9999999) {
                 this.qt++;
             }
-            console.log(this.qt);
         },
         down: function() {
             if (this.qt>1) {
                 this.qt = this.qt-1 ;
             }
-            console.log(this.qt);
+        },
+    },
+    watch: {
+        qt: function() {
+            this.$emit('update-count-in-cart', this.qt);
         },
     },
 });
@@ -87,6 +90,11 @@ var vCartItem = Vue.component('vCartItem', {
         },
         removeitemfromcart: function() {
             this.$emit('removeitemfromcart', this.itemid);
+        },
+        updateCountInCart: function(qt) {
+            if (qt) {
+                this.$emit('update-count-in-cart', this.itemid, qt);
+            }
         },
     },
 });
@@ -180,6 +188,13 @@ var vCart = Vue.component('vCart', {
         }
     },
     methods: {
+        updateCountInCart: function(id ,qt) {
+            console.log(id, qt);
+            if (qt && id) {
+                this.cart[id].count = qt;
+            }
+            
+        },
         itemInCart: function(id) {
             if (id && this.cart[id]) {
                 return true;
@@ -365,3 +380,5 @@ function formatMoney(n, c, d, t) {
 
   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+app.modal('cart');

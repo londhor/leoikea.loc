@@ -21,7 +21,7 @@
 					<span>{{option.value}}</span>
 				</div>
 			</div>
- 			<qtcounter class="cart-item-count" :count="item.count" />
+ 			<qtcounter @update-count-in-cart="updateCountInCart" class="cart-item-count" :count="item.count" />
 		</div>
 		<div class="cart-item-footer">
 			<button class="ic-bin cart-item-delete" type="button"

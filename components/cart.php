@@ -10,6 +10,7 @@
 				:itemid="key"
 				v-if="item"
 				@removeitemfromcart="removeitemfromcart"
+				@update-count-in-cart="updateCountInCart"
 			/>
 			<!-- #cart-item -->
 		</div>
