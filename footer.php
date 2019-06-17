@@ -130,14 +130,7 @@
 <?php include('components/qtcounter.php') ?>
 
 <!-- ---------------------------------- SCRIPTS ----------------------------------- -->
-<link rel="stylesheet" href="../css/normalize.css?ver=1.1">
-<link rel="stylesheet" href="../css/main.css?ver=1.1">
-<link rel="stylesheet" href="../css/adaptive.css?ver=1.1">
-<link rel="stylesheet" href="../css/animations.css?ver=1.1">
-<link rel="stylesheet" href="../css/icons.css?ver=1.1">
 
-<link rel="stylesheet" href="../css/swiper.min.css?ver=1.1">
-<link rel="stylesheet" href="../css/slimselect.css?ver=1.1">
 
 <script type="text/javascript" src="../js/vue.js?ver=1.1"></script>
 
@@ -145,7 +138,6 @@
 <script type="text/javascript" src="../js/scripts.js?ver=1.1"></script>
 
 <script type="text/javascript" src="../js/swiper.min.js?ver=1.1"></script>
-
 
 <script>
 try {

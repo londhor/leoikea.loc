@@ -44,7 +44,7 @@
 						</div>
 					</div>
 		
-					<form action="/" class="si-form" method="POST"
+					<form id="addToCartForm" novalidate action="/" class="si-form" method="POST"
 						@submit.prevent="addToCart(
 							{
 								233:{
@@ -52,14 +52,13 @@
                 	    			title: 'Massangeana',
                 	    			header: 'Диван розкладной. Серебро. Бронза. Золото.',
                 	    			price: 150,
-                	    			count: 3,
 								}
 							}, $event
 						)"
 					>
 	
 						<input type="hidden" name="id" value="233">
-						<input type="hidden" name="opt" :value="getProductOptions('S0920810911')">
+						<input type="hidden" name="" :value="getProductOptions('S09208109')">
 	
 						<div class="si-form-row">
 							<div class="form-count-row">
@@ -70,9 +69,7 @@
 
 						<div class="si-form-row" v-if="optionsData">
 							<div class="input-wp input-select-wp">
-								<select v-model="pageSlug" name="options" class="ss-select" required id="ssselect">
-									<option data-placeholder="true">Пл</option>
-								</select>
+								<select v-model="pageSlug" name="options" class="ss-select" required id="ssselect"></select>
 							</div>
 						</div>
 		

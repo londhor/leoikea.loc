@@ -732,6 +732,7 @@ p b {
     height: calc(100% - 50px);
     overflow: scroll;
     padding-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
 }
 .mm-menu>li {
     width: 100%;

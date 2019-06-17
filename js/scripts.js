@@ -1,7 +1,6 @@
 var ssSelect = false;
 
 Vue.filter('price', function(price){
-    // console.log('vf');
     return formatMoney(price,0, " ", " ");
 });
 
@@ -9,7 +8,7 @@ Vue.component('qtcounter', {
     template:'#qtcounter',
     props: {
         count: {
-            type: Number,
+            type: Number | String,
             default: 1,
         }
     },
@@ -203,7 +202,6 @@ var vCart = Vue.component('vCart', {
             }
         },
         updateCartObject: function(){
-            console.log('updateCartObject');
             newCart = {};
 
             for (item in this.cart) {
@@ -216,14 +214,12 @@ var vCart = Vue.component('vCart', {
         },
         pushCartToLocalStorage: function() {
             localStorage.setItem('cart', JSON.stringify(this.cart));
-            console.log(localStorage.getItem('cart'));
         },
         pullCartFromLocalStorage: function() {
             cart = localStorage.getItem('cart');
             if (cart) {
                 cart = JSON.parse(cart);
                 this.cart = cart;
-                console.log(this.cart);
             }
         },
         openBookingModal: function() {
@@ -278,29 +274,29 @@ var app = new Vue({
 
             //////////////////////////////////////////////////////
             var form = el.target;
-            var data = new FormData(form);
-
-            formTnxEl = form.querySelector(".form_tnx");
-
-            if (formTnxEl) {
-               formTnxEl.classList.add("active");
-            }
+            var data = formToObject(form);
+            console.log(data);
             //////////////////////////////////////////////////////
 
             objId = Object.keys(item)[0];
             var itemObject = item[objId];
-            // console.log(typeof(itemObject));
+
+            itemObject.count = data.qt;
+
             itemObject.options = [];
             itemObject.options[0] = {
                 name: 'Параметры',
-                value: this.pageSlug,
+                value: data.options,
             };
-            // Vue.set();
+
             try {
                 this.$refs.cartItems.addToCartItem(objId, itemObject);
             } catch {
 
             }
+
+            formTnxEl = form.querySelector(".form_tnx");
+            if (formTnxEl) { formTnxEl.classList.add("active"); }
         },
         // addToCart - END //////////////////////////////////////////////////////////////////////////
         // modal //////////////////////////////////////////////////////////////////////////
@@ -314,7 +310,6 @@ var app = new Vue({
             }
         },
         modalClose: function(name) {
-            console.log('ml');
             if (name) {
                 this.$refs[name].close();
                 document.body.classList.remove("body_fixed");
@@ -333,7 +328,7 @@ var app = new Vue({
         },
         ajaxForm: function(action, el) {
             var form = el.target;
-            var data = new FormData(form);
+            data = new FormData(form);
             data.set('action',action);
 
             formTnxEl = form.querySelector(".form_tnx");
@@ -457,7 +452,7 @@ function createInputSelect() {
             placeholder: 'Выберите опцию...',
             onChange: (info) => {
                 if (app.getParameterByName('page-slug') != info.value && app.pageSlug!=app.getParameterByName('page-slug')) {
-                    window.location.href = window.location.protocol + "//" + window.location.hostname+'/single-item.php?page-slug='+ info.value +'';
+                    //window.location.href = window.location.protocol + "//" + window.location.hostname+'/single-item.php?page-slug='+ info.value +'';
                 }
             },
             valuesUseText: false, 
@@ -469,6 +464,36 @@ function createInputSelect() {
     }
 }
 
+
+var formToObject = function (form) {
+
+    // Setup our serialized data
+    var serialized = {};
+
+    // Loop through each field in the form
+    for (var i = 0; i < form.elements.length; i++) {
+
+        var field = form.elements[i];
+
+        // Don't serialize fields without a name, submits, buttons, file and reset inputs, and disabled fields
+        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+        // If a multi-select, get all selections
+        if (field.type === 'select-multiple') {
+            for (var n = 0; n < field.options.length; n++) {
+                if (!field.options[n].selected) continue;
+                serialized[field.name] = field.options[n].value;
+            }
+        }
+        // Convert field data to a query string
+        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+            serialized[field.name] = field.value;
+        }
+    }
+
+    return serialized;
+
+};
 
 
 // var f = new FormData();
