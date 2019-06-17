@@ -235,32 +235,32 @@ try {
 </script>
 
 <script type="text/javascript">
-var sSelects = document.querySelectorAll('.ss-select');
-if (sSelects) {
-	for (sSelect in sSelects) {
-		try {
-			new SlimSelect({
-				select: sSelects[sSelect],
-				closeOnSelect: true,
-				showSearch: false,
-				valuesUseText: true,
-				showContent: 'down',
-				onChange: (info) => {
-				    console.log(info);
-				},
-				valuesUseText: false, // Use text instead of innerHTML for selected values - default false
-				data: [
-				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Цвет', value: 'bold text1'},
-				  {innerHTML: '<span>размер:</span>Bold Text', text: 'Размер', value: 'bold text2'},
-				  {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Дно кровати', value: 'bold text3'},
-				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Парам', value: 'bold text4'},
-				],
-			})
-		} catch {
-			console.warn('SlimSelect is not ready');
-		}
-	}
-}
+//var sSelects = document.querySelectorAll('.ss-select');
+//if (sSelects) {
+//	for (sSelect in sSelects) {
+//		try {
+//			new SlimSelect({
+//				select: sSelects[sSelect],
+//				closeOnSelect: true,
+//				showSearch: false,
+//				valuesUseText: true,
+//				showContent: 'down',
+//				onChange: (info) => {
+//				    console.log(info);
+//				},
+//				valuesUseText: false, // Use text instead of innerHTML for selected values - default false
+//				data: [
+//				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Цвет', value: 'bold text1'},
+//				  {innerHTML: '<span>размер:</span>Bold Text', text: 'Размер', value: 'bold text2'},
+//				  {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Дно кровати', value: 'bold text3'},
+//				  {innerHTML: '<span>цвет:</span>Bold Text', text: 'Парам', value: 'bold text4'},
+//				],
+//			})
+//		} catch {
+//			console.warn('SlimSelect is not ready');
+//		}
+//	}
+//}
 </script>
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

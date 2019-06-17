@@ -58,13 +58,12 @@
 						</div>
 					</div>
 	
-					<button class="btn btn-row ic-cart-add" v-if="!itemInCart('24')" type="submit">Добавить в корзину</button>
+					<button class="btn btn-row ic-cart-add" v-if="!itemInCart('124')" type="submit">Добавить в корзину</button>
 					<div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="">Товар уже в корзине</div>
 				</form>
 			</div>	
 
 		</div>
-
 	</div>
 </article>
 <article class="si-tabs-article">

@@ -333,6 +333,41 @@ var app = new Vue({
             ajax(action, data);
             return false;
         },
+        getProductOptions: function() {
+            d= new FormData;
+            d.set('action','getProductOptions');
+            d.set('id','24');
+            ajax('getProductOptions',d);
+        },
+        getProductOptions_callback: function(req) {
+
+            var sSelects = document.querySelectorAll('.ss-select');
+            if (sSelects) {
+                for (sSelect in sSelects) {
+                    try {
+                        new SlimSelect({
+                            select: sSelects[sSelect],
+                            closeOnSelect: true,
+                            showSearch: false,
+                            valuesUseText: true,
+                            showContent: 'down',
+                            onChange: (info) => {
+                                console.log(info);
+                            },
+                            valuesUseText: false, // Use text instead of innerHTML for selected values - default false
+                            data: [
+                              {innerHTML: '<span>цвет:</span>Bold Text', text: 'Цвет', value: 'bold text1'},
+                              {innerHTML: '<span>размер:</span>Bold Text', text: 'Размер', value: 'bold text2'},
+                              {innerHTML: '<span>Реечное дно кровати:</span>Bold Text', text: 'Дно кровати', value: 'bold text3'},
+                              {innerHTML: '<span>цвет:</span>Bold Text', text: 'Парам', value: 'bold text4'},
+                            ],
+                        })
+                    } catch {
+                        console.warn('SlimSelect is not ready');
+                    }
+                }
+            }
+        },
     },
     component: {
         vCart: vCart,
@@ -344,6 +379,7 @@ var app = new Vue({
         window.addEventListener("scroll", this.headerFix);
         this.headerFix();
         this.searchString = this.getParameterByName('query');
+        this.getProductOptions();
     },
     mounted: function() {
 
@@ -360,7 +396,9 @@ function ajax(action, data) {
         if (req.readyState == XMLHttpRequest.DONE) {
             // XMLHttpRequest.DONE == 4
             if (req.status == 200) {
-
+                if (action=='getProductOptions') {
+                    app.getProductOptions_callback(req.response);
+                }
             }
         }
     };
@@ -381,4 +419,4 @@ function formatMoney(n, c, d, t) {
   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
-app.modal('cart');
+// app.modal('cart');
