@@ -79,10 +79,11 @@
 </v-modal>
 
 <v-modal ref="booking" name="booking">
-	<form class="booking-form" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking','booking-form')">
+	<form class="booking-form" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking',$event)">
 		<div class="container-header">
 			Оформить заказ
 		</div>
+		<input type="hidden" name="cart" :value="getCartJson()">
 	    <div class="input-wp">
 	        <input type="text" name="fio" required>
 	        <label>Имя и Фамилия</label>
@@ -112,6 +113,7 @@
 		<div class="modal-tnx-icon ic-cart"></div>
 		<div class="modal-tnx-header">Благодарим за заказ!</div>
 		<div class="modal-tnx-subheader">Наши менеджеры свяжутся<br>с вами в ближайшее время</div>
+		<a href="../catalog" class="btn sm">В каталог</a>
 	</div>
 </v-modal>
 

@@ -52,7 +52,7 @@
                 	    			title: 'Massangeana',
                 	    			header: 'Диван розкладной. Серебро. Бронза. Золото.',
                 	    			price: 150,
-                	    			count: 103,
+                	    			count: 3,
 								}
 							}, $event
 						)"

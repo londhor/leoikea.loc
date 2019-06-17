@@ -2345,6 +2345,7 @@ main>article:first-of-type>.container:not(.hero-container) {
     max-width: 300px;
     margin: 0 auto;
     line-height: 1.24;
+    margin-bottom: 30px;
 }
 
 #modal_tnx .modal_scroll,

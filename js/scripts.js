@@ -107,93 +107,53 @@ var vCart = Vue.component('vCart', {
         return {
             firstName: 'Foo',
             cart: {
-                23: {
-                    img: '../img/demo/item.png',
-                    title: 'Massangeana',
-                    header: 'Диван розкладной. Серебро. Бронза. Золото.',
-                    price: 150,
-                    count: 103,
-                    options: {
-                        0: {
-                            name: 'артикль',
-                            value: '193.88.190',
-                        },
-                        1: {
-                            name: 'цвет',
-                            value: 'Голубой',
-                        },
-                        2: {
-                            name: 'размер',
-                            value: '153х200х130',
-                        },
-                        3: {
-                            name: 'Опция',
-                            value: 'Опция-1',
-                        },
+                // 23: {
+                //     img: '../img/demo/item.png',
+                //     title: 'Massangeana',
+                //     header: 'Диван розкладной. Серебро. Бронза. Золото.',
+                //     price: 150,
+                //     count: 103,
+                //     options: {
+                //         0: {
+                //             name: 'артикль',
+                //             value: '193.88.190',
+                //         },
+                //         1: {
+                //             name: 'цвет',
+                //             value: 'Голубой',
+                //         },
+                //         2: {
+                //             name: 'размер',
+                //             value: '153х200х130',
+                //         },
+                //         3: {
+                //             name: 'Опция',
+                //             value: 'Опция-1',
+                //         },
                         
-                    },
-                },
-                24: {
-                    img: '../img/demo/item.png',
-                    title: 'Milano',
-                    header: 'Деревянный стол',
-                    price: 130,
-                    count: 1,
-                    options: {
-                        0: {
-                            name: 'артикль',
-                            value: '193.8203.190',
-                        },
-                        1: {
-                            name: 'цвет',
-                            value: 'Серый',
-                        },
-                        2: {
-                            name: 'размер',
-                            value: '220х140х30',
-                        },
-                        3: {
-                            name: 'Опция',
-                            value: 'Опция-2',
-                        },
-                        
-                    },
-                },
-                33: {
-                    img: '../img/demo/item.png',
-                    title: 'Milano33',
-                    header: 'Деревянный стол33',
-                    price: 130,
-                    count: 33,
-                    options: {
-                        0: {
-                            name: 'артикль',
-                            value: '193.8203.190',
-                        },
-                        1: {
-                            name: 'цвет',
-                            value: 'Серый',
-                        },
-                        2: {
-                            name: 'размер',
-                            value: '220х140х30',
-                        },
-                        3: {
-                            name: 'Опция',
-                            value: 'Опция-2',
-                        },
-                        
-                    },
-                },
+                //     },
+                // },
             }, 
             // cart
         }
     },
     methods: {
+        clearCart: function() {
+            localStorage.removeItem('cart');
+            this.cart = {};
+            this.updateCartObject();
+        },
+        addToCartItem: function(id, item) {
+            if (id&&item) {
+                this.cart[id] = item;
+                this.updateCartObject();
+            }
+        },
         updateCountInCart: function(id ,qt) {
             console.log(id, qt);
             if (qt && id) {
                 this.cart[id].count = qt;
+                this.updateCartObject();
             }
             
         },
@@ -256,15 +216,29 @@ var vCart = Vue.component('vCart', {
             // Vue.set(this.cart, newCart);
             this.cart = newCart;
         },
-
+        pushCartToLocalStorage: function() {
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            console.log(localStorage.getItem('cart'));
+        },
+        pullCartFromLocalStorage: function() {
+            cart = localStorage.getItem('cart');
+            if (cart) {
+                cart = JSON.parse(cart);
+                this.cart = cart;
+                console.log(this.cart);
+            }
+        },
+        openBookingModal: function() {
+            app.modalClose('cart');
+            app.modal('booking');
+        },
     },
     computed: {
 
     },
     watch: {
         cart: function() {
-            console.log('Watch cart');
-            // this.updateCartInLicalStorage();
+            this.pushCartToLocalStorage();
         },
     },
     component: {
@@ -320,11 +294,15 @@ var app = new Vue({
             // console.log(typeof(itemObject));
             itemObject.options = [];
             itemObject.options[0] = {
-                name: '',
-                value: '',
+                name: 'Параметры',
+                value: this.pageSlug,
             };
             // Vue.set();
-            this.$refs.cartItems.cart[objId] = itemObject;
+            try {
+                this.$refs.cartItems.addToCartItem(objId, itemObject);
+            } catch {
+
+            }
         },
         // addToCart - END //////////////////////////////////////////////////////////////////////////
         // modal //////////////////////////////////////////////////////////////////////////
@@ -373,7 +351,13 @@ var app = new Vue({
             ajax(action, data);
             return false;
         },
-
+        getCartJson: function() {
+            try {
+                return JSON.stringify(this.$refs.cartItems.cart);
+            } catch {
+                return "{}";
+            }   
+        },
         //// hardcode..............................................................................................................
         getProductOptions: function() {
             d = new FormData;
@@ -416,7 +400,8 @@ var app = new Vue({
         this.pageSlug = this.getParameterByName('page-slug');
     },
     mounted: function() {
-        this.getProductOptions();        
+        this.getProductOptions();
+        this.$refs.cartItems.pullCartFromLocalStorage();
     },
     destroyed: function() {
         window.removeEventListener("scroll", this.headerFix);
@@ -432,6 +417,11 @@ function ajax(action, data) {
             if (req.status == 200) {
                 if (action=='getProductOptions') {
                     app.getProductOptions_callback(req.response);
+                }
+                if (action=='booking') {
+                    app.modalClose('booking');
+                    app.modal('tnx');
+                    app.$refs.cartItems.clearCart();
                 }
             }
         }

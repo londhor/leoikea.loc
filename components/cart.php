@@ -29,7 +29,7 @@
 				<div class="cart-price-text">Общая стоимость</div>
 				<div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
 			</div>
-			<button class="btn btn-row" type="button">Заказать</button>
+			<button @click="openBookingModal()" class="btn btn-row" type="button">Заказать</button>
 		</div>
 
 	</div>
