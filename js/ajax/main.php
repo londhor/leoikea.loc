@@ -4,6 +4,33 @@
 if ($_POST) {
 
 
+function booking($data) {
+	define('DB_DRIVER','mysql');
+	define('DB_HOST','localhost');
+	define('DB_NAME','leoikea');
+	define('DB_USER','user');
+	define('DB_PASS','pass');
+	
+	$driver = DB_DRIVER;
+	$host = DB_HOST;
+	$dbname = DB_NAME;
+	$user = DB_USER;
+	$pass = DB_PASS;
+	
+	$db = new PDO("$driver:host=$host;dbname=$dbname;",$user,$pass);
+
+
+	$dataKeys = array_keys($data);
+	$keys = implode(',', $dataKeys);
+	$tags = ':' . implode(', :', $dataKeys);
+	
+	
+	$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
+	$stm = $this->pdo->prepare($sql);
+	$stm->execute($data);
+
+
+}
 
 
 function getProductOptions() {

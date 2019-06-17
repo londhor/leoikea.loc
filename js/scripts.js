@@ -105,7 +105,6 @@ var vCart = Vue.component('vCart', {
     template: '#v-cart',
     data: function() {
         return {
-            firstName: 'Foo',
             cart: {
                 // 23: {
                 //     img: '../img/demo/item.png',
@@ -130,7 +129,6 @@ var vCart = Vue.component('vCart', {
                 //             name: 'Опция',
                 //             value: 'Опция-1',
                 //         },
-                        
                 //     },
                 // },
             }, 
@@ -419,9 +417,9 @@ function ajax(action, data) {
                     app.getProductOptions_callback(req.response);
                 }
                 if (action=='booking') {
-                    app.modalClose('booking');
-                    app.modal('tnx');
-                    app.$refs.cartItems.clearCart();
+                    // app.modalClose('booking');
+                    // app.modal('tnx');
+                    // app.$refs.cartItems.clearCart();
                 }
             }
         }
@@ -467,3 +465,10 @@ function createInputSelect() {
         }
     }
 }
+
+
+
+var f = new FormData();
+f.set('action','booking');
+f.set('data','bookingData');
+ajax('booking',f);

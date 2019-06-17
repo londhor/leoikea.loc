@@ -59,9 +59,6 @@
 					>
 	
 						<input type="hidden" name="id" value="233">
-						<input type="hidden" name="title" value="Messangenta">
-						<input type="hidden" name="header" value="Диван раскладной, Knis темно-серый, черный">
-						<input type="hidden" name="price" value="150">
 	
 						<div class="si-form-row">
 							<div class="form-count-row">
