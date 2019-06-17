@@ -125,6 +125,7 @@
 <?php include('components/modal.php') ?>
 <?php include('components/cart.php') ?>
 <?php include('components/cart-item.php') ?>
+<?php include('components/qtcounter.php') ?>
 
 <!-- ---------------------------------- SCRIPTS ----------------------------------- -->
 <link rel="stylesheet" href="../css/normalize.css?ver=1.1">

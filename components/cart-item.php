@@ -21,13 +21,7 @@
 					<span>{{option.value}}</span>
 				</div>
 			</div>
-			<div class="input-count-box cart-item-count">
-				<button type="button" class="form-count-btn ic-m-minus minus"></button>
-				<div class="form-count-wp" data-text="шт.">
-					<input type="text" v-model="item.count" class="form-count" required>
-				</div>
-				<button type="button" class="form-count-btn ic-m-plus plus"></button>
-			</div>
+ 			<qtcounter class="cart-item-count" :count="item.count" />
 		</div>
 		<div class="cart-item-footer">
 			<button class="ic-bin cart-item-delete" type="button"

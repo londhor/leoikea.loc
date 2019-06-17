@@ -3,6 +3,35 @@ Vue.filter('price', function(price){
     return formatMoney(price,0, " ", " ");
 });
 
+Vue.component('qtcounter', {
+    template:'#qtcounter',
+    props: {
+        count: {
+            type: Number,
+            default: 1,
+        }
+    },
+    data: function() {
+        return {
+            qt: this.count,
+        }
+    },
+    methods: {
+        up: function() {
+            if (this.qt<9999999) {
+                this.qt++;
+            }
+            console.log(this.qt);
+        },
+        down: function() {
+            if (this.qt>1) {
+                this.qt = this.qt-1 ;
+            }
+            console.log(this.qt);
+        },
+    },
+});
+
 Vue.component("vModal", {
     template: "#v-modal",
     props: {
@@ -151,6 +180,12 @@ var vCart = Vue.component('vCart', {
         }
     },
     methods: {
+        itemInCart: function(id) {
+            if (id && this.cart[id]) {
+                return true;
+            }
+            return false;
+        },
         itemsInCart: function() {
             try {
                 return Object.keys(this.cart).length;
@@ -231,6 +266,14 @@ var app = new Vue({
         siTab: 1,
     },
     methods: {
+        itemInCart: function(id) {
+            if (this.$refs.cartItems) {
+                if (id && this.$refs.cartItems.cart[id]) {
+                    return true;
+                }
+            }
+            return false;
+        },
         headerFix: function() {
             this.pageScroll = window.pageYOffset || document.documentElement.scrollTop;
         },

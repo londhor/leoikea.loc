@@ -48,13 +48,7 @@
 					<div class="si-form-row">
 						<div class="form-count-row">
 							<div class="input-header form-count-title">Количество:</div>
-							<div class="input-count-box">
-								<button type="button" class="form-count-btn ic-m-minus minus"></button>
-								<div class="form-count-wp" data-text="шт.">
-									<input type="text" value="1" class="form-count" required>
-								</div>
-								<button type="button" class="form-count-btn ic-m-plus plus"></button>
-							</div>
+							<qtcounter/>
 						</div>
 					</div>
 	
@@ -64,7 +58,8 @@
 						</div>
 					</div>
 	
-					<button class="btn btn-row ic-cart-add" type="submit">Добавить в корзину</button>
+					<button class="btn btn-row ic-cart-add" v-if="!itemInCart('24')" type="submit">Добавить в корзину</button>
+					<div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="">Товар уже в корзине</div>
 				</form>
 			</div>	
 

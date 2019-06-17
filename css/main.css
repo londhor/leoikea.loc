@@ -1689,6 +1689,10 @@ main>article:first-of-type>.container:not(.hero-container) {
     border-color: var(--main);
 }
 
+.add-to-cart-btn-disable {
+    background-color: #dadada;
+}
+
 /************** single-item content ************/
 
 .si-main-content-wp {
