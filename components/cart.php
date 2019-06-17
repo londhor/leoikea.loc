@@ -17,7 +17,8 @@
 		<div
 			v-else=""
 			class="empty-cart-wp"
-		>
+		>	
+			<div class="empty-cart-icon ic-cart"></div>
 			<div class="empty-cart-text">Ваша корзина пуста...<br>Перейдите в каталог, чтобы продолжить шоппинг</div>
 			<button class="btn" type="button">В каталог</button>	
 		</div>

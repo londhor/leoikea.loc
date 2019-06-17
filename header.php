@@ -48,15 +48,15 @@
             <button @click="modal('cart')" class="btn icon round header-button ic-cart">
                 <span class="cart-point active"></span>
             </button>
-            <button @click="menu=!menu" class="btn icon round header-button openMenuBtn"
-                :class="[{'ic-close':menu}, 'ic-burger']"
+            <button @click="mobileMenu=!mobileMenu" class="btn icon round header-button openMenuBtn"
+                :class="[{'ic-close':mobileMenu}, 'ic-burger']"
             ></button>
         </div>
     </div>
 </header>
 
 <div id="menu" class="main-menu" :class="{active:menu}">
-    <div class="card menu-container" @mouseleave="menu=false">
+    <div class="card menu-container" @mouseleave="mesnu=false">
         <div class="menu-cats">
             <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=1">Диваны и кресла</a>
             <a href="#" class="menu-cat ic-cart" @mouseover="menuSubCat=3">Стеллажи и хранение</a>
@@ -102,6 +102,52 @@
             <a href="#" v-show="menuSubCat==1" class="menu-subcat">Кулинарные аксессуары</a>
             <a href="#" v-show="menuSubCat==1" class="menu-subcat">Еда и подача блюд</a>
         </div>
+    </div>
+</div>
+
+<div class="mobile-menu" :class="{active: mobileMenu}">
+    <div class="mm-container">
+        <div class="container-header mm-menu-header">Каталог Ikea</div>
+        <ul class="mm-menu">
+            <li class="ic-arrow-down">
+                <a class="ic-category-13" href="#">Menu item</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                </ul>
+            </li>
+            <li class="ic-arrow-down">
+                <a class="ic-category-11" href="#">Мебель и аксессуары для ванных комнат</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Мебель и аксессуары для ванных комнат</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                </ul>
+            </li>
+            <li class="ic-arrow-down">
+                <a class="ic-category-9" href="#">Menu item</a>
+                <ul class="sub-menu">
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                    <li><a href="#">Submenu item</a></li>
+                </ul>
+            </li>
+            <li class="ic-arrow-down"><a class="ic-category-11" href="#">Menu item</a></li>
+            <li class="ic-arrow-down"><a class="ic-category-13" href="#">Menu item</a></li>
+            <li class="ic-arrow-down"><a class="ic-category-12" href="#">Menu item</a></li>
+            <li class="ic-arrow-down"><a class="ic-category-14" href="#">Menu item</a></li>
+            <li class="ic-arrow-down"><a class="ic-category-15" href="#">Menu item</a></li>
+        </ul>
     </div>
 </div>
 

@@ -226,6 +226,7 @@ var app = new Vue({
         modalPageScroll: 0,
         searchString: '',
         menu: false,
+        mobileMenu: false,
         menuSubCat: false,
         siTab: 1,
     },
@@ -321,5 +322,3 @@ function formatMoney(n, c, d, t) {
 
   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
-
-app.modal('cart');
