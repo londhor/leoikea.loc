@@ -144,6 +144,10 @@
     .hero-illustration {
         left: 40%;
     }
+    .si-main-content-container {
+        max-width: 480px;
+        margin: 0 auto;
+    }
 }
 
 

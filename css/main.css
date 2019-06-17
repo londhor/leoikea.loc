@@ -1704,6 +1704,10 @@ main>article:first-of-type>.container:not(.hero-container) {
     text-align: left;
 }
 
+.si-main-content-container {
+    width: 100%;
+}
+
 .si-main-content {
 }
 .si-article {
@@ -1758,6 +1762,7 @@ main>article:first-of-type>.container:not(.hero-container) {
 
 .ic-cart-add {
     margin-top: 12px;
+    max-width: 100%;
 }
 
 .input-header {
