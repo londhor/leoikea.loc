@@ -59,6 +59,7 @@
 					>
 	
 						<input type="hidden" name="id" value="233">
+						<input type="hidden" name="opt" :value="getProductOptions('S0920810911')">
 	
 						<div class="si-form-row">
 							<div class="form-count-row">
@@ -66,7 +67,7 @@
 								<qtcounter/>
 							</div>
 						</div>
-		
+
 						<div class="si-form-row" v-if="optionsData">
 							<div class="input-wp input-select-wp">
 								<select v-model="pageSlug" name="options" class="ss-select" required id="ssselect">

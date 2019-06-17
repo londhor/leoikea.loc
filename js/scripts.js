@@ -358,11 +358,13 @@ var app = new Vue({
             }   
         },
         //// hardcode..............................................................................................................
-        getProductOptions: function() {
-            d = new FormData;
-            d.set('action','getProductOptions');
-            d.set('id','24');
-            ajax('getProductOptions',d);
+        getProductOptions: function(id=false) {
+            if (id&&!this.optionsData) {
+                d = new FormData;
+                d.set('action','getProductOptions');
+                d.set('id', id);
+                ajax('getProductOptions',d);
+            }
         },
         getProductOptions_callback: function(req) {
             if (req) {
@@ -399,7 +401,7 @@ var app = new Vue({
         this.pageSlug = this.getParameterByName('page-slug');
     },
     mounted: function() {
-        this.getProductOptions();
+        // this.getProductOptions();
         this.$refs.cartItems.pullCartFromLocalStorage();
     },
     destroyed: function() {
@@ -418,9 +420,9 @@ function ajax(action, data) {
                     app.getProductOptions_callback(req.response);
                 }
                 if (action=='booking') {
-                    // app.modalClose('booking');
-                    // app.modal('tnx');
-                    // app.$refs.cartItems.clearCart();
+                    app.modalClose('booking');
+                    app.modal('tnx');
+                    app.$refs.cartItems.clearCart();
                 }
             }
         }
