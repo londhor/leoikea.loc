@@ -702,6 +702,22 @@ p b {
 
 .cart-items-wp {}
 
+.empty-cart-wp {
+    display: flex;
+    width: 100%;
+    flex-flow: column;
+    padding: 75px 0;
+    align-items: center;
+    justify-content: center;
+}
+.empty-cart-text {
+    font-size: 18px;
+    line-height: 1.24;
+}
+.empty-cart-text+.btn {
+    margin-top: 24px;
+}
+
 /************** cart-item *****************/
 
 .cart-item {
@@ -751,7 +767,9 @@ p b {
     margin-top: 16px;
 }
 
-.cart-item-option {}
+.cart-item-option {
+    text-transform: lowercase;
+}
 .cart-item-option>span{
     font-weight: bold;
     margin-left: 3px;
@@ -764,7 +782,7 @@ p b {
 
 .cart-item-count.input-count-box {
     padding: 2px 2px;
-    max-width: 128px;
+    max-width: 133px;
 }
 
 .cart-item-footer {
@@ -1240,9 +1258,10 @@ p b {
 }
 .item-card-price>.per-item {
     color: #969696;
+    font-size: 10px;
 }
 .item-card-price>span {
-    font-size: 68%;
+    font-size: 71%;
     vertical-align: baseline;
     margin-left: 2px;
 }
@@ -1678,7 +1697,7 @@ main>article:first-of-type>.container:not(.hero-container) {
 .form-count-wp {
     padding: 0;
     flex-grow: 1;
-    max-width: 43px;
+    max-width: 49px;
     text-align: left;
     margin: 0px 12px;
     position: relative;

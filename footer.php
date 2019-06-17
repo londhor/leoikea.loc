@@ -117,100 +117,14 @@
 
 <v-modal ref="cart" name="cart">
 	<div class="container-header">Моя корзина</div>
-	<div class="cart-container">
-
-		<div class="cart-items-wp">
-			<!-- cart-item -->
-			<div class="cart-item"
-				v-for="(item, i, key) in cart"
-				:key="key"
-				:data-item="i"
-				:data-key="i"
-				>
-				<div class="cart-item-img-wp">
-					<img src="../img/demo/item.png">
-				</div>
-				<div class="cart-item-content">
-					<div class="cart-item-title">Massangeana</div>
-					<div class="cart-item-header">Диван розкладной. Серебро. Бронза. Золото.</div>
-					<div class="cart-item-price-wp">
-						<div class="item-card-price cart-item-price">
-							11 599<span>&#8372;</span>
-							<span class="per-item">за шт.</span>
-						</div>
-					</div>
-					<div class="cart-item-options-wp">
-						<div class="cart-item-option">Артикул:<span>133.321.120</span></div>
-						<div class="cart-item-option">Цвет:<span>Голубой</span></div>
-						<div class="cart-item-option">Реечное дно кровати:<span>Бальзак</span></div>
-					</div>
-					<div class="input-count-box cart-item-count">
-						<button type="button" class="form-count-btn ic-m-minus minus"></button>
-						<div class="form-count-wp" data-text="шт.">
-							<input type="text" value="1" class="form-count" required>
-						</div>
-						<button type="button" class="form-count-btn ic-m-plus plus"></button>
-					</div>
-				</div>
-				<div class="cart-item-footer">
-					<button class="ic-bin cart-item-delete" type="button"></button>
-					<div class="cart-item-total-price-wp">
-						<div class="cart-item-total-price-text">Общая стоимость</div>
-						<div class="item-card-price cart-item-price">11 599<span>&#8372;</span></div>
-					</div>
-				</div>
-			</div>
-			<!-- #cart-item -->
-<!-- 			<div class="cart-item">
-				<div class="cart-item-img-wp">
-					<img src="../img/demo/item.png">
-				</div>
-				<div class="cart-item-content">
-					<div class="cart-item-title">Massangeana</div>
-					<div class="cart-item-header">Диван розкладной. Серебро. Бронза. Золото.</div>
-					<div class="cart-item-price-wp">
-						<div class="item-card-price cart-item-price">
-							11 599<span>&#8372;</span>
-							<span class="per-item">за шт.</span>
-						</div>
-					</div>
-					<div class="cart-item-options-wp">
-						<div class="cart-item-option">Артикул:<span>133.321.120</span></div>
-						<div class="cart-item-option">Цвет:<span>Голубой</span></div>
-						<div class="cart-item-option">Реечное дно кровати:<span>Бальзак</span></div>
-					</div>
-					<div class="input-count-box cart-item-count">
-						<button type="button" class="form-count-btn ic-m-minus minus"></button>
-						<div class="form-count-wp" data-text="шт.">
-							<input type="text" value="1" class="form-count" required>
-						</div>
-						<button type="button" class="form-count-btn ic-m-plus plus"></button>
-					</div>
-				</div>
-				<div class="cart-item-footer">
-					<button class="ic-bin cart-item-delete" type="button"></button>
-					<div class="cart-item-total-price-wp">
-						<div class="cart-item-total-price-text">Общая стоимость</div>
-						<div class="item-card-price cart-item-price">11 599<span>&#8372;</span></div>
-					</div>
-				</div>
-			</div> -->
-		</div>
-
-		<div class="cart-footer">
-			<div class="cart-price-wp">
-				<div class="cart-price-text">Общая стоимость</div>
-				<div class="item-card-price cart-total-price">13 150<span>&#8372;</span></div>
-			</div>
-			<button class="btn btn-row" type="button">Заказать</button>
-		</div>
-
-	</div>
+	<v-cart ref="cartItems" />
 </v-modal>
 
 </div> <!-- #APP  -->
 
 <?php include('components/modal.php') ?>
+<?php include('components/cart.php') ?>
+<?php include('components/cart-item.php') ?>
 
 <!-- ---------------------------------- SCRIPTS ----------------------------------- -->
 <link rel="stylesheet" href="../css/normalize.css?ver=1.1">
