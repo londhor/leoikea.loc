@@ -8,13 +8,18 @@
 		    $i++; endwhile; ?>
 		</div>
 		<div class="pagination-wp">
-			<button class="pagi-btn pagi-btn-prev ic-arrow-left"></button>
-			<button class="pagi-btn">1</button>
-			<button class="pagi-btn pagi-btn-active">2</button>
-			<button class="pagi-btn">3</button>
-			<button class="pagi-btn">4</button>
-			<button class="pagi-btn">5</button>
-			<button class="pagi-btn pagi-btn-next ic-arrow-right"></button>
+			<div class="pagi-btn first ic-arrow-left">
+				<a href="#"></a>
+			</div>
+			<div class="pagi-btn">
+				<a href="#">1</a>
+			</div>
+			<div class="pagi-btn active">
+				<a href="#">2</a>
+			</div>
+			<div class="pagi-btn last ic-arrow-right">
+				<a href="#"></a>
+			</div>
 		</div>
 	</div>
 </article>

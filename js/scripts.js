@@ -263,6 +263,7 @@ var vCart = Vue.component('vCart', {
     },
     watch: {
         cart: function() {
+            console.log('Watch cart');
             // this.updateCartInLicalStorage();
         },
     },
@@ -301,7 +302,19 @@ var app = new Vue({
             this.pageScroll = window.pageYOffset || document.documentElement.scrollTop;
         },
         // addToCart //////////////////////////////////////////////////////////////////////////
-        addToCart: function(item) {
+        addToCart: function(item, el) {
+
+            //////////////////////////////////////////////////////
+            var form = el.target;
+            var data = new FormData(form);
+
+            formTnxEl = form.querySelector(".form_tnx");
+
+            if (formTnxEl) {
+               formTnxEl.classList.add("active");
+            }
+            //////////////////////////////////////////////////////
+
             objId = Object.keys(item)[0];
             var itemObject = item[objId];
             // console.log(typeof(itemObject));
@@ -310,8 +323,8 @@ var app = new Vue({
                 name: '',
                 value: '',
             };
-
-            console.log(itemObject);
+            // Vue.set();
+            this.$refs.cartItems.cart[objId] = itemObject;
         },
         // addToCart - END //////////////////////////////////////////////////////////////////////////
         // modal //////////////////////////////////////////////////////////////////////////

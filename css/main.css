@@ -1555,10 +1555,19 @@ p b {
     min-width: 24px;
     text-align: center;
     transition: .15s linear;
+    cursor: pointer;
 }
-.pagi-btn:not(.pagi-btn-active):hover,
-.pagi-btn:not(.pagi-btn-active):focus,
-.pagi-btn:not(.pagi-btn-active):focus:hover
+.pagi-btn a {
+    color: inherit;
+    font-size: inherit;
+}
+.pagi-btn.active>a {
+    color: var(--main);
+    font-weight: bold;
+}
+.pagi-btn:not(.active):hover,
+.pagi-btn:not(.active):focus,
+.pagi-btn:not(.active):focus:hover
 
 {
     background-color: var(--main);
@@ -1579,12 +1588,12 @@ p b {
 .pagi-btn-prev {}
 .pagi-btn-next {}
 
-.pagi-btn-prev:not(.pagi-btn-active):hover,
-.pagi-btn-next:not(.pagi-btn-active):hover,
-.pagi-btn-prev:not(.pagi-btn-active):focus,
-.pagi-btn-next:not(.pagi-btn-active):focus,
-.pagi-btn-prev:not(.pagi-btn-active):focus:hover,
-.pagi-btn-next:not(.pagi-btn-active):focus:hover {
+.pagi-btn-prev:not(.active):hover,
+.pagi-btn-next:not(.active):hover,
+.pagi-btn-prev:not(.active):focus,
+.pagi-btn-next:not(.active):focus,
+.pagi-btn-prev:not(.active):focus:hover,
+.pagi-btn-next:not(.active):focus:hover {
     background-color: transparent;
     color: var(--main);
 }
