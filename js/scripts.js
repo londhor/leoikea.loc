@@ -33,6 +33,9 @@ Vue.component('qtcounter', {
         qt: function() {
             this.$emit('update-count-in-cart', this.qt);
         },
+        count: function() {
+            this.$emit('update-count-in-cart', this.qt);
+        },
     },
 });
 
@@ -147,7 +150,6 @@ var vCart = Vue.component('vCart', {
             }
         },
         updateCountInCart: function(id ,qt) {
-            console.log(id, qt);
             if (qt && id) {
                 this.cart[id].count = qt;
                 this.updateCartObject();

@@ -47,7 +47,7 @@
 					<form id="addToCartForm" novalidate action="/" class="si-form" method="POST"
 						@submit.prevent="addToCart(
 							{
-								233:{
+								235:{
 									img: '../img/demo/item.png',
                 	    			title: 'Massangeana',
                 	    			header: 'Диван розкладной. Серебро. Бронза. Золото.',
@@ -73,7 +73,7 @@
 							</div>
 						</div>
 		
-						<button class="btn btn-row ic-cart-add" v-if="!itemInCart('124')" type="submit">Добавить в корзину</button>
+						<button class="btn btn-row ic-cart-add" v-if="!itemInCart('111')" type="submit">Добавить в корзину</button>
 						<div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="">Товар уже в корзине</div>
 						
 						<div class="form_tnx">

@@ -34,20 +34,20 @@
 				<div class="google-map-placeholder">Идет загрузка карты...</div>
 				<div id="google-map"></div>
 			</div>
-
-			<div class="footer-box">
-				<ul class="footer-menu footer-menu-contacts">
-					<li><a href="#">Политика конфиденциальности</a></li>
-					<li><a href="#">Оплата и доставка</a></li>
-					<li><a href="#">Вопросы и ответы</a></li>
-				</ul>
+			<div class="page-contacts-footer-wp">
+				<div class="footer-box">
+					<ul class="footer-menu footer-menu-contacts">
+						<li><a href="#">Политика конфиденциальности</a></li>
+						<li><a href="#">Оплата и доставка</a></li>
+						<li><a href="#">Вопросы и ответы</a></li>
+					</ul>
+				</div>
+	
+				<div class="footer-box footer-box-bnts-wp">
+					<a href="#" target="blank" class="btn btn-sm ic-facebook">Фейсбук</a>
+					<a href="#" target="blank" class="btn btn-sm ic-instagram">Инстаграм</a>
+				</div>
 			</div>
-
-			<div class="footer-box footer-box-bnts-wp">
-				<a href="#" target="blank" class="btn btn-sm ic-facebook">Фейсбук</a>
-				<a href="#" target="blank" class="btn btn-sm ic-instagram">Инстаграм</a>
-			</div>
-
 
 		</div>
 	</div>

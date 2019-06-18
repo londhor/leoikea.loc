@@ -1982,8 +1982,9 @@ main>article:first-of-type>.container:not(.hero-container) {
 
 .productsubheadline {
     font-weight: bold;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     font-size: 16px;
+    margin-top: 15px;
 }
 
 #requiresAssembly {
