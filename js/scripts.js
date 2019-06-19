@@ -425,7 +425,7 @@ function ajax(action, data) {
         }
     };
 
-    req.open("POST", "" + window.location.protocol + "//" + window.location.hostname + "/js/ajax/main.php", true);
+    req.open("POST", "" + window.location.protocol + "//" + window.location.hostname + "/frontend/web/js/ajax/main.php", true);
     req.send(data);
 }
 
