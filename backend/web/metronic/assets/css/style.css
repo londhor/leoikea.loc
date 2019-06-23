@@ -1,0 +1,41 @@
+.modal .modal-content .modal-header .close:before {
+    content: "✖";
+}
+
+.alert .close:before {
+    content: "✖";
+}
+
+.toast .toast-close-button:before {
+    content: "✖";
+}
+
+.grid-view .table thead [data-sort] {
+    display: block;
+    padding: .6rem 26px .6rem .6rem;
+    margin: -0.6rem;
+    position: relative;
+}
+
+.grid-view .table thead [data-sort]:before, .grid-view .table thead [data-sort]:after {
+    position: absolute;
+    top: 50%;
+    display: block;
+    opacity: 0.3;
+    transform: translateY(-50%);
+    color: #444;
+}
+
+.grid-view .table thead [data-sort]:before {
+    right: 1em;
+    content: "\2191";
+}
+
+.grid-view .table thead [data-sort]:after {
+    right: 0.4em;
+    content: "\2193";
+}
+
+.grid-view .table thead .asc[data-sort]:before, .grid-view .table thead .desc[data-sort]:after {
+    opacity: 1;
+}
