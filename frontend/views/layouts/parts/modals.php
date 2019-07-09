@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 
 ?>
-<template id="v-modal">
+<template id="v-modal" style="display:none">
     <div class="modal" :class="[{active:show},{leave:leave_class}]" :id="'modal_'+class_name">
         <button class="modal-close-bg" @click="close()"></button>
         <div class="card modal_scroll">
@@ -11,13 +11,13 @@
                 <slot></slot>
             </div>
             <div class="modal-footer">
-                <button class="modal_close ic-close" @click="close()"></button>
+                <button class="modal_close ic-close-bold" @click="close()"></button>
             </div>
         </div>
     </div>
 </template>
 
-<template id="v-cart">
+<template id="v-cart" style="display:none">
     <div id="#cart" class="cart-container">
         <div class="cart-items-wp" v-if="cartHasItems()">
             <!-- cart-item -->
@@ -44,22 +44,23 @@
                 <div class="cart-price-text">Загальна вартість</div>
                 <div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
             </div>
-            <button @click="openBookingModal()" class="btn btn-row" type="button">Замовити</button>
+            <button @click="openBookingModal();fbp('InitiateCheckout')" class="btn btn-row" type="button">Замовити</button>
         </div>
     </div>
 </template>
 
-<template id="v-cart-item">
+<template id="v-cart-item" style="display:none">
     <div class="cart-item">
-        <div class="cart-item-img-wp" v-show="item.img">
-            <img :src="item.img">
+        <div class="cart-item-img-wp">
+            <img v-if="item.img!='http://img.ikea.lviv.ua/images/'" :src="item.img">
+            <div v-else=""class="item-card-img-bg">Зображення відсутнє...</div>
         </div>
         <div class="cart-item-content">
             <div class="cart-item-title" v-show="item.title">{{item.title}}</div>
             <div class="cart-item-header" v-show="item.header">{{item.header}}</div>
             <div class="cart-item-price-wp" v-show="item.price">
                 <div class="item-card-price cart-item-price">
-                    {{item.price}}<span>&#8372;</span>
+                    {{item.price | price}}<span>&#8372;</span>
                     <span class="per-item">за шт.</span>
                 </div>
             </div>
@@ -86,7 +87,7 @@
     </div>
 </template>
 
-<template id="qtcounter">
+<template id="qtcounter" style="display:none">
     <div class="input-count-box">
         <button @click="down()" type="button" class="form-count-btn ic-m-minus minus"></button>
         <div class="form-count-wp" data-text="шт.">
@@ -94,4 +95,8 @@
         </div>
         <button @click="up()" type="button" class="form-count-btn ic-m-plus plus"></button>
     </div>
+</template>
+
+<template id="mtoggle" style="display:none">
+    <button class="mm-menu-open-menu ic-arrow-down" :class="{active:isActive}" @click="isActive=!isActive" type="button"></button>
 </template>

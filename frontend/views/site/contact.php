@@ -2,65 +2,78 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\ContactForm */
+/* @var $addresses array */
+/* @var $phones array */
+/* @var $emails array */
+/* @var $socials array */
+/* @var $articles array */
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use yii\captcha\Captcha;
+use yii\helpers\Url;
 
-$this->title = 'Контакты';
 $this->params['hideFooter'] = true;
 
 ?>
 <article>
     <div class="container contacts-page-container">
-        <h1 class="container-header"><?=$this->title?></h1>
+        <h1 class="container-header">Контакти</h1>
         <div class="page-content">
-
-
             <div class="footer-box footer-box-contacts-page">
-
-                <div class="contacts-box">
-                    <div class="contacts-box-icon ic-phone"></div>
-                    <div class="contact-row">
-                        <a href="#" target="_blank" class="contact-link">+380 (99) <span>560 38 80</span></a>
+                <?php if ($phones) { ?>
+                    <div class="contacts-box">
+                        <div class="contacts-box-icon ic-phone"></div>
+                        <?php foreach ($phones as $phone) { ?>
+                            <div class="contact-row">
+                                <a @click="fbp('Contact')" href="tel:<?= $phone['phone'] ?>" target="_blank" class="contact-link"><?= $phone['label'] ?></a>
+                            </div>
+                        <?php } ?>
                     </div>
-                    <div class="contact-row">
-                        <a href="#" target="_blank" class="contact-link">+380 (99) <span>560 38 80</span></a>
+                <?php } ?>
+                <?php if ($emails) { ?>
+                    <div class="contacts-box">
+                        <div class="contacts-box-icon ic-mail"></div>
+                        <?php foreach ($emails as $email) { ?>
+                            <div class="contact-row">
+                                <a @click="fbp('Contact')" href="mailto:<?= Html::encode($email['email']) ?>" target="_blank" class="contact-link"><?= Html::encode($email['email']) ?></a>
+                            </div>
+                        <?php } ?>
                     </div>
-                </div>
-                <div class="contacts-box">
-                    <div class="contacts-box-icon ic-mail"></div>
-                    <div class="contact-row">
-                        <a href="#" target="_blank" class="contact-link">leoikea@gmail.com</a>
+                <?php } ?>
+                <?php if ($addresses) { ?>
+                    <div class="contacts-box">
+                        <div class="contacts-box-icon ic-pin"></div>
+                        <?php foreach ($addresses as $address) { ?>
+                            <div class="contact-row">
+                                <div class="contact-link"><?= $address['address'] ?></div>
+                            </div>
+                        <?php } ?>
                     </div>
-                </div>
-                <div class="contacts-box">
-                    <div class="contacts-box-icon ic-pin"></div>
-                    <div class="contact-row">
-                        <div class="contact-link">Улица Под Дубом 7Б,<br>Львов, Львовская область,<br>79000</div>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
 
             <div class="card coub google-map-wp">
-                <div class="google-map-placeholder">Идет загрузка карты...</div>
-                <div id="google-map"></div>
+                <div class="google-map-placeholder">Завантаження карти...</div>
+                <a @click="fbp('Contact')" href="https://goo.gl/maps/2Q6ryuHDCV9PMnhh7" target="blank" id="google-map" title="<?=$addresses[0]['address']?>"></a>
             </div>
 
             <div class="page-contacts-footer-wp">
-                <div class="footer-box">
-                    <ul class="footer-menu footer-menu-contacts">
-                        <li><a href="#">Политика конфиденциальности</a></li>
-                        <li><a href="#">Оплата и доставка</a></li>
-                        <li><a href="#">Вопросы и ответы</a></li>
-                    </ul>
-                </div>
+                <?php if ($articles) { ?>
+                    <div class="footer-box">
+                        <ul class="footer-menu footer-menu-contacts">
+                            <?php foreach ($articles as $article) { ?>
+                                <li><a href="<?= Url::to($article['url']) ?>"><?= Html::encode($article['label']) ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                <?php } ?>
 
-                <div class="footer-box footer-box-bnts-wp">
-                    <a href="#" target="blank" class="btn btn-sm ic-facebook">Фейсбук</a>
-                    <a href="#" target="blank" class="btn btn-sm ic-instagram">Інстаграм</a>
-                </div>
+                <?php if ($socials) { ?>
+                    <div class="footer-box footer-box-bnts-wp">
+                        <?php foreach ($socials as $link) { ?>
+                            <a @click="fbp('Social link click', {'social':'<?= Html::encode($link['label']) ?>'})" href="<?= Url::to($link['url']) ?>" target="_blank" class="btn btn-sm <?= Html::encode($link['icon']) ?>"><?= Html::encode($link['label']) ?></a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

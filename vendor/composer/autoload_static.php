@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit318c70993f9bbf23f570421a727701b0
+class ComposerStaticInit9e15fb0300926a1af8213d4f0112ce8c
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
@@ -26,6 +26,9 @@ class ComposerStaticInit318c70993f9bbf23f570421a727701b0
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
             'yii2tech\\filestorage\\' => 21,
+            'yii2mod\\settings\\' => 17,
+            'yii2mod\\enum\\' => 13,
+            'yii2mod\\editable\\' => 17,
         ),
         'm' => 
         array (
@@ -97,6 +100,18 @@ class ComposerStaticInit318c70993f9bbf23f570421a727701b0
         'yii2tech\\filestorage\\' => 
         array (
             0 => __DIR__ . '/..' . '/yii2tech/file-storage/src',
+        ),
+        'yii2mod\\settings\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-settings',
+        ),
+        'yii2mod\\enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-enum',
+        ),
+        'yii2mod\\editable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii2mod/yii2-editable',
         ),
         'mihaildev\\elfinder\\' => 
         array (
@@ -203,10 +218,10 @@ class ComposerStaticInit318c70993f9bbf23f570421a727701b0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit318c70993f9bbf23f570421a727701b0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit318c70993f9bbf23f570421a727701b0::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit318c70993f9bbf23f570421a727701b0::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit318c70993f9bbf23f570421a727701b0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9e15fb0300926a1af8213d4f0112ce8c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9e15fb0300926a1af8213d4f0112ce8c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit9e15fb0300926a1af8213d4f0112ce8c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit9e15fb0300926a1af8213d4f0112ce8c::$classMap;
 
         }, null, ClassLoader::class);
     }

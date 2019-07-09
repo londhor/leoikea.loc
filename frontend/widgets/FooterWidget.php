@@ -2,7 +2,9 @@
 
 namespace frontend\widgets;
 
+use frontend\components\ContentSettings;
 use yii\base\Widget;
+use yii;
 
 /**
  * Footer widget
@@ -32,17 +34,9 @@ class FooterWidget extends Widget
     protected function contacts()
     {
         return [
-            'addresses' => [
-                ['address' => 'Вул. Івана Франка, 78<br>Львів, Львівська область']
-            ],
-            'phones' => [
-                ['label' => '+380 (96) <span>550 20 05</span>', 'phone' => '+380965502005'],
-                ['label' => '+380 (93) <span>434 50 73</span>', 'phone' => '+380934345073'],
-                ['label' => '+380 (97) <span>580 80 60</span>', 'phone' => '+380975808060'],
-            ],
-            'emails' => [
-                ['email' => 'ikeaikea211@gmail.com']
-            ]
+            'addresses' => $this->contentSettings()->getAddresses(),
+            'phones' => $this->contentSettings()->getPhones(),
+            'emails' => $this->contentSettings()->getEmails(),
         ];
     }
 
@@ -51,20 +45,7 @@ class FooterWidget extends Widget
      */
     protected function articles()
     {
-        return [
-            [
-                'label' => 'Политика конфиденциальности',
-                'url' => ['/article/view', 'key' => 'privacy-policy'],
-            ],
-            [
-                'label' => 'Доставка та оплата',
-                'url' => ['/article/view', 'key' => 'payment-and-delivery'],
-            ],
-            [
-                'label' => 'Питання та відповіді',
-                'url' => ['/article/view', 'key' => 'faq'],
-            ],
-        ];
+        return $this->contentSettings()->getFooterArticles();
     }
 
     /**
@@ -72,18 +53,7 @@ class FooterWidget extends Widget
      */
     protected function social()
     {
-        return [
-            [
-                'label' => 'Фейсбук',
-                'icon' => 'ic-facebook',
-                'url' => 'https://www.facebook.com',
-            ],
-            [
-                'label' => 'Інстаграм',
-                'icon' => 'ic-instagram',
-                'url' => 'https://instagram.com',
-            ],
-        ];
+        return $this->contentSettings()->getSocials();
     }
 
     /**
@@ -100,5 +70,13 @@ class FooterWidget extends Widget
         }
 
         return false;
+    }
+
+    /**
+     * @return ContentSettings
+     */
+    protected function contentSettings()
+    {
+        return Yii::$app->contentSettings;
     }
 }

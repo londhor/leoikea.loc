@@ -26,7 +26,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/vue.js',
         'js/slimselect.js',
-        'js/scripts.js',
         'js/swiper.min.js',
+        'js/scripts.js',
+        'js/scrollLock.min.js',
     ];
 }

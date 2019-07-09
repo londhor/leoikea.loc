@@ -25,6 +25,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+
 .ic-m-minus:before {
   content: "\e92e";
 }
@@ -76,6 +79,9 @@
 .ic-cart:before {
   content: "\e90e";
 }
+.ic-cart-move:before {
+  content: "\e930";
+}
 .ic-category-1:before {
   content: "\e90f";
 }
@@ -116,10 +122,10 @@
   content: "\e91b";
 }
 .ic-category-14:before {
-  content: "\e91c";
+  content: "\1f374";
 }
 .ic-category-15:before {
-  content: "\e91d";
+  content: "\1f37d";
 }
 .ic-category-16:before {
   content: "\e91e";
@@ -127,8 +133,14 @@
 .ic-category-17:before {
   content: "\e91f";
 }
+.ic-category-18:before {
+  content: "\e91c";
+}
 .ic-close:before {
   content: "\e920";
+}
+.ic-close-bold:before {
+  content: "\e91d";
 }
 .ic-logo-1:before {
   content: "\e921";

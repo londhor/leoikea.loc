@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\components\MetaFieldsSettings;
+use WhichBrowser\Parser;
 use yii;
 use common\models\shop\Product;
 use yii\web\Controller;
@@ -13,16 +15,16 @@ class ProductController extends Controller
     {
         $product = $this->findProduct($key);
 
-        $this->view->title = sprintf('%s. %s | %s | %s', $product->titleLang, $product->descrLang, 'Доставка з Ikea', Yii::$app->name);
-        $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => sprintf('%s. %s | %s | %s', $product->titleLang, $product->descrLang, 'Доставка з Ikea', Yii::$app->name),
-        ]);
+        /** @var MetaFieldsSettings $metaFieldsSettings */
+        $metaFieldsSettings = Yii::$app->metaFieldsSettings;
+        $metaFieldsSettings->generateForProduct($product);
 
         $this->updateViews($product);
+        $detector = new Parser(Yii::$app->request->userAgent);
 
         return $this->render('index', [
-            'product' => $product
+            'product' => $product,
+            'isMobile' => $detector->isMobile(),
         ]);
     }
 
@@ -48,11 +50,11 @@ class ProductController extends Controller
             $views = [];
         }
 
-        //if ($views === [] || !isset($views[$product->id]) || $views[$product->id] < strtotime('1 day ago')) {
-        //    $product->updateCounters(['views' => 1]);
-        //    $views[$product->id] = time();
-        //
-        //    Yii::$app->session->set('Product.views', $views);
-        //}
+        if ($views === [] || !isset($views[$product->id]) || $views[$product->id] < strtotime('1 day ago')) {
+            $product->updateCounters(['views' => 1]);
+            $views[$product->id] = time();
+
+            Yii::$app->session->set('Product.views', $views);
+        }
     }
 }

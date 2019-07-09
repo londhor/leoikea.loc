@@ -7,7 +7,7 @@ define('DB_DRIVER','mysql');
 define('DB_HOST','localhost');
 define('DB_NAME','k49223_crm');
 define('DB_USER','k49223_crm_user');
-define('DB_PASS','jk^fqJ[_Pa1n');
+define('DB_PASS','Uk{iGi!i_60c');
 
 $driver = DB_DRIVER;
 $host = DB_HOST;
@@ -100,8 +100,8 @@ function sendNotification() {
 
       // OPTIONS //////////////////////////////////////////////////////
       $tg_users = array(
-        '656742796', // ikea
-        '363529419', //londhor
+		'656742796', // ikea
+		'363529419', //londhor
       );
       $tg_bot_token = '732599170:AAF3AUe9gakw6klEXQ_Vf-ncdNmhZo6eBlI';
       /////////////////////////////////////////////////////////////////

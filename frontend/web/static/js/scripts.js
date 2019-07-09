@@ -4,6 +4,15 @@ Vue.filter('price', function(price){
     return formatMoney(price,0, " ", " ");
 });
 
+Vue.component('mtoggle', {
+    template:'#mtoggle',
+    data: function() {
+        return {
+            isActive: false,
+        }
+    },
+});
+
 Vue.component('qtcounter', {
     template:'#qtcounter',
     props: {
@@ -63,10 +72,17 @@ Vue.component("vModal", {
             this.leave_class = true;
             document.body.classList.remove("body_fixed");
             window.scrollTo(0, app.modalPageScroll);
+
+            try {
+                bodyScrollLock.clearAllBodyScrollLocks();
+            } catch {
+                console.log('bodyScrollLock error');
+            }
+
             self = this;
             setTimeout(function() {
                 self.leave_class = false;
-            }, 500);
+            }, 150);
         }
     }
 });
@@ -138,6 +154,11 @@ var vCart = Vue.component('vCart', {
         }
     },
     methods: {
+        fbp: function(action=null, data=null) {
+            if (action) {
+                this.$root.fbp(action, data);
+            }
+        },
         clearCart: function() {
             localStorage.removeItem('cart');
             this.cart = {};
@@ -250,7 +271,7 @@ var app = new Vue({
         searchString: '',
         menu: false,
         mobileMenu: false,
-        menuSubCat: false,
+        menuSubCat: 1,
         siTab: 1,
 
         //// hadrcode
@@ -260,6 +281,32 @@ var app = new Vue({
         //// hadrcode - end
     },
     methods: {
+        mobileMenuChangeStatus: function() {
+            if (this.mobileMenu) {
+                try {
+                    bodyScrollLock.clearAllBodyScrollLocks();
+                } catch {
+                    console.log('bodyScrollLock error');
+                }
+
+                parrentEl = document.querySelector('.mobile-menu');
+                parrentEl.classList.add('leave');
+                self = this;
+                setTimeout(function() {
+                    parrentEl.classList.remove('leave');
+                    self.mobileMenu=false;
+                }, 150);
+
+            } else {
+                try {
+                    bodyScrollLock.disableBodyScroll(document.querySelector("body"));
+                    bodyScrollLock.disableBodyScroll(document.querySelector('.mm-menu'));
+                } catch {
+                    console.log('bodyScrollLock error');
+                }
+                this.mobileMenu=true;
+            }
+        },
         cartHaveItems: function() {
             try {
                 return this.$refs.cartItems.cartHasItems();
@@ -315,8 +362,14 @@ var app = new Vue({
                 this.$refs[name].showModal();
                 this.modalPageScroll = this.pageScroll;
                 setTimeout(function() {
+                    try {
+                        bodyScrollLock.disableBodyScroll(document.querySelector("body"));
+                        bodyScrollLock.disableBodyScroll(document.querySelector('#modal_'+name+''));
+                    } catch {
+                        console.log('bodyScrollLock error');
+                    }
                     document.body.classList.add("body_fixed");
-                }, 500);
+                }, 150);
             }
         },
         modalClose: function(name) {
@@ -362,6 +415,46 @@ var app = new Vue({
                 return "{}";
             }   
         },
+        ///// PIXEL ///////////////////////////////////////////////////////////////////////
+        fbp: function(action=false, data=null) {
+            if (action) {
+
+                switch(action) {
+                    case 'AddPaymentInfo':
+                    case 'AddToCart':
+                    case 'AddToWishlist':
+                    case 'CompleteRegistration':
+                    case 'Contact':
+                    case 'CustomizeProduct':
+                    case 'Donate':
+                    case 'FindLocation':
+                    case 'InitiateCheckout':
+                    case 'Lead':
+                    case 'PageView':
+                    case 'Purchase':
+                    case 'Schedule':
+                    case 'Search':
+                    case 'StartTrial':
+                    case 'SubmitApplication':
+                    case 'Subscribe':
+                    case 'ViewContent':
+
+                    typeOfEvent = 'track';break;
+
+                    default: typeOfEvent = 'trackCustom';
+                }
+
+                // console.log(typeof(data));
+                // console.log(data,'data');
+
+                try {
+                    fbq(typeOfEvent, action, data);
+                } catch {
+                    console.warn('FBP is not ready');
+                }
+            }
+        },
+        ///////////////////////////////////////////////////////////////////////////////////
         //// hardcode..............................................................................................................
         getProductOptions: function(id=false) {
             if (id&&!this.optionsData) {
@@ -401,17 +494,19 @@ var app = new Vue({
     },
     created: function() {
         window.addEventListener("scroll", this.headerFix);
-        this.headerFix();
         this.searchString = this.getParameterByName('query');
-        this.pageSlug = this.getParameterByName('page-slug');
+        // this.pageSlug = this.getParameterByName('page-slug');
     },
     mounted: function() {
         // this.getProductOptions();
+
+        this.pageScroll++; // hardcode
         try {
             this.$refs.cartItems.pullCartFromLocalStorage();
         } catch {
             
         }
+        initSliders();
     },
     destroyed: function() {
         window.removeEventListener("scroll", this.headerFix);
@@ -433,7 +528,7 @@ function ajax(action, data) {
                     app.modal('tnx');
                     setTimeout(function() {
                         app.$refs.cartItems.clearCart();
-                    }, 500)
+                    }, 1000)
                 }
             }
         }
@@ -516,3 +611,102 @@ var formToObject = function (form) {
 // f.set('action','booking');
 // f.set('data','bookingData');
 // ajax('booking',f);
+
+function initSliders() {
+    try {
+        var swiper = new Swiper('.our-clients-slider', {
+            slidesPerView: 7,
+            slidesPerColumn: 2,
+            spaceBetween: 16,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            breakpoints: {
+                1400: {
+                    slidesPerView: 6,
+                    spaceBetween: 10,
+                },
+                980: {
+                    slidesPerView: 4,
+                    spaceBetween: 8,
+                },
+                420: {
+                    slidesPerView: 2,
+                    spaceBetween: 8,
+                },
+            },
+        });
+    } catch {
+        console.log('.our-clients-slider is empty');
+    }
+    
+    try {
+        var swiper = new Swiper('.feedback-slider', {
+            slidesPerView: 'auto',
+            // centeredSlides: false,
+            spaceBetween: 10,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-pagi-btn-next',
+                prevEl: '.swiper-pagi-btn-prev',
+            },
+            breakpoints: {
+                980: {
+                    // slidesPerView: 3,
+                    // centeredSlides: true,
+                },
+                420: {
+                    // slidesPerView: 1,
+                    // centeredSlides: true,
+                },
+            },
+        });
+    } catch {
+        console.log('.feedback-slider is empty');
+    }
+    
+    var itemSlirers = document.querySelectorAll('.items-slider');
+    if (itemSlirers) {
+        for (slider in itemSlirers) {
+            try {
+                new Swiper(itemSlirers[slider], {
+                    slidesPerView: 'auto',
+                    spaceBetween: 10,
+                    pagination: {
+                      el: '.swiper-pagination',
+                      clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-pagi-btn-next',
+                        prevEl: '.swiper-pagi-btn-prev',
+                    },
+                });
+            } catch {
+                console.warn('.items-slider is empty');
+            }
+        }
+    }
+    
+    try {
+        var siThumbs = new Swiper('.si-thumbs', {
+            spaceBetween: 8,
+            slidesPerView: 'auto',
+            watchSlidesVisibility: true,
+        });
+    
+        var swiper = new Swiper('.si-slider', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 5,
+            thumbs: {
+                swiper: siThumbs,
+            },
+        });
+    } catch {
+        console.log('.feedback-slider is empty');
+    }
+}

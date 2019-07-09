@@ -570,36 +570,45 @@ use yii\helpers\Html;
                 'items' => [
                     [
                         'label' => 'Нам довіряють',
-                        'url' => '#',
+                        'url' => ['/our-clients/index'],
                     ],
                     [
                         'label' => 'Відгуки клієнтів',
-                        'url' => '#',
+                        'url' => ['/reviews/index'],
                     ],
                     [
                         'label' => 'Переваги',
-                        'url' => '#',
+                        'url' => ['/advantages/index'],
                     ],
                     [
                         'label' => 'Банер',
-                        'url' => '#',
+                        'url' => ['/banner/index'],
+                    ],
+                    [
+                        'label' => 'Пошукові запити',
+                        'url' => ['/search-queries/index'],
                     ],
                 ],
             ],
             [
-                'label' => 'Замовлення',
-                'icon' => 'flaticon-list',
-                'url' => '#'
-            ],
-            [
                 'label' => 'Контакти',
                 'icon' => 'flaticon-placeholder-1',
-                'url' => '#'
+                'url' => ['/contacts/index'],
             ],
             [
                 'label' => 'Конфігурація',
                 'icon' => 'flaticon-cogwheel-2',
-                'url' => '#'
+                'url' => ['/price/index']
+            ],
+            [
+                'label' => 'Метадані',
+                'icon' => 'flaticon-edit-1',
+                'url' => ['/meta-fields/index']
+            ],
+            [
+                'label' => 'Іконки',
+                'icon' => 'flaticon-star',
+                'url' => ['/site/icons']
             ],
         ]
     ]) ?>

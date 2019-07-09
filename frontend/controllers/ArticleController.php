@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\components\MetaFieldsSettings;
 use yii;
 use common\models\Article;
 use yii\web\Controller;
@@ -13,18 +14,9 @@ class ArticleController extends Controller
     {
         $article = $this->findArticle($key);
 
-        if ($article->meta_title) {
-            $this->view->title = $article->meta_title;
-        } else {
-            $this->view->title = sprintf('%s | %s', $article->title, Yii::$app->name);
-        }
-
-        if ($article->meta_description) {
-            $this->view->registerMetaTag([
-                'name' => 'description',
-                'content' => $article->meta_description,
-            ]);
-        }
+        /** @var MetaFieldsSettings $metaFieldsSettings */
+        $metaFieldsSettings = Yii::$app->metaFieldsSettings;
+        $metaFieldsSettings->generateForInformation($article);
 
         return $this->render('view', [
             'article' => $article
@@ -41,5 +33,4 @@ class ArticleController extends Controller
 
         return $article;
     }
-
 }

@@ -14,6 +14,7 @@ use Yii;
  * @property string $slug
  * @property int $parent_id
  * @property string $parsed_at
+ * @property string $icon
  *
  * @property string $titleLang
  *

@@ -1,22 +1,26 @@
 <?php
 
 /** @var $this \yii\web\View */
+/** @var $ourClients \common\models\OurClients[] */
+
+use yii\helpers\Html;
 
 ?>
 <article>
     <div class="container">
-        <h2 class="container-header">Нам довіряють</h2>
+        <h2 class="container-header"><?= Yii::t('app', 'Нам довіряють') ?></h2>
         <div class="swiper-container our-clients-slider">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
-                <?php $i=1; while ($i<15): ?>
+                <?php foreach ($ourClients as $client) { ?>
                     <div class="swiper-slide card coub our-clients-slide">
-                        <img src="/static/img/client-<?=$i?>.png">
+                        <?= Html::img($client->imageUrl) ?>
                     </div>
-                <?php $i++; endwhile; ?>
+                <?php } ?>
             </div>
-
-            <div class="swiper-pagination"></div>
+            <div class="swiper-pagination-wp">
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 </article>

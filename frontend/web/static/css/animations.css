@@ -1,3 +1,101 @@
+@-webkit-keyframes to100Height {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 100%;
+    }
+}
+@-o-keyframes to100Height {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 100%;
+    }
+}
+@-moz-keyframes to100Height {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 100%;
+    }
+}
+@keyframes to100Height {
+    from {
+        height: 0%;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@-webkit-keyframes slideRightFromCenter {
+    0% {
+        -ms-transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -o-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+    100% {
+        -ms-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+}
+@-o-keyframes slideRightFromCenter {
+    0% {
+        -ms-transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -o-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+    100% {
+        -ms-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+}
+@-moz-keyframes slideRightFromCenter {
+    0% {
+        -ms-transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -o-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+    100% {
+        -ms-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+}
+@keyframes slideRightFromCenter {
+    0% {
+        -ms-transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+        -moz-transform: translateX(0%);
+        -o-transform: translateX(0%);
+        transform: translateX(0%);
+    }
+    100% {
+        -ms-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+}
+
 @-webkit-keyframes slideToCenterFromRight {
     from {
         -ms-transform: translateX(100%);

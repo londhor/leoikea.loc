@@ -8,8 +8,8 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'language' => 'ru-RU',
-    'sourceLanguage' => 'ru-RU',
+    'language' => 'uk-UA',
+    'sourceLanguage' => 'uk-UA',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -35,13 +35,24 @@ return [
                 ],
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => false,
+            'enableStrictParsing' => true,
             'rules' => [
                 '' => 'site/index',
                 'contacts' => 'site/contacts',
@@ -57,12 +68,18 @@ return [
                 NumberFormatter::MAX_FRACTION_DIGITS => 0,
             ],
             'numberFormatterSymbols' => [
-                NumberFormatter::CURRENCY_SYMBOL => '<span>&#8372;</span>',
+                NumberFormatter::CURRENCY_SYMBOL => '₴',
             ],
         ],
-        'discount' => [
-            'class' => \frontend\components\ProductDiscount::class,
-        ]
+        'priceSettings' => [
+            'class' => frontend\components\PriceSettings::class,
+        ],
+        'contentSettings' => [
+            'class' => frontend\components\ContentSettings::class,
+        ],
+        'metaFieldsSettings' => [
+            'class' => frontend\components\MetaFieldsSettings::class,
+        ],
     ],
     'params' => $params,
 ];

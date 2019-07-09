@@ -302,7 +302,7 @@ class DataTablesAction extends Action
         }
 
         if (count($order) === 0) {
-            if (isset($this->defaultOrder[0])) {
+            if (is_array($this->defaultOrder)) {
                 $order = $this->defaultOrder;
             } else {
                 $order = [$this->defaultOrder];

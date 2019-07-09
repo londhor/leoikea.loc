@@ -12,6 +12,7 @@ use Yii;
  * @property int $downloaded
  * @property string $product_id
  * @property string $path
+ * @property int $display_order [int(11)]
  *
  * @property Product $product
  */

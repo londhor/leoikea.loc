@@ -30,15 +30,33 @@ return [
             ],
         ],
         'fileStorage' => [
-            'class' => \yii2tech\filestorage\local\Storage::class,
-            'basePath' => '@frontend/web/images',
-            'baseUrl' => '@web/images',
-            'dirPermission' => 0775,
-            'filePermission' => 0755,
-            'buckets' => [
-                'products' => [
-                    'baseSubPath' => 'products',
+            'class' => \yii2tech\filestorage\hub\Storage::class,
+            'storages' => [
+                'productStorage' => [
+                    'class' => \yii2tech\filestorage\local\Storage::class,
+                    'basePath' => '@frontend/web/images',
+                    'baseUrl' => '@web/images',
+                    'buckets' => [
+                        'products' => [
+                            'baseSubPath' => 'products',
+                        ],
+                    ]
                 ],
+                'otherStorage' => [
+                    'class' => \yii2tech\filestorage\local\Storage::class,
+                    'basePath' => '@frontend/web/images',
+                    'baseUrl' => '@web/images',
+                    'dirPermission' => 0775,
+                    'filePermission' => 0755,
+                    'buckets' => [
+                        'reviews' => [
+                            'baseSubPath' => 'reviews',
+                        ],
+                        'our_clients' => [
+                            'baseSubPath' => 'our_clients',
+                        ],
+                    ]
+                ]
             ]
         ],
         'settings' => [

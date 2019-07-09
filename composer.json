@@ -24,7 +24,9 @@
         "mihaildev/yii2-elfinder": "*",
         "mihaildev/yii2-ckeditor": "*",
         "2amigos/yii2-transliterator-helper": "*",
-        "yii2mod/yii2-settings": "*"
+        "yii2mod/yii2-settings": "*",
+        "ext-json": "*",
+        "ext-intl": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

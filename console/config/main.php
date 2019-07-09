@@ -16,10 +16,13 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'controllerMap' => [
-        'fixture' => [
-            'class' => 'yii\console\controllers\FixtureController',
-            'namespace' => 'common\fixtures',
-          ],
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => [
+                'main'      => '@console/migrations',
+                'settings'  => '@vendor/yii2mod/yii2-settings/migrations',
+            ],
+        ],
     ],
     'components' => [
         'log' => [

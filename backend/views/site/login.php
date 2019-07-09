@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use metronic\Metronic;
 
-$this->title = 'Вход';
+$this->title = 'Вхід';
 $this->params['breadcrumbs'][] = $this->title;
 
 Metronic::registerJsFile($this, 'assets/snippets/pages/site/login.js');

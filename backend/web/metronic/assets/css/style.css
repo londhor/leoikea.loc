@@ -1,13 +1,13 @@
 .modal .modal-content .modal-header .close:before {
-    content: "✖";
+    content: "âœ–";
 }
 
 .alert .close:before {
-    content: "✖";
+    content: "âœ–";
 }
 
 .toast .toast-close-button:before {
-    content: "✖";
+    content: "âœ–";
 }
 
 .grid-view .table thead [data-sort] {
@@ -38,4 +38,26 @@
 
 .grid-view .table thead .asc[data-sort]:before, .grid-view .table thead .desc[data-sort]:after {
     opacity: 1;
+}
+
+.img-upload-preview {
+    max-width: 100%;
+    width: 350px;
+    margin-top: 15px;
+    border: 1px solid #ebedf2;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.grid-img {
+    max-width: 200px;
+    max-height: 200px;
+    transform: scale(1);
+    transform-origin: left center;
+    transition: transform .4s ease;
+}
+
+.grid-img:hover {
+    transition-delay: .6s;
+    transform: scale(2);
 }

@@ -13,14 +13,14 @@ use common\widgets\Alert;
 
 AppAsset::register($this);
 $color = "#0B2EAA";
-
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="author" content="David Devero | londhor | https://londhor.com">
+    <meta name="author" content="WYLE.studio | https://wyle.studio">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
@@ -52,103 +52,8 @@ $color = "#0B2EAA";
     <?= $this->render('parts/v-modals') ?>
 </div>
 <?= $this->render('parts/modals') ?>
-<?php
 
-$this->registerJs(<<<JS
-    try {
-        var swiper = new Swiper('.our-clients-slider', {
-            slidesPerView: 7,
-            slidesPerColumn: 2,
-            spaceBetween: 16,
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-            breakpoints: {
-                1400: {
-                    slidesPerView: 6,
-                    spaceBetween: 10,
-                },
-                980: {
-                    slidesPerView: 4,
-                    spaceBetween: 8,
-                },
-                420: {
-                    slidesPerView: 2,
-                    spaceBetween: 8,
-                },
-            },
-        });
-    } catch {
-        console.log('.our-clients-slider is empty');
-    }
-    
-    try {
-        var swiper = new Swiper('.feedback-slider', {
-            slidesPerView: 'auto',
-            // centeredSlides: false,
-            spaceBetween: 10,
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-            breakpoints: {
-                980: {
-                    // slidesPerView: 3,
-                    // centeredSlides: true,
-                },
-                420: {
-                    // slidesPerView: 1,
-                    // centeredSlides: true,
-                },
-            },
-        });
-    } catch {
-        console.log('.feedback-slider is empty');
-    }
-    
-    var itemSlirers = document.querySelectorAll('.items-slider');
-    if (itemSlirers) {
-        for (slider in itemSlirers) {
-            try {
-                new Swiper(itemSlirers[slider], {
-                    slidesPerView: 'auto',
-                    spaceBetween: 10,
-                    pagination: {
-                      el: '.swiper-pagination',
-                      clickable: true,
-                    },
-                });
-            } catch {
-                console.warn('.items-slider is empty');
-            }
-        }
-    }
-    
-    try {
-        var siThumbs = new Swiper('.si-thumbs', {
-            spaceBetween: 8,
-            slidesPerView: 'auto',
-            watchSlidesVisibility: true,
-        });
-    
-        var swiper = new Swiper('.si-slider', {
-            slidesPerView: 'auto',
-            centeredSlides: true,
-            spaceBetween: 5,
-            thumbs: {
-                swiper: siThumbs,
-            },
-        });
-    } catch {
-        console.log('.feedback-slider is empty');
-    }
-JS
-, \yii\web\View::POS_END);
-
-?>
 <?php $this->endBody() ?>
-
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142259808-1"></script>
@@ -178,32 +83,6 @@ JS
 /></noscript>
 <!-- End Facebook Pixel Code -->
 
-<!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      xfbml            : true,
-      version          : 'v3.3'
-    });
-  };
-
-  (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/ru_RU/sdk/xfbml.customerchat.js';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<!-- Your customer chat code -->
-<div class="fb-customerchat"
-  attribution=setup_tool
-  page_id="1798394557068844"
-  theme_color="#0b2daa"
-  logged_in_greeting="Привіт, це LeoIkea! Чим можемо бути вам корисні?"
-  logged_out_greeting="Привіт, це LeoIkea! Чим можемо бути вам корисні?">
-</div>
 
 </body>
 </html>

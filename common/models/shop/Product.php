@@ -10,24 +10,33 @@ use yii2tech\filestorage\BucketInterface;
  *
  * @property string $id
  * @property string $title_pl
+ * @property string $title_ru [varchar(255)]
  * @property string $title
  * @property string $descr_pl
+ * @property string $descr_ru [varchar(255)]
  * @property string $descr
  * @property string $article
  * @property int $category_id
  * @property string $price
+ * @property string $old_price [decimal(10,2)]
  * @property string $info_pl
+ * @property string $info_ru
  * @property string $info
  * @property string $materials_pl
+ * @property string $materials_ru
  * @property string $materials
  * @property string $package_pl
+ * @property string $package_ru
  * @property string $package
  * @property string $variations_pl
+ * @property string $variations_ru
  * @property string $variations
  * @property string $variations_headings_pl
+ * @property string $variations_headings_ru
  * @property string $variations_headings
  * @property string $parsed_at
  * @property int $views
+ *
  *
  * @property string $titleLang
  * @property string $descrLang
@@ -122,8 +131,9 @@ class Product extends \yii\db\ActiveRecord
     public function getImages()
     {
         return $this->hasMany(Image::class, ['product_id' => 'id'])
-            ->andOnCondition(['size' => 'large'])
-            ->andOnCondition(['downloaded' => true]);
+            ->andOnCondition(['size' => 'zoom'])
+            ->andOnCondition(['downloaded' => true])
+            ->orderBy(['display_order' => SORT_ASC]);
     }
 
     /**
@@ -132,8 +142,9 @@ class Product extends \yii\db\ActiveRecord
     public function getImagesZoom()
     {
         return $this->hasMany(Image::class, ['product_id' => 'id'])
-            ->andOnCondition(['size' => 'zoom'])
-            ->andOnCondition(['downloaded' => true]);
+            ->andOnCondition(['size' => 'large'])
+            ->andOnCondition(['downloaded' => true])
+            ->orderBy(['display_order' => SORT_ASC]);
     }
 
     /**
@@ -150,8 +161,9 @@ class Product extends \yii\db\ActiveRecord
     public function getImage()
     {
         return $this->hasOne(Image::class, ['product_id' => 'id'])
-            ->andOnCondition(['size' => 'zoom'])
-            ->andOnCondition(['downloaded' => true]);
+            ->andOnCondition(['size' => 'large'])
+            ->andOnCondition(['downloaded' => true])
+            ->orderBy(['display_order' => SORT_ASC]);
     }
 
     /**
@@ -199,7 +211,17 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getPackageLang()
     {
-        return $this->package === null ? $this->package_pl : $this->package;
+        $package = $this->package === null ? $this->package_pl : $this->package;
+        if ($package === null) {
+            return null;
+        }
+
+        $package = json_decode($package, true);
+        if (!is_array($package)) {
+            return null;
+        }
+
+        return $package;
     }
 
     /**

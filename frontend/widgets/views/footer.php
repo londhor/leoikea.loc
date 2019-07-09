@@ -11,7 +11,7 @@ use yii\helpers\Html;
 ?>
 <footer id="footer">
     <div class="container footer-container">
-        <h2 class="container-header">Контакти</h2>
+        <h2 class="container-header"><?= Yii::t('app', 'Контакти') ?></h2>
         <div class="footer-content-wp">
             <?php if ($contacts) { ?>
                 <div class="footer-box">
@@ -30,7 +30,7 @@ use yii\helpers\Html;
                             <div class="contacts-box-icon ic-phone"></div>
                             <?php foreach ($contacts['phones'] as $phone) { ?>
                                 <div class="contact-row">
-                                    <a href="tel:<?= $phone['phone'] ?>" target="_blank" class="contact-link"><?= $phone['label'] ?></a>
+                                    <a @click="fbp('Contact')" href="tel:<?= $phone['phone'] ?>" target="_blank" class="contact-link"><?= $phone['label'] ?></a>
                                 </div>
                             <?php } ?>
                         </div>
@@ -40,7 +40,7 @@ use yii\helpers\Html;
                             <div class="contacts-box-icon ic-mail"></div>
                             <?php foreach ($contacts['emails'] as $email) { ?>
                                 <div class="contact-row">
-                                    <a href="mailto:<?= Html::encode($email['email']) ?>" target="_blank" class="contact-link"><?= Html::encode($email['email']) ?></a>
+                                    <a @click="fbp('Contact')" href="mailto:<?= Html::encode($email['email']) ?>" target="_blank" class="contact-link"><?= Html::encode($email['email']) ?></a>
                                 </div>
                             <?php } ?>
                         </div>
@@ -49,17 +49,19 @@ use yii\helpers\Html;
             <?php } ?>
             <?php if ($footerArticles) { ?>
                 <div class="footer-box">
-                    <ul class="footer-menu">
-                        <?php foreach ($footerArticles as $article) { ?>
-                            <li><a href="<?= Url::to($article['url']) ?>"><?= Html::encode($article['label']) ?></a></li>
-                        <?php } ?>
-                    </ul>
+                    <div class="footer-menu-wp">
+                        <ul class="footer-menu">
+                            <?php foreach ($footerArticles as $article) { ?>
+                                <li><a href="<?= Url::to($article['url']) ?>"><?= Html::encode($article['label']) ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
             <?php } ?>
             <?php if ($socialLinks) { ?>
                 <div class="footer-box footer-box-bnts-wp">
                     <?php foreach ($socialLinks as $link) { ?>
-                        <a href="<?= Url::to($link['url']) ?>" target="_blank" class="btn btn-sm <?= Html::encode($link['icon']) ?>"><?= Html::encode($link['label']) ?></a>
+                        <a @click="fbp('Social link click', {'social':'<?= Html::encode($link['label']) ?>'})" href="<?= Url::to($link['url']) ?>" target="_blank" class="btn btn-sm <?= Html::encode($link['icon']) ?>"><?= Html::encode($link['label']) ?></a>
                     <?php } ?>
                 </div>
             <?php } ?>

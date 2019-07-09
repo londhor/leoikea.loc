@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\components\MetaFieldsSettings;
 use yii;
 use common\models\shop\Category;
 use common\models\shop\Product;
@@ -9,11 +10,20 @@ use WhichBrowser\Parser;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\helpers\ArrayHelper;
 
 class CatalogController extends Controller
 {
     public function actionIndex()
     {
+        /** @var MetaFieldsSettings $metaFieldsSettings */
+        $metaFieldsSettings = Yii::$app->metaFieldsSettings;
+        $metaFieldsSettings->generateForCatalog();
+
+        $categories = Category::find()
+            ->where(['is', 'parent_id', new yii\db\Expression('NULL')])
+            ->all();
+
         $query = Product::find();
 
         $countQuery = clone $query;
@@ -24,8 +34,7 @@ class CatalogController extends Controller
         ]);
 
         $products = $query
-            ->joinWith('image')
-            ->groupBy('id')
+            ->with('image')
             ->orderBy(['parsed_at' => SORT_DESC, 'id' => SORT_ASC])
             ->limit($pager->limit)
             ->offset($pager->offset)
@@ -34,6 +43,7 @@ class CatalogController extends Controller
         return $this->render('index', [
             'products' => $products,
             'pager' => $pager,
+            'categories' => $categories,
         ]);
     }
 
@@ -41,8 +51,15 @@ class CatalogController extends Controller
     {
         $category = $this->findCategory($path);
 
+        /** @var MetaFieldsSettings $metaFieldsSettings */
+        $metaFieldsSettings = Yii::$app->metaFieldsSettings;
+        $metaFieldsSettings->generateForCategory($category);
+
+        $subCategories = $category->subCategories;
+        $categories = ArrayHelper::merge([$category->id], ArrayHelper::getColumn($subCategories, 'id'));
+
         $query = Product::find()
-            ->where(['category_id' => $category->id]);
+            ->where(['category_id' => $categories]);
 
         $countQuery = clone $query;
         $pager = new Pagination([
@@ -52,8 +69,7 @@ class CatalogController extends Controller
         ]);
 
         $products = $query
-            ->joinWith('image')
-            ->groupBy('id')
+            ->with('image')
             ->orderBy(['parsed_at' => SORT_DESC, 'id' => SORT_ASC])
             ->limit($pager->limit)
             ->offset($pager->offset)
@@ -63,11 +79,16 @@ class CatalogController extends Controller
             'products' => $products,
             'pager' => $pager,
             'category' => $category,
+            'subCategories' => $subCategories,
         ]);
     }
 
     public function actionSearch($query)
     {
+        /** @var MetaFieldsSettings $metaFieldsSettings */
+        $metaFieldsSettings = Yii::$app->metaFieldsSettings;
+        $metaFieldsSettings->generateForSearch($query);
+
         $productsQuery = Product::find();
 
         $queryLen = 0;
@@ -86,7 +107,10 @@ class CatalogController extends Controller
 
         if ($queryLen >= 3) {
             foreach ($queryWords as $word) {
-                $productsQuery->orFilterWhere(['like', "LOWER(CONCAT_WS(' ', title_pl, title, descr_pl, descr))", $word]);
+                $productsQuery->orFilterWhere(['or',
+                    ['like', "LOWER(CONCAT_WS(' ', title, title_ru, title_pl))", $word],
+                    ['regexp', "LOWER(CONCAT_WS(' ', descr, descr_ru, descr_pl))", '[[:<:]]' . $word . '[[:>:]]'],
+                ]);
             }
         } else {
             $productsQuery->where('0=1');
@@ -106,8 +130,7 @@ class CatalogController extends Controller
         ]);
 
         $products = $productsQuery
-            ->joinWith('image')
-            ->groupBy('id')
+            ->with('image')
             ->orderBy(['parsed_at' => SORT_DESC, 'id' => SORT_ASC])
             ->limit($pager->limit)
             ->offset($pager->offset)

@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\models\shop\Category;
+use frontend\components\ContentSettings;
 use yii\base\Widget;
 use yii;
 
@@ -18,13 +19,24 @@ class HeaderWidget extends Widget
     public function run()
     {
         $categories = Category::find()
-            ->alias('parent')
-            ->joinWith('subCategories as sub')
-            ->where(['parent.parent_id' => null])
+            ->with('subCategories')
+            ->where(['parent_id' => null])
             ->all();
+
+        $phones = $this->contentSettings()->getPhones();
+        $phone = $phones === [] ? null : reset($phones);
 
         return $this->render('header', [
             'categories' => $categories,
+            'phone' => $phone,
         ]);
+    }
+
+    /**
+     * @return ContentSettings
+     */
+    protected function contentSettings()
+    {
+        return Yii::$app->contentSettings;
     }
 }

@@ -12,6 +12,7 @@ use Yii;
  * @property string $title
  * @property string $url
  * @property string $product_id
+ * @property string $title_ru [varchar(255)]
  *
  * @property string $titleLang
  *

@@ -91,6 +91,13 @@ class Article extends \yii\db\ActiveRecord
         ];
     }
 
+    public function attributeHints()
+    {
+        return [
+            'meta_title' => '<code>{{site_name}}</code> - Назва сайту',
+            'meta_description' => '<code>{{site_name}}</code> - Назва сайту',
+        ];
+    }
 
     /**
      * @inheritdoc

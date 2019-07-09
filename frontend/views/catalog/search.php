@@ -11,7 +11,18 @@ use yii\helpers\Url;
 ?>
 <article class="page-article">
     <div class="container page-container">
-        <h1 class="container-header">Пошук: <?= Html::encode($query) ?></h1>
+
+        <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="fbp('Search')">
+            <div class="input-wp search-form-input-wp">
+                <input type="text" value="<?=Html::encode(Yii::t('app', '{query}', ['query' => $query])) ?>" name="query" class="search-form-input" required autofocus>
+                <?php if (!$query): ?>
+                    <label>Пошук...</label>
+                <?php endif ?>
+                <button class="btn ic-close search-reset-btn" type="reset"></button>
+            </div>
+            <button class="btn btn-row" type="submit">Пошук</button>
+        </form>
+
         <?php if ($products) { ?>
             <div class="product-grid">
                 <?php foreach ($products as $product) { ?>
@@ -24,19 +35,19 @@ use yii\helpers\Url;
                 'pagination' => $pager,
                 'options' => ['tag' => 'div', 'class' => 'pagination-wp'],
                 'linkContainerOptions' => ['tag' => 'span', 'class' => 'pagi-btn'],
-                'prevPageCssClass' => 'pagi-btn-prev ic-icon',
-                'nextPageCssClass' => 'pagi-btn-next ic-icon',
+                'prevPageCssClass' => 'pagi-btn-prev ic-arrow-left',
+                'nextPageCssClass' => 'pagi-btn-next ic-arrow-right',
                 'activePageCssClass' => 'pagi-btn-active',
             ]) ?>
         <?php } else { ?>
             <div class="page404-wp">
-                <div class="page404-subheader">Пошук по вашому запиту не дав результатів</div>
-                <a href="<?= Url::to(['/catalog/index']) ?>" class="btn">В каталог</a>
+                <div class="page404-subheader"><?= Yii::t('app', 'Пошук по вашому запиту не дав результатів') ?></div>
+                <a href="<?= Url::to(['/catalog/index']) ?>" class="btn"><?= Yii::t('app', 'В каталог') ?></a>
             </div>
         <?php } ?>
     </div>
 </article>
 
 <?php if (!$products) { ?>
-    <?= \frontend\widgets\CarouselWidget::widget(['title' => 'Рекомендовані товари']) ?>
+    <?= \frontend\widgets\PopularProductsWidget::widget(['title' => Yii::t('app', 'Рекомендовані товари')]) ?>
 <?php } ?>

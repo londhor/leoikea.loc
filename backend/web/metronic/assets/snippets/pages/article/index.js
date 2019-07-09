@@ -115,7 +115,7 @@ var ArticleIndexDataTable = function() {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="/article/update?id=` + full.Id + `"><i class="la la-edit"></i> Редагувати</a>
-                                    <a class="dropdown-item" data-method="post" data-confirm="Вы уверены что хотите удалить эту новость?" href="/article/delete?id=` + full.Id + `"><i class="la la-user-times"></i> Видалити</a>
+                                    <a class="dropdown-item" data-method="post" data-confirm="Ви впевнені чщо хочете видалити цю статтю?" href="/article/delete?id=` + full.Id + `"><i class="la la-user-times"></i> Видалити</a>
                                 </div>
                             </span>`;
                     },

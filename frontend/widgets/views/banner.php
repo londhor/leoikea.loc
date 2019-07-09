@@ -1,6 +1,8 @@
 <?php
 
 /** @var $this \yii\web\View */
+/** @var $title string */
+/** @var $description string */
 
 use yii\helpers\Url;
 
@@ -10,14 +12,16 @@ use yii\helpers\Url;
         <div class="hero-illustration"></div>
         <div class="hero-content">
             <div class="hero-header">
-                Швидка доставка<br>товарів з&nbsp;Ікея
+                <?= $title ?>
             </div>
-            <div class="hero-subheader">
-                Актуальні ціни та асортимент. Відправка товарів зі складу впродовж двох днів, та до двох тижнів з Ikea. 
-            </div>
+            <?php if ($description !== '') { ?>
+                <div class="hero-subheader">
+                    <?= $description ?>
+                </div>
+            <?php } ?>
             <div class="hero-btns-wp">
-                <button @click="modal('search')" class="btn btn btn-row btn-white hero-btn-search" type="button">Пошук товарів</button>
-                <a href="<?= Url::to(['/catalog/index']) ?>" class="btn line btn-white hero-btn-catalog">В каталог</a>
+                <button @click="modal('search')" class="btn btn btn-row btn-white hero-btn-search" type="button"><?= Yii::t('app', 'Пошук товарів') ?></button>
+                <a href="<?= Url::to(['/catalog/index']) ?>" class="btn line btn-white hero-btn-catalog"><?= Yii::t('app', 'В каталог') ?></a>
             </div>
         </div>
     </div>

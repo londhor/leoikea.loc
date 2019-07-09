@@ -5,9 +5,7 @@
 /* @var $message string */
 /* @var $exception Exception */
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use frontend\widgets\CarouselWidget;
 
 $this->title = $name;
 
@@ -19,8 +17,8 @@ $this->title = $name;
             <div style="display: none;"><?= $message ?></div>
             <div class="page404-icon ic-404"></div>
             <div class="page404-header"><?= $exception->statusCode ?></div>
-            <div class="page404-subheader">Сторінку видалено чи переміщено по новій адресі</div>
-            <a href="<?= Url::to(['/site/index']) ?>" class="btn">На головну</a>
+            <div class="page404-subheader"><?= Yii::t('app', 'Сторінку видалено чи переміщено по новій адресі') ?></div>
+            <a href="<?= Url::to(['/site/index']) ?>" class="btn"><?= Yii::t('app', 'На головну') ?></a>
         </div>
     </div>
 </article>

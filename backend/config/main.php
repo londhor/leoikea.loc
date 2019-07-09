@@ -59,7 +59,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                '<_c:[\w-]+>s' => '<_c>/index',
+                '<_a:(login|logout)>' => 'site/<_a>',
+                '<_c:[\w-]+>' => '<_c>/index',
                 '<_c:[\w-]+>/<_a:[\w-]+>' => '<_c>/<_a>',
             ],
         ],

@@ -15,8 +15,8 @@ $this->params['breadcrumbs'] = [
     ['label' => ($model->isNewRecord ? 'Створення' : 'Редагування')],
 ];
 
-//\metronic\Metronic::registerJsFile($this, 'vendors/summernote/dist/summernote.min.js');
-//\metronic\Metronic::registerJsFile($this, 'assets/snippets/forms/summernote.js');
+\metronic\Metronic::registerJsFile($this, 'vendors/summernote/dist/summernote.min.js');
+\metronic\Metronic::registerJsFile($this, 'assets/snippets/forms/summernote.js');
 
 $horizontalOptions = ['options' => ['class' => 'form-group m-form__group row'], 'template' => "{label}\n{beginWrapper}\n{input}\n{error}\n{hint}\n{endWrapper}"];
 
@@ -29,7 +29,7 @@ $horizontalOptions = ['options' => ['class' => 'form-group m-form__group row'], 
                     <i class="la la-gear"></i>
                 </span>
                 <h3 class="m-portlet__head-text">
-                    <?= ($model->isNewRecord ? 'Сворення' : 'Редагування') . ' статті' ?>
+                    <?= ($model->isNewRecord ? 'Створення' : 'Редагування') . ' статті' ?>
                 </h3>
             </div>
         </div>
@@ -57,13 +57,13 @@ $horizontalOptions = ['options' => ['class' => 'form-group m-form__group row'], 
                 <div class="m-form__heading">
                     <h3 class="m-form__heading-title">2. Опис:</h3>
                 </div>
-                <?= $form->field($model, 'body', $horizontalOptions)->widget(\mihaildev\ckeditor\CKEditor::className(), [
-                    'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
-                        'preset' => 'small',
-                        'inline' => false,
-                    ]),
-                ]); ?>
-                <?//= $form->field($model, 'body', $horizontalOptions)->textarea(['class' => 'summernote']) ?>
+                <?php //= $form->field($model, 'body', $horizontalOptions)->widget(\mihaildev\ckeditor\CKEditor::className(), [
+                //    'editorOptions' => \mihaildev\elfinder\ElFinder::ckeditorOptions('elfinder', [
+                //        'preset' => 'small',
+                //        'inline' => false,
+                //    ]),
+                //]); ?>
+                <?= $form->field($model, 'body', $horizontalOptions)->textarea(['class' => 'summernote']) ?>
             </div>
         </div>
         <div class="m-portlet__foot m-portlet__foot--fit text-center">

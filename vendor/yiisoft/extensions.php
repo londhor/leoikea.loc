@@ -75,6 +75,33 @@ return array (
       '@dosamigos/transliterator' => $vendorDir . '/2amigos/yii2-transliterator-helper',
     ),
   ),
+  'yii2mod/yii2-enum' => 
+  array (
+    'name' => 'yii2mod/yii2-enum',
+    'version' => '1.7.1.0',
+    'alias' => 
+    array (
+      '@yii2mod/enum' => $vendorDir . '/yii2mod/yii2-enum',
+    ),
+  ),
+  'yii2mod/yii2-editable' => 
+  array (
+    'name' => 'yii2mod/yii2-editable',
+    'version' => '1.5.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/editable' => $vendorDir . '/yii2mod/yii2-editable',
+    ),
+  ),
+  'yii2mod/yii2-settings' => 
+  array (
+    'name' => 'yii2mod/yii2-settings',
+    'version' => '2.5.0.0',
+    'alias' => 
+    array (
+      '@yii2mod/settings' => $vendorDir . '/yii2mod/yii2-settings',
+    ),
+  ),
   'yiisoft/yii2-debug' => 
   array (
     'name' => 'yiisoft/yii2-debug',

@@ -156,6 +156,27 @@
         "installation-source": "dist"
     },
     {
+        "name": "bower-asset/x-editable",
+        "version": "1.5.1",
+        "version_normalized": "1.5.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vitalets/x-editable.git",
+            "reference": "f32802f48a33b8a7ec9cca32eec4ca844b7d39b2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vitalets/x-editable/zipball/f32802f48a33b8a7ec9cca32eec4ca844b7d39b2",
+            "reference": "f32802f48a33b8a7ec9cca32eec4ca844b7d39b2",
+            "shasum": null
+        },
+        "require": {
+            "bower-asset/jquery": ">=1.6"
+        },
+        "type": "bower-asset",
+        "installation-source": "dist"
+    },
+    {
         "name": "bower-asset/yii2-pjax",
         "version": "2.0.7.1",
         "version_normalized": "2.0.7.1",
@@ -305,17 +326,17 @@
     },
     {
         "name": "egulias/email-validator",
-        "version": "2.1.8",
-        "version_normalized": "2.1.8.0",
+        "version": "2.1.9",
+        "version_normalized": "2.1.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/egulias/EmailValidator.git",
-            "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98"
+            "reference": "128cc721d771ec2c46ce59698f4ca42b73f71b25"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c26463ff9241f27907112fbcd0c86fa670cfef98",
-            "reference": "c26463ff9241f27907112fbcd0c86fa670cfef98",
+            "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/128cc721d771ec2c46ce59698f4ca42b73f71b25",
+            "reference": "128cc721d771ec2c46ce59698f4ca42b73f71b25",
             "shasum": ""
         },
         "require": {
@@ -330,7 +351,7 @@
         "suggest": {
             "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
         },
-        "time": "2019-05-16T22:02:54+00:00",
+        "time": "2019-06-23T10:14:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1035,6 +1056,156 @@
         ]
     },
     {
+        "name": "yii2mod/yii2-editable",
+        "version": "1.5",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yii2mod/yii2-editable.git",
+            "reference": "21099a75670b6a406484afadf05ddd415774f4a6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yii2mod/yii2-editable/zipball/21099a75670b6a406484afadf05ddd415774f4a6",
+            "reference": "21099a75670b6a406484afadf05ddd415774f4a6",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/x-editable": "*",
+            "yiisoft/yii2": "*"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "~2.0"
+        },
+        "time": "2018-01-15T15:00:16+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii2mod\\editable\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Igor Chepurnoi",
+                "email": "igorzfort@gmail.com"
+            }
+        ],
+        "description": "Yii2 editable field extension",
+        "keywords": [
+            "yii2",
+            "yii2 editable",
+            "yii2 editable column",
+            "yii2 editable field"
+        ]
+    },
+    {
+        "name": "yii2mod/yii2-enum",
+        "version": "1.7.1",
+        "version_normalized": "1.7.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yii2mod/yii2-enum.git",
+            "reference": "7af030e19636ece5fd0adb5d6012d2b03fa63895"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yii2mod/yii2-enum/zipball/7af030e19636ece5fd0adb5d6012d2b03fa63895",
+            "reference": "7af030e19636ece5fd0adb5d6012d2b03fa63895",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "yiisoft/yii2": "*"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "~2.0"
+        },
+        "time": "2017-04-19T22:06:46+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii2mod\\enum\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Dmitry Semenov",
+                "email": "disemx@gmail.com"
+            },
+            {
+                "name": "Igor Chepurnoi",
+                "email": "igorzfort@gmail.com"
+            }
+        ],
+        "description": "Yii2 Enumerable helpers",
+        "keywords": [
+            "enumerable helper",
+            "yii2",
+            "yii2 enum"
+        ]
+    },
+    {
+        "name": "yii2mod/yii2-settings",
+        "version": "2.5",
+        "version_normalized": "2.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yii2mod/yii2-settings.git",
+            "reference": "a336b5a38143999f275f023702790b3838acc214"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yii2mod/yii2-settings/zipball/a336b5a38143999f275f023702790b3838acc214",
+            "reference": "a336b5a38143999f275f023702790b3838acc214",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.1.0",
+            "yii2mod/yii2-editable": "*",
+            "yii2mod/yii2-enum": "*",
+            "yiisoft/yii2": "~2.0.10"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "~2.0",
+            "phpunit/phpunit": "^7.3"
+        },
+        "time": "2018-08-20T19:39:14+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yii2mod\\settings\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Igor Chepurnoi",
+                "email": "chepurnoi.igor@gmail.com"
+            }
+        ],
+        "description": "Yii2 Settings Module",
+        "keywords": [
+            "Settings",
+            "config",
+            "storage",
+            "yii2"
+        ]
+    },
+    {
         "name": "yii2tech/file-storage",
         "version": "1.1.4",
         "version_normalized": "1.1.4.0",
@@ -1091,17 +1262,17 @@
     },
     {
         "name": "yiisoft/yii2",
-        "version": "2.0.20",
-        "version_normalized": "2.0.20.0",
+        "version": "2.0.22",
+        "version_normalized": "2.0.22.0",
         "source": {
             "type": "git",
             "url": "https://github.com/yiisoft/yii2-framework.git",
-            "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f"
+            "reference": "417299927ed14adcd51c69a9d75311c5fc33d227"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/bd05e0e0ac353cb239997da78f459d0960a1fe9f",
-            "reference": "bd05e0e0ac353cb239997da78f459d0960a1fe9f",
+            "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/417299927ed14adcd51c69a9d75311c5fc33d227",
+            "reference": "417299927ed14adcd51c69a9d75311c5fc33d227",
             "shasum": ""
         },
         "require": {
@@ -1117,7 +1288,7 @@
             "php": ">=5.4.0",
             "yiisoft/yii2-composer": "~2.0.4"
         },
-        "time": "2019-06-04T19:10:59+00:00",
+        "time": "2019-07-02T20:28:40+00:00",
         "bin": [
             "yii"
         ],
