@@ -27,7 +27,12 @@
 }
 
 
-
+.ic-p-card:before {
+  content: "\e931";
+}
+.ic-p-cash:before {
+  content: "\e932";
+}
 .ic-m-minus:before {
   content: "\e92e";
 }

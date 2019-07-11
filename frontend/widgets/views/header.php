@@ -12,7 +12,7 @@ $priceSettings = Yii::$app->priceSettings;
  
 ?>
 
-<?php if ($_SERVER['SERVER_NAME']=='beta.ikea.lviv.ua'): ?>
+<?php if ($_SERVER['SERVER_NAME']!='ikea.lviv.ua'): ?>
 <div style="position: fixed;z-index: 9999999;background-color: transparent;width: 100%;height: 100%;display: flex;align-items: center;justify-content: center;color: rgb(0, 0, 0);font-size: 20vw;opacity: 0.15;pointer-events: none;text-shadow: rgb(255, 255, 255) 3px 2px;">BETA</div>
 <?php endif; ?>
 <header id="header" :class="{ min:pageScroll >= 60 }">

@@ -4,8 +4,8 @@ if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] === '31.202.56.219
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 } else {
-    defined('YII_DEBUG') or define('YII_DEBUG', false);
-    defined('YII_ENV') or define('YII_ENV', 'prod');
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+    defined('YII_ENV') or define('YII_ENV', 'dev');
 }
 
 require __DIR__ . '/../../vendor/autoload.php';

@@ -3,6 +3,10 @@
 /* @var $this yii\web\View */
 
 ?>
+<template id="preloader" style="display:none">
+        <div class="md-preloader"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="75" width="75" viewbox="0 0 75 75"><circle cx="37.5" cy="37.5" r="33.5" stroke-width="8"/></svg></div>
+</template>
+
 <template id="v-modal" style="display:none">
     <div class="modal" :class="[{active:show},{leave:leave_class}]" :id="'modal_'+class_name">
         <button class="modal-close-bg" @click="close()"></button>

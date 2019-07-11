@@ -13,6 +13,10 @@ Vue.component('mtoggle', {
     },
 });
 
+Vue.component('preloader', {
+    template:'#preloader',
+});
+
 Vue.component('qtcounter', {
     template:'#qtcounter',
     props: {
@@ -273,6 +277,7 @@ var app = new Vue({
         mobileMenu: false,
         menuSubCat: 1,
         siTab: 1,
+        skidka: 3,
 
         //// hadrcode
         optionsData: false,
@@ -281,6 +286,45 @@ var app = new Vue({
         //// hadrcode - end
     },
     methods: {
+        totalCartPriceToPayment: function() {
+            try {
+                if (this.skidka<10) {
+                    return this.totalCartPrice() - this.getSkidka();
+                }
+            } catch {
+
+            }
+        },
+        getSkidka: function() {
+            try {
+                return (this.totalCartPrice()/100)*this.skidka;
+            } catch {
+                return this.totalCartPrice();
+            }
+        },
+        totalCartPrice: function() {
+            try {
+                return this.$refs.cartItems.totalCartPrice();
+            } catch {
+
+            }
+        },
+        initSearch: function(type='modal') {
+            el=false;
+            if (type=='searchpage') {
+                el = document.querySelector('.search-form-page-search');
+                el.classList.add('activeSearch');
+                el = el.querySelector('.md-preloader');
+            } else {
+                el = document.getElementById('modal_search');
+                el.classList.add('activeSearch');
+                el = el.querySelector('.md-preloader');
+            }
+
+            if (el) {
+                el.classList.add('active');
+            }
+        },
         mobileMenuChangeStatus: function() {
             if (this.mobileMenu) {
                 try {
@@ -394,8 +438,12 @@ var app = new Vue({
             data = new FormData(form);
             data.set('action',action);
 
-            formTnxEl = form.querySelector(".form_tnx");
+            if (action=='booking') {
+                data.set('cart', this.getCartJson());
+                data.set('skidka', this.skidka);
+            }
 
+            formTnxEl = form.querySelector(".form_tnx");
             if (formTnxEl) {
                formTnxEl.classList.add("active");
             }
@@ -405,6 +453,7 @@ var app = new Vue({
                     form.reset();
                 }
             }, 500);
+
             ajax(action, data);
             return false;
         },
@@ -710,3 +759,5 @@ function initSliders() {
         console.log('.feedback-slider is empty');
     }
 }
+
+// app.modal('booking');

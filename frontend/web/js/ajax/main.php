@@ -35,7 +35,9 @@ function booking($data) {
 	$stm = $pdo->prepare($sql);
 	$stm->execute($data);
 
-	sendNotification();
+	if ($_SERVER['SERVER_NAME']=='ikea.lviv.ua') {
+		sendNotification();
+	}
 
 }
 

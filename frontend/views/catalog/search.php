@@ -11,8 +11,8 @@ use yii\helpers\Url;
 ?>
 <article class="page-article">
     <div class="container page-container">
-
-        <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="fbp('Search')">
+        <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="$root.initSearch('searchpage');fbp('Search')">
+            <preloader></preloader>
             <div class="input-wp search-form-input-wp">
                 <input type="text" value="<?=Html::encode(Yii::t('app', '{query}', ['query' => $query])) ?>" name="query" class="search-form-input" required autofocus>
                 <?php if (!$query): ?>
