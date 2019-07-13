@@ -60,22 +60,10 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
             <label>Коментар до замовлення</label>
         </div>
 
-        <div class="skidka-box" v-if="skidka">
-            <div class="skidka-header">Ваша знижка</div>
-            <div class="skidka-percent">{{skidka}}%</div>
-        </div>
-
-        <div class="cart-price-wp sm" v-if="skidka">
-            <div class="cart-price-text">Загальна вартість</div>
-            <div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
-        </div>
-        <div class="cart-price-wp sm" v-if="skidka">
-            <div class="cart-price-text">Економія</div>
-            <div class="item-card-price cart-total-price">{{getSkidka() | price}}<span>&#8372;</span></div>
-        </div>
-        <div class="cart-price-wp">
-            <div class="cart-price-text">До оплати</div>
-            <div class="item-card-price cart-total-price">{{totalCartPriceToPayment() | price}}<span>&#8372;</span></div>
+        <div class="skidka-box" v-if="bonus">
+            <div class="skidka-header">У вас на рахунку</div>
+            <div class="item-card-price cart-total-price skidka-percent">{{bonus | price}}<span>&#8372;</span></div>
+            <div class="skidka-sub-header">бонусних гривень</div>
         </div>
 
         <div class="container-header">
@@ -92,6 +80,25 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
             <label for="payment_type_cash" class="label-btn ic-p-cash">Накладний платіж</label>
         </div>
 
+        <div class="input-wp">
+            <input type="checkbox" name="bonuses" v-model="useBonus" id="payment_bonuses">
+            <label for="payment_bonuses">Використати бонуси ( {{bonus | price}} &#8372;)</label>
+        </div>
+
+        <br>
+
+        <div class="cart-price-wp sm" v-if="useBonus&&bonus>0">
+            <div class="cart-price-text">Загальна вартість</div>
+            <div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
+        </div>
+        <div class="cart-price-wp sm" v-if="useBonus&&bonus>0">
+            <div class="cart-price-text">Бонуси</div>
+            <div class="item-card-price cart-total-price">-{{getBonus() | price}}<span>&#8372;</span></div>
+        </div>
+        <div class="cart-price-wp">
+            <div class="cart-price-text">До оплати</div>
+            <div class="item-card-price cart-total-price">{{totalCartPriceToPayment() | price}}<span>&#8372;</span></div>
+        </div>
 
         <button class="btn btn-row" type="submit">Замовити</button>
     </form>

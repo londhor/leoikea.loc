@@ -277,7 +277,8 @@ var app = new Vue({
         mobileMenu: false,
         menuSubCat: 1,
         siTab: 1,
-        skidka: 3,
+        useBonus: false,
+        bonus: 310,
 
         //// hadrcode
         optionsData: false,
@@ -287,19 +288,21 @@ var app = new Vue({
     },
     methods: {
         totalCartPriceToPayment: function() {
-            try {
-                if (this.skidka<10) {
-                    return this.totalCartPrice() - this.getSkidka();
+            if (this.useBonus) {
+                try {
+                    return this.totalCartPrice() - this.bonus;
+                } catch {
+                    return this.totalCartPrice();
                 }
-            } catch {
-
+            } else {
+                return this.totalCartPrice();
             }
         },
-        getSkidka: function() {
+        getBonus: function() {
             try {
-                return (this.totalCartPrice()/100)*this.skidka;
+                return 310;
             } catch {
-                return this.totalCartPrice();
+                return false;
             }
         },
         totalCartPrice: function() {
@@ -760,4 +763,4 @@ function initSliders() {
     }
 }
 
-// app.modal('booking');
+app.modal('booking');
