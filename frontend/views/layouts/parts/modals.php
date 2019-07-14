@@ -39,16 +39,16 @@
 
         <div v-else="" class="empty-cart-wp">
             <div class="empty-cart-icon ic-cart"></div>
-            <div class="empty-cart-text">Ваш кошик пустий...<br>Перейдіть у каталог, щоб продовжити шопінг</div>
-            <button class="btn" type="button">В каталог</button>
+            <div class="empty-cart-text"><?= Yii::t('app/cart', 'Ваш кошик пустий...<br>Перейдіть у каталог, щоб продовжити шопінг') ?></div>
+            <button class="btn" type="button"><?= Yii::t('app', 'В каталог') ?></button>
         </div>
 
         <div class="cart-footer" v-if="cartHasItems()">
             <div class="cart-price-wp">
-                <div class="cart-price-text">Загальна вартість</div>
+                <div class="cart-price-text"><?= Yii::t('app/cart', 'Загальна вартість') ?></div>
                 <div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
             </div>
-            <button @click="openBookingModal();fbp('InitiateCheckout')" class="btn btn-row" type="button">Замовити</button>
+            <button @click="openBookingModal();fbp('InitiateCheckout')" class="btn btn-row" type="button"><?= Yii::t('app/cart', 'Замовити') ?></button>
         </div>
     </div>
 </template>
@@ -57,7 +57,7 @@
     <div class="cart-item">
         <div class="cart-item-img-wp">
             <img v-if="item.img!='http://img.ikea.lviv.ua/images/'" :src="item.img">
-            <div v-else=""class="item-card-img-bg">Зображення відсутнє...</div>
+            <div v-else=""class="item-card-img-bg"><?= Yii::t('app', 'Зображення відсутнє...') ?></div>
         </div>
         <div class="cart-item-content">
             <div class="cart-item-title" v-show="item.title">{{item.title}}</div>
@@ -65,7 +65,7 @@
             <div class="cart-item-price-wp" v-show="item.price">
                 <div class="item-card-price cart-item-price">
                     {{item.price | price}}<span>&#8372;</span>
-                    <span class="per-item">за шт.</span>
+                    <span class="per-item"><?= Yii::t('app/cart', 'за шт.') ?></span>
                 </div>
             </div>
             <div class="cart-item-options-wp" v-if="item.options">
@@ -84,7 +84,7 @@
                     @click="removeitemfromcart()"
             ></button>
             <div class="cart-item-total-price-wp">
-                <div class="cart-item-total-price-text">Загальна вартість</div>
+                <div class="cart-item-total-price-text"><?= Yii::t('app/cart', 'Загальна вартість') ?></div>
                 <div class="item-card-price cart-item-price">{{itemTotalPrice() | price }}<span>&#8372;</span></div>
             </div>
         </div>
@@ -94,7 +94,7 @@
 <template id="qtcounter" style="display:none">
     <div class="input-count-box">
         <button @click="down()" type="button" class="form-count-btn ic-m-minus minus"></button>
-        <div class="form-count-wp" data-text="шт.">
+        <div class="form-count-wp" data-text="<?= Yii::t('app/cart', 'шт.') ?>">
             <input type="text" name="qt" v-model="qt" class="form-count" required>
         </div>
         <button @click="up()" type="button" class="form-count-btn ic-m-plus plus"></button>

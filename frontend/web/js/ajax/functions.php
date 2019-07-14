@@ -3,48 +3,69 @@
 use classes\QueryBuilder as QB;
 
 
-
-        // bonusToEat: function() {
-        //     if (this.totalCartPrice()>this.bonus) {
-        //         return this.bonus;
-        //     } else {
-        //         return this.bonus - (this.bonus-this.totalCartPrice());
-        //     }
-        // },
-
-        // totalCartPriceToPayment: function() {
-        //     if (this.useBonus) {
-        //         return this.totalCartPrice() - this.bonusToEat();
-        //     } else {
-        //         return this.totalCartPrice();
-        //     }
-        // },
-
-
-
-
 // ACTIONS *****************************************
 
 function booking($data) {
+	// clear data
+
+	$removedBonus=0;
+	$booking_id=123321;
 
 	$QB = new QB;
-	// $QB->create('bookings', $data);
+	// $booking_id = $QB->create('bookings', $data);
 
-	$cart = json_decode($data['cart']);
+	$cart = json_decode($data['cart'], true);
 	$totalCartPrice = getTotalCartPrice($cart);
 
 	if (isset($data['bonus'])) { // if user need to use bonuses
-		removeBonuses($data['phone'], $totalCartPrice);
+		$removedBonus = removeBonuses($data['phone'], $totalCartPrice);
 	}
 
+	$priceToPayment = round($totalCartPrice-$removedBonus);
+
 	if (isset($data['phone'])) {
-		addBonus($data['phone'], $totalCartPrice); // !==========начислять бонусы только на сумма корзины-бонусы !==========
+		addBonus($data['phone'], $priceToPayment); // !==========начислять бонусы только на сумма корзины-бонусы !==========
 	}
+
 
 	if ($_SERVER['SERVER_NAME']=='ikea.lviv.ua') {
 		sendNotification();
 	}
 
+	echo "price to payment: $priceToPayment //</br>";
+
+	if (isset($data['paymenttype'])=='card') {
+		$payment_url = merchantAction($priceToPayment, $booking_id, $cart);	
+	}
+
+}
+
+// MERCHANT *****************************************
+
+function merchantAction($amount, $booking_id, $cart) {
+
+	// \Cloudipsp\Configuration::setMerchantId(MERCHANT_ID);
+	// \Cloudipsp\Configuration::setSecretKey(MERCHANT_SECRET_KEY);
+
+	// Sandbox
+	\Cloudipsp\Configuration::setMerchantId(1396424);
+	\Cloudipsp\Configuration::setSecretKey('test');
+	
+	$checkoutData = [
+	    'currency' => 'UAH',
+	    'amount' => $amount,
+        'order_id' => $booking_id,
+        
+        /// TEST //////////////////////////////
+        'order_desc' => 'API TEST DESCRIPTION',
+        'default_payment_system' => 'p24',
+        'merchant_data' => $cart,
+        'order_id' => time(),
+	];
+	$mdata = \Cloudipsp\Checkout::url($checkoutData);
+	$url = $mdata->getUrl();
+	print_r($url);
+	// $mdata->toCheckout();
 }
 
 // BONUS & USER *****************************************
@@ -63,8 +84,9 @@ function removeBonuses($phone, $totalCartPrice) {
 	$QB = new QB;
 	$QB->updateField('clients', 'bonus', 'phone', $phone, $newUserBonuses);
 
-	echo 'bonus ballance after removed:'.getBonus($phone).'<br>';
-	return getBonus($phone);
+	echo 'bonus ballance after removed:'.getBonus($phone).'//</br>';
+	echo 'removed bonuses:'.getBonus($removedBonuses).'//</br>';
+	return $removedBonuses;
 }
 
 function addBonus($phone, $totalCartPrice) {
@@ -75,7 +97,7 @@ function addBonus($phone, $totalCartPrice) {
 	$QB = new QB;
 	$QB->updateField('clients', 'bonus', 'phone', $phone, $newBonusBalance);
 
-	echo 'new bonus ballance:'.$newBonusBalance.'<br>';
+	echo 'new bonus ballance:'.$newBonusBalance.'//</br>';
 
 	return $newBonusBalance;
 }
@@ -88,7 +110,7 @@ function getBonus($phone) {
 
 	$QB = new QB;
 	$bonus = $QB->getField('clients', 'bonus', 'phone', $phone);
-
+	print_r($bonus);
 	return $bonus;
 }
 
@@ -100,7 +122,7 @@ function getTotalCartPrice($cart) {
 
 	if ($cart) {
 		foreach ($cart as $item) {
-			$totalCartPrice+=$item->price * $item->count;
+			$totalCartPrice+=$item['price'] * $item['count'];
 		}
 	}
 

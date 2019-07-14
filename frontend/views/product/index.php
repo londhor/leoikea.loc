@@ -62,7 +62,7 @@ $priceSettings = Yii::$app->priceSettings;
             <div class="si-main-content-wp">
                 <div class="si-main-content-container">
                     <div class="si-main-content">
-                        <div class="si-article"><span>Артикул</span><?= Html::encode($product->article) ?></div>
+                        <div class="si-article"><span><?= Yii::t('app/product', 'Артикул') ?></span><?= Html::encode($product->article) ?></div>
                         <h1 class="si-title"><?= Html::encode($product->titleLang) ?></h1>
                         <h2 class="si-subheader"><?= Html::encode($product->descrLang) ?></h2>
                         <div class="item-card-price-wp si-item-card-price-wp">
@@ -93,7 +93,7 @@ $priceSettings = Yii::$app->priceSettings;
 
                         <div class="si-form-row">
                             <div class="form-count-row">
-                                <div class="input-header form-count-title"><?= Yii::t('app', 'Кількість:') ?></div>
+                                <div class="input-header form-count-title"><?= Yii::t('app/product', 'Кількість:') ?></div>
                                 <qtcounter/>
                             </div>
                         </div>
@@ -104,15 +104,15 @@ $priceSettings = Yii::$app->priceSettings;
                             </div>
                         </div>
 
-                        <button class="btn btn-row ic-cart-add" v-if="!itemInCart('<?= $product->id ?>')" type="submit"><?= Yii::t('app', 'Додати в кошик') ?></button>
-                        <div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="itemInCart('<?= $product->id ?>')"><?= Yii::t('app', 'Товар вже в кошику') ?></div>
+                        <button class="btn btn-row ic-cart-add" v-if="!itemInCart('<?= $product->id ?>')" type="submit"><?= Yii::t('app/cart', 'Додати в кошик') ?></button>
+                        <div class="btn btn-row add-to-cart-btn add-to-cart-btn-disable" v-else="itemInCart('<?= $product->id ?>')"><?= Yii::t('app/cart', 'Товар вже в кошику') ?></div>
 
                         <div class="form_tnx">
-                            <div class="form_tnx_header"><?= Yii::t('app', 'Товар додано в кошик') ?></div>
+                            <div class="form_tnx_header"><?= Yii::t('app/cart', 'Товар додано в кошик') ?></div>
                             <div class="form_tnx_subheader">
-                                <?= Yii::t('app', 'Відкрийте кошик, щоб оформити чи змінити замовлення') ?>
+                                <?= Yii::t('app/cart', 'Відкрийте кошик, щоб оформити чи змінити замовлення') ?>
                             </div>
-                            <button type="button" @click="modal('cart')" class="btn sm btn-white form_tnx_btn ic-cart-move"><?= Yii::t('app', 'Відкрити кошик') ?></button>
+                            <button type="button" @click="modal('cart')" class="btn sm btn-white form_tnx_btn ic-cart-move"><?= Yii::t('app/cart', 'Відкрити кошик') ?></button>
                         </div>
 
                     </form>
@@ -126,23 +126,23 @@ $priceSettings = Yii::$app->priceSettings;
     <div class="container si-tabs-contaioner">
         <div class="si-tab-header-pc-wp">
             <?php if ($product->infoLang) { ?>
-                <button @click="siTab=1" :class="{active:siTab==1}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app', 'Опис та розміри') ?></button>
+                <button @click="siTab=1" :class="{active:siTab==1}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Опис та розміри') ?></button>
             <?php } ?>
             <?php if ($product->documentations) { ?>
-                <button @click="siTab=2" :class="{active:siTab==2}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app', 'Інструкції') ?></button>
+                <button @click="siTab=2" :class="{active:siTab==2}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Інструкції') ?></button>
             <?php } ?>
             <?php if ($packageLang = $product->packageLang) { ?>
-                <button @click="siTab=3" :class="{active:siTab==3}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app', 'Комплект') ?></button>
+                <button @click="siTab=3" :class="{active:siTab==3}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Комплект') ?></button>
             <?php } ?>
             <?php if ($product->materialsLang) { ?>
-                <button @click="siTab=4" :class="{active:siTab==4}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app', 'Інше') ?></button>
+                <button @click="siTab=4" :class="{active:siTab==4}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Інше') ?></button>
             <?php } ?>
         </div>
         <div class="si-tabs">
 
             <?php if ($product->infoLang) { ?>
                 <div class="si-tab" :class="{active:siTab==1}">
-                    <button type="button" @click="siTab=1" class="si-tab-btn si-tab-header ic-arrow-down">Опис та розміри</button>
+                    <button type="button" @click="siTab=1" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app/product', 'Опис та розміри') ?></button>
                     <div class="content si-tab-container">
                         <?= $product->infoLang ?>
                     </div>
@@ -151,14 +151,14 @@ $priceSettings = Yii::$app->priceSettings;
 
             <?php if ($product->documentations) { ?>
                 <div class="si-tab" :class="{active:siTab==2}">
-                    <button type="button" @click="siTab=2" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app', 'Інструкції') ?></button>
+                    <button type="button" @click="siTab=2" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app/product', 'Інструкції') ?></button>
                     <div class="content si-tab-container">
 
                         <div class="doc-table">
                             <?php foreach ($product->documentations as $documentation) { ?>
                                 <div class="doc-row">
                                     <div class="doc-title"><?= Html::encode($documentation->titleLang) ?></div>
-                                    <div class="doc-link-td"><a href="<?= $documentation->url ?>" target="blank"><?= Yii::t('app', 'Переглянути документацію') ?></a></div>
+                                    <div class="doc-link-td"><a href="<?= $documentation->url ?>" target="blank"><?= Yii::t('app/product', 'Переглянути документацію') ?></a></div>
                                 </div>
                             <?php } ?>
                         </div>
@@ -169,18 +169,18 @@ $priceSettings = Yii::$app->priceSettings;
 
             <?php if ($packageLang) { ?>
                 <div class="si-tab" :class="{active:siTab==3}">
-                    <button type="button" @click="siTab=3" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app', 'Комплект') ?></button>
+                    <button type="button" @click="siTab=3" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app/product', 'Комплект') ?></button>
                     <div class="content si-tab-container">
                         <table class="tbl-pkg">
                             <thead>
                             <tr>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Артикул') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Кількість') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Ширина') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Висота') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Довжина') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Діаметр') ?></th>
-                                <th class="tbl-pkg__title"><?= Yii::t('app', 'Вага') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Артикул') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Кількість') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Ширина') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Висота') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Довжина') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Діаметр') ?></th>
+                                <th class="tbl-pkg__title"><?= Yii::t('app/product', 'Вага') ?></th>
                             </tr>
                             </thead>
                             <?php $emptyTag = '<span class="tbl-pkg__empty">-</span>' ?>
@@ -209,7 +209,7 @@ $priceSettings = Yii::$app->priceSettings;
 
             <?php if ($product->materialsLang) { ?>
                 <div class="si-tab" :class="{active:siTab==4}">
-                    <button type="button" @click="siTab=4" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app', 'Інше') ?></button>
+                    <button type="button" @click="siTab=4" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app/product', 'Інше') ?></button>
                     <div class="content si-tab-container">
                         <?= $product->materialsLang ?>
                     </div>

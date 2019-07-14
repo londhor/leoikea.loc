@@ -14,13 +14,13 @@ use yii\helpers\Url;
         <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="$root.initSearch('searchpage');fbp('Search')">
             <preloader></preloader>
             <div class="input-wp search-form-input-wp">
-                <input type="text" value="<?=Html::encode(Yii::t('app', '{query}', ['query' => $query])) ?>" name="query" class="search-form-input" required autofocus>
-                <?php if (!$query): ?>
-                    <label>Пошук...</label>
-                <?php endif ?>
+                <input type="text" value="<?= Html::encode($query) ?>" name="query" class="search-form-input" required>
+                <?php if (!$query) { ?>
+                    <label><?= Yii::t('app/search', 'Пошук...') ?></label>
+                <?php } ?>
                 <button class="btn ic-close search-reset-btn" type="reset"></button>
             </div>
-            <button class="btn btn-row" type="submit">Пошук</button>
+            <button class="btn btn-row" type="submit"><?= Yii::t('app/search', 'Пошук') ?></button>
         </form>
 
         <?php if ($products) { ?>
@@ -41,7 +41,7 @@ use yii\helpers\Url;
             ]) ?>
         <?php } else { ?>
             <div class="page404-wp">
-                <div class="page404-subheader"><?= Yii::t('app', 'Пошук по вашому запиту не дав результатів') ?></div>
+                <div class="page404-subheader"><?= Yii::t('app/search', 'Пошук по вашому запиту не дав результатів') ?></div>
                 <a href="<?= Url::to(['/catalog/index']) ?>" class="btn"><?= Yii::t('app', 'В каталог') ?></a>
             </div>
         <?php } ?>

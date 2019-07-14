@@ -2919,6 +2919,11 @@ th {
     transition: .3s linear;
 }
 
+.input-wp+.container-header {
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
 
 /************** skidka-box *****************/
 

@@ -1,6 +1,7 @@
 <?php
 
 // Database ///////////////////////////////////////
+
 if ($_SERVER['SERVER_NAME']=='beta.leoikea.loc') {
 	define('DB_DRIVER','mysql');
 	define('DB_HOST','localhost');
@@ -16,10 +17,14 @@ if ($_SERVER['SERVER_NAME']=='beta.leoikea.loc') {
 }
 
 
+// BONUS /////////////////////////////////////
+
 define('BONUS_PERCENT', 3);
 
 
 // MERCHANT /////////////////////////////////////
 
-define('MERCHANT_ID', 12);
-define('MERCHANT_SECRET_KEY', 12);
+define('MERCHANT_ID', 1425859);
+define('MERCHANT_SECRET_KEY', '7dBnaZeX5dKJ5hgGnHjejaUHbQEEyHey');
+define('MERCHANT_CREDIT_SECRET_KEY', 'Si57oC4GSYPLK3fq2F3SmvhLelg75s5E');
+
