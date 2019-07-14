@@ -34,35 +34,35 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
 </v-modal>
 
 <v-modal ref="booking" name="booking">
-    <form class="booking-form" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking',$event);fbp('Purchase')">
+    <form class="booking-form" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking',$event);fbp('Purchase')" v-if="cartHasItems()">
         <div class="container-header">
             Оформлення замовлення
         </div>
-        <!-- <input type="hidden" name="cart" :value="getCartJson()"> -->
+
         <div class="input-wp">
-            <input type="text" name="fio" required>
+            <input type="text" name="fio" required value="алина карякина">
             <label>Ім'я та прізвище</label>
         </div>
         <div class="input-wp">
-            <input type="text" name="phone" required>
+            <input type="text" name="phone" class="phonenumber" @keyup="getUserBonus($event)" required value1="+380939104877">
             <label>Номер телефону</label>
         </div>
         <div class="input-wp">
-            <input type="text" name="city" required>
+            <input type="text" name="city" required value="киев">
             <label>Місто</label>
         </div>
         <div class="input-wp">
-            <input type="text" name="number" required>
+            <input type="text" name="number" required value="23">
             <label>Номер відділення</label>
         </div>
         <div class="input-wp">
-            <textarea name="msg"></textarea>
+            <textarea name="msg">Комментарий к заказу</textarea>
             <label>Коментар до замовлення</label>
         </div>
 
-        <div class="skidka-box" v-if="bonus">
+        <div class="skidka-box" v-if="getBonus()>0">
             <div class="skidka-header">У вас на рахунку</div>
-            <div class="item-card-price cart-total-price skidka-percent">{{bonus | price}}<span>&#8372;</span></div>
+            <div class="item-card-price cart-total-price skidka-percent">{{getBonus() | price}}<span>&#8372;</span></div>
             <div class="skidka-sub-header">бонусних гривень</div>
         </div>
 
@@ -71,29 +71,29 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
         </div>
 
         <div class="input-wp">
-            <input type="radio" name="paymenttype" value="card" required id="payment_type_card" checked>
+            <input v-model="paymentType" type="radio" name="paymenttype" value="card" required id="payment_type_card" checked>
             <label for="payment_type_card" class="label-btn ic-p-card">Онлайн оплата (VISA/MasterCard)</label>
         </div>
 
         <div class="input-wp">
-            <input type="radio" name="paymenttype" value="cash" required id="payment_type_cash">
+            <input v-model="paymentType" type="radio" name="paymenttype" value="cash" required id="payment_type_cash">
             <label for="payment_type_cash" class="label-btn ic-p-cash">Накладний платіж</label>
         </div>
 
-        <div class="input-wp">
-            <input type="checkbox" name="bonuses" v-model="useBonus" id="payment_bonuses">
-            <label for="payment_bonuses">Використати бонуси ( {{bonus | price}} &#8372;)</label>
+        <div class="input-wp use-skidka-input" v-if="getBonus()>0">
+            <input type="checkbox" name="bonus" v-model="useBonus" id="payment_bonuses">
+            <label for="payment_bonuses">Використати бонуси <b>&nbsp;({{ bonusToEat() | price}}&#8372;)</b></label>
         </div>
 
         <br>
 
-        <div class="cart-price-wp sm" v-if="useBonus&&bonus>0">
+        <div class="cart-price-wp sm" v-if="useBonus&&getBonus()>0">
             <div class="cart-price-text">Загальна вартість</div>
             <div class="item-card-price cart-total-price">{{totalCartPrice() | price}}<span>&#8372;</span></div>
         </div>
-        <div class="cart-price-wp sm" v-if="useBonus&&bonus>0">
+        <div class="cart-price-wp sm" v-if="useBonus&&getBonus()>0">
             <div class="cart-price-text">Бонуси</div>
-            <div class="item-card-price cart-total-price">-{{getBonus() | price}}<span>&#8372;</span></div>
+            <div class="item-card-price cart-total-price">-{{bonusToEat() | price}}<span>&#8372;</span></div>
         </div>
         <div class="cart-price-wp">
             <div class="cart-price-text">До оплати</div>
@@ -102,6 +102,11 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
 
         <button class="btn btn-row" type="submit">Замовити</button>
     </form>
+    <div v-else="" class="empty-cart-wp">
+        <div class="empty-cart-icon ic-cart"></div>
+        <div class="empty-cart-text">Ваш кошик пустий...<br>Перейдіть у каталог, щоб продовжити шопінг</div>
+        <button class="btn" type="button">В каталог</button>
+    </div>
 </v-modal>
 
 <v-modal ref="tnx" name="tnx">

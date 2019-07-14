@@ -65,10 +65,10 @@ return [
         ],
         'formatter' => [
             'numberFormatterOptions' => [
-                #NumberFormatter::MAX_FRACTION_DIGITS => 0,
+                // NumberFormatter::MAX_FRACTION_DIGITS => 0,
             ],
             'numberFormatterSymbols' => [
-                #NumberFormatter::CURRENCY_SYMBOL => '₴',
+                // NumberFormatter::CURRENCY_SYMBOL => '₴',
             ],
         ],
         'priceSettings' => [

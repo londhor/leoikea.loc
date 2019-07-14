@@ -2949,6 +2949,11 @@ th {
     text-align: center;
 }
 
+.input-wp~.input-wp.use-skidka-input {
+    margin-left: 19px;
+    margin-top: 20px;
+}
+
 /***************************************/
 /************** form_tnx ***************/
 /***************************************/
@@ -3164,6 +3169,11 @@ input[type=email]:not([type="checkbox"]):not([type="radio"]):not([type="file"]):
 input[type=password]:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus {
     border-bottom-color: var(--main);
     box-shadow: var(--shadow-hover);
+}
+
+input[name=fio],
+input[name=city] {
+    text-transform: capitalize;
 }
 
 

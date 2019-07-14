@@ -277,8 +277,12 @@ var app = new Vue({
         mobileMenu: false,
         menuSubCat: 1,
         siTab: 1,
+
+        //// bonuses
         useBonus: false,
-        bonus: 310,
+        bonus: false,
+        paymentType: 'card',
+        /////////////////
 
         //// hadrcode
         optionsData: false,
@@ -287,22 +291,41 @@ var app = new Vue({
         //// hadrcode - end
     },
     methods: {
-        totalCartPriceToPayment: function() {
-            if (this.useBonus) {
-                try {
-                    return this.totalCartPrice() - this.bonus;
-                } catch {
-                    return this.totalCartPrice();
+        // Bonuses ///////////////////////
+        getUserBonus: function(el) {
+            try {
+                phone = el.target.value;
+                if (phone.length>=17) {
+                    data=new FormData();
+                    data.set('action', 'getBonus');
+                    data.set('phone', phone);
+                    ajax('getBonus',data);
                 }
-            } else {
-                return this.totalCartPrice();
+            } catch {
+
             }
         },
         getBonus: function() {
             try {
-                return 310;
+                return this.bonus.bonus;
             } catch {
                 return false;
+            }
+        },
+        bonusToEat: function() {
+            if (this.totalCartPrice()>this.getBonus()) {
+                return this.getBonus();
+            } else {
+                return this.getBonus() - (this.getBonus()-this.totalCartPrice());
+            }
+        },
+        //////////////////////////////////
+        // cart price ///////////////////////
+        totalCartPriceToPayment: function() {
+            if (this.useBonus) {
+                return this.totalCartPrice() - this.bonusToEat();
+            } else {
+                return this.totalCartPrice();
             }
         },
         totalCartPrice: function() {
@@ -310,6 +333,14 @@ var app = new Vue({
                 return this.$refs.cartItems.totalCartPrice();
             } catch {
 
+            }
+        },
+        //////////////////////////////////
+        cartHasItems: function() {
+            try {
+                return this.$refs.cartItems.cartHasItems();
+            } catch {
+                return false;
             }
         },
         initSearch: function(type='modal') {
@@ -443,7 +474,6 @@ var app = new Vue({
 
             if (action=='booking') {
                 data.set('cart', this.getCartJson());
-                data.set('skidka', this.skidka);
             }
 
             formTnxEl = form.querySelector(".form_tnx");
@@ -534,6 +564,11 @@ var app = new Vue({
         //// hardcode -- END ..............................................................................................................
     },
     watch: {
+        useBonus: function() {
+            if (this.totalCartPriceToPayment()==0) {
+                this.paymentType = 'cash';
+            }
+        },
         optionsData: function() {
             createInputSelect();
         },
@@ -576,11 +611,20 @@ function ajax(action, data) {
                     app.getProductOptions_callback(req.response);
                 }
                 if (action=='booking') {
-                    app.modalClose('booking');
-                    app.modal('tnx');
+                    // app.modalClose('booking');
+                    // app.modal('tnx');
                     setTimeout(function() {
-                        app.$refs.cartItems.clearCart();
+                        // app.$refs.cartItems.clearCart();
                     }, 1000)
+                }
+                if (action=='getBonus') {
+                    bonus={
+                        'bonus':req.response,
+                    };
+                    Object.freeze(bonus);
+                    if (Object.isFrozen(bonus) && bonus.bonus == req.response) {
+                        app.bonus = bonus;
+                    }
                 }
             }
         }
@@ -763,4 +807,21 @@ function initSliders() {
     }
 }
 
+function inputsInit() {
+    var phoneinputs = document.querySelectorAll('.phonenumber');
+    if (phoneinputs) {
+        for (i=0;i<phoneinputs.length;i++) {
+            phoneinputs[i].n = new Cleave(phoneinputs[i], {
+                prefix: '+380',
+                delimiters: ['-','-', '-', '-'],
+                blocks: [4,2, 2, 2, 3],
+            });
+        }
+    }
+}
+
 app.modal('booking');
+
+window.onload = function() {
+    inputsInit();
+}
