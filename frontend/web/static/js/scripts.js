@@ -86,7 +86,7 @@ Vue.component("vModal", {
             self = this;
             setTimeout(function() {
                 self.leave_class = false;
-            }, 150);
+            }, 300);
         }
     }
 });
@@ -343,20 +343,17 @@ var app = new Vue({
                 return false;
             }
         },
-        initSearch: function(type='modal') {
-            el=false;
-            if (type=='searchpage') {
-                el = document.querySelector('.search-form-page-search');
-                el.classList.add('activeSearch');
-                el = el.querySelector('.md-preloader');
-            } else {
-                el = document.getElementById('modal_search');
-                el.classList.add('activeSearch');
-                el = el.querySelector('.md-preloader');
-            }
+        initFormPreloader: function(el, div) {
+            try {
+                if (!div) {
+                    el = el.target;
+                    el.classList.add('activePreloader');
+                } else {
+                    wp = document.querySelector(div);
+                    wp.classList.add('activePreloader');
+                }
+            } catch {
 
-            if (el) {
-                el.classList.add('active');
             }
         },
         mobileMenuChangeStatus: function() {
@@ -447,7 +444,7 @@ var app = new Vue({
                         console.log('bodyScrollLock error');
                     }
                     document.body.classList.add("body_fixed");
-                }, 150);
+                }, 300);
             }
         },
         modalClose: function(name) {
@@ -611,8 +608,10 @@ function ajax(action, data) {
                     app.getProductOptions_callback(req.response);
                 }
                 if (action=='booking') {
-                    // app.modalClose('booking');
-                    // app.modal('tnx');
+                    if (app.paymentType!='card') {
+                        app.modalClose('booking');
+                        app.modal('tnx');
+                    }
                     setTimeout(function() {
                         // app.$refs.cartItems.clearCart();
                     }, 1000)
@@ -820,7 +819,7 @@ function inputsInit() {
     }
 }
 
-app.modal('booking');
+// app.modal('booking');
 
 window.onload = function() {
     inputsInit();

@@ -11,16 +11,16 @@ use yii\helpers\Url;
 ?>
 <article class="page-article">
     <div class="container page-container">
-        <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="$root.initSearch('searchpage');fbp('Search')">
+        <form class="search-form search-form-page-search" action="<?= Url::to(['catalog/search']) ?>" method="get" @submit="$root.initFormPreloader($event);fbp('Search')">
             <preloader></preloader>
-            <div class="input-wp search-form-input-wp">
+            <div class="input-wp search-form-input-wp activePreloaderHide">
                 <input type="text" value="<?= Html::encode($query) ?>" name="query" class="search-form-input" required>
                 <?php if (!$query) { ?>
                     <label><?= Yii::t('app/search', 'Пошук...') ?></label>
                 <?php } ?>
                 <button class="btn ic-close search-reset-btn" type="reset"></button>
             </div>
-            <button class="btn btn-row" type="submit"><?= Yii::t('app/search', 'Пошук') ?></button>
+            <button class="btn btn-row activePreloaderHide" type="submit"><?= Yii::t('app/search', 'Пошук') ?></button>
         </form>
 
         <?php if ($products) { ?>

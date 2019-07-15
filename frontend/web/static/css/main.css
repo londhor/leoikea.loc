@@ -2674,18 +2674,15 @@ th {
     border-radius: 8px;
 }
 
+.search-form-page-search.activePreloader {
+}
+
 .page-search-container-header {
     text-align: center;
 }
 
-.search-form-page-search.activeSearch {
+.search-form-page-search.activePreloader {
     background-color: var(--hover-main);
-    transition: .3s linear;
-}
-
-.search-form-page-search.activeSearch>.search-form-input-wp,
-.search-form-page-search.activeSearch>.btn {
-    opacity: 0;
     transition: .3s linear;
 }
 
@@ -2764,7 +2761,7 @@ th {
 }
 
 .modal.leave>.modal_scroll {
-     animation: .15s slideFromCenter cubic-bezier(0.4, 0, 1, 1) both; 
+     animation: .3s slideFromCenter cubic-bezier(0.79, -0.15, 0.43, 0.14) both;
 }
 
 .modal:after {
@@ -3324,9 +3321,52 @@ input[type='radio']:checked + label.label-btn {
 /************** preloader **************/
 /***************************************/
 
-.md-preloader.active {
+.modal-tnx-container-booking {
+    display: none;
+    padding-top: 190px;
+    padding-bottom: 40px;
+    animation: .3s fade ease-in-out both .15s;
+}
+
+.activePreloader .activePreloaderHide,
+.activePreloader~.activePreloaderHide {
+    opacity: 0;
+    transition: .15s linear;
+}
+
+.activePreloader .modal_scroll {
+    background-color: var(--main);
+}
+
+.activePreloader .modal_close {
+    color: #fff;
+}
+.activePreloader .modal_close:hover {
+    color: var(--red);
+}
+
+.activePreloader .activePreloaderShow {
     display: block;
 }
+
+.activePreloader .md-preloader {
+    display: block;
+}
+
+.booking-form {
+    max-height: 3000px;
+}
+
+.activePreloader .modal-tnx-container-booking+.booking-form.activePreloaderHide {
+    max-height: 0px;
+    overflow: hidden;
+    transition: .15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#modal_booking .md-preloader {
+    top: calc(33% - 30px);
+}
+
 
 .md-preloader {
      display: none;
