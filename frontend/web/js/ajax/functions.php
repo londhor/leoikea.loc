@@ -2,11 +2,20 @@
 
 use classes\QueryBuilder as QB;
 
+// CATS *****************************************
+
+function cats() {
+	$QB = new QB;
+	print_r($QB->getAll('categories'));
+}
+
+
 
 // ACTIONS *****************************************
 
-function booking($data) {
-	// clear data
+function booking($data,$callback=true) {
+
+	$callback = true;
 
 	$removedBonus=0;
 	$booking_id=123321;
@@ -17,14 +26,17 @@ function booking($data) {
 	$cart = json_decode($data['cart'], true);
 	$totalCartPrice = getTotalCartPrice($cart);
 
-	if (isset($data['bonus'])) { // if user need to use bonuses
+	// if user need to use bonuses
+	if (isset($data['bonus'])) {
 		$removedBonus = removeBonuses($data['phone'], $totalCartPrice);
 	}
 
+	// Total cart payment
 	$priceToPayment = round($totalCartPrice-$removedBonus);
 
-	if (isset($data['phone'])) {
-		addBonus($data['phone'], $priceToPayment); // !==========начислять бонусы только на сумма корзины-бонусы !==========
+	// add bonus from payment
+	if (isset($data['phone'])) { 
+		addBonus($data['phone'], $priceToPayment);
 	}
 
 
@@ -32,10 +44,19 @@ function booking($data) {
 		sendNotification();
 	}
 
-	echo "price to payment: $priceToPayment //</br>";
+	// echo "price to payment: $priceToPayment //</br>";
 
 	if (isset($data['paymenttype'])=='card') {
 		$payment_url = merchantAction($priceToPayment, $booking_id, $cart);	
+	}
+
+	if ($callback) {
+		$callbackArr = array();
+
+		if (isset($payment_url)) {
+			$callbackArr['payment_url'] = $payment_url;
+			JsCallback('booking', $callbackArr);
+		}
 	}
 
 }
@@ -53,40 +74,45 @@ function merchantAction($amount, $booking_id, $cart) {
 	
 	$checkoutData = [
 	    'currency' => 'UAH',
-	    'amount' => $amount,
+	    'amount' => $amount*100,
         'order_id' => $booking_id,
         
         /// TEST //////////////////////////////
-        'order_desc' => 'API TEST DESCRIPTION',
+        'order_desc' => 'ikea.lviv.ua — оплата покупки',
         'default_payment_system' => 'p24',
         'merchant_data' => $cart,
         'order_id' => time(),
 	];
 	$mdata = \Cloudipsp\Checkout::url($checkoutData);
 	$url = $mdata->getUrl();
-	print_r($url);
+	return $url;
 	// $mdata->toCheckout();
 }
 
 // BONUS & USER *****************************************
 
 function removeBonuses($phone, $totalCartPrice) {
-	$userBonuses = getBonus($phone);
-
-	if ($totalCartPrice>$userBonuses) {
-	    $removedBonuses = $userBonuses;
-	} else {
-	    $removedBonuses = $userBonuses - ($userBonuses-$totalCartPrice);
-	}
-
-	$newUserBonuses = $userBonuses - $removedBonuses;
-
-	$QB = new QB;
-	$QB->updateField('clients', 'bonus', 'phone', $phone, $newUserBonuses);
-
-	echo 'bonus ballance after removed:'.getBonus($phone).'//</br>';
-	echo 'removed bonuses:'.getBonus($removedBonuses).'//</br>';
-	return $removedBonuses;
+	if ($phone):
+		$userBonuses = getBonus($phone);
+	
+		if ($totalCartPrice>$userBonuses) {
+		    $removedBonuses = $userBonuses;
+		} else {
+		    $removedBonuses = $userBonuses - ($userBonuses-$totalCartPrice);
+		}
+	
+		$newUserBonuses = $userBonuses - $removedBonuses;
+	
+		$QB = new QB;
+		$QB->updateField('clients', 'bonus', 'phone', $phone, $newUserBonuses);
+	
+		//echo 'bonus ballance after removed:'.getBonus($phone).'//</br>';
+		//echo 'removed bonuses:'.getBonus($removedBonuses).'//</br>';
+	
+		return $removedBonuses;
+	else:
+		echo "Ошибка";
+	endif;
 }
 
 function addBonus($phone, $totalCartPrice) {
@@ -97,12 +123,12 @@ function addBonus($phone, $totalCartPrice) {
 	$QB = new QB;
 	$QB->updateField('clients', 'bonus', 'phone', $phone, $newBonusBalance);
 
-	echo 'new bonus ballance:'.$newBonusBalance.'//</br>';
+	//echo 'new bonus ballance:'.$newBonusBalance.'//</br>';
 
 	return $newBonusBalance;
 }
 
-function getBonus($phone) {
+function getBonus($phone, $callback=false) {
 
 	if (is_array($phone)) {
 		$phone = $phone['phone'];
@@ -110,8 +136,25 @@ function getBonus($phone) {
 
 	$QB = new QB;
 	$bonus = $QB->getField('clients', 'bonus', 'phone', $phone);
-	print_r($bonus);
+
+	if ($callback) {
+		JsCallback('getBonus', $bonus);	
+	}
+
 	return $bonus;
+}
+
+// JsCallback *****************************************
+
+function JsCallback($callback, $data=true) {
+	if ($callback && $data) {
+		$callbackArr = array(
+			'callback'=> $callback,
+			'data'=> $data,
+		);
+
+		print_r(json_encode($callbackArr));
+	}
 }
 
 // CART PRICE *****************************************
@@ -228,7 +271,14 @@ function getAndDoAction() {
 	if(isset($_POST['action'])) {
 		$action = $_POST['action'];
 		unset($_POST['action']);
+
+		if (isset($_POST['callback'])) {
+			$callback = $_POST['callback'];
+		} else {
+			$callback = false;
+		}
+
 		$data = $_POST;
-		$action($data);
+		$action($data,$callback);
 	}
 }

@@ -41,7 +41,7 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
 
     <div class="modal-tnx-container modal-tnx-container-booking activePreloaderShow" v-if="paymentType=='card'">
         <div class="modal-tnx-subheader"><?= Yii::t('app/cart', 'Зараз вас буде перенаправлено на платіжну систему для оплати замовлення...') ?></div>
-        <a href="#" class="btn btn-white sm"><?= Yii::t('app', 'Перейти до оплати') ?></a>
+        <a v-show="merchant_url" :href="merchant_url" class="btn btn-white sm"><?= Yii::t('app', 'Перейти до оплати') ?></a>
     </div>
 
     <form class="booking-form activePreloaderHide" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking',$event);$root.initFormPreloader($event,'#modal_booking');fbp('Purchase')" v-if="cartHasItems()">

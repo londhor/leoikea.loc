@@ -36,6 +36,17 @@ class QueryBuilder extends PDO
 		$stm->execute($data);
 	}
 
+	public function getAll($table) {
+		
+		$sql = "SELECT * FROM {$table}";
+		$stm = $this->pdo->prepare($sql);
+		$stm->execute();
+
+		$res = $stm->fetchAll();
+
+		return $res;
+	}
+
 	public function getField($table='bookings', $field, $where, $val) {
 		
 		$sql = "SELECT {$field} FROM {$table} WHERE {$where}=:val";

@@ -278,6 +278,8 @@ var app = new Vue({
         menuSubCat: 1,
         siTab: 1,
 
+        merchant_url: false,
+
         //// bonuses
         useBonus: false,
         bonus: false,
@@ -299,6 +301,7 @@ var app = new Vue({
                     data=new FormData();
                     data.set('action', 'getBonus');
                     data.set('phone', phone);
+                    data.set('callback', true);
                     ajax('getBonus',data);
                 }
             } catch {
@@ -343,18 +346,18 @@ var app = new Vue({
                 return false;
             }
         },
-        initFormPreloader: function(el, div) {
-            try {
+        initFormPreloader: function(el, div=false) {
                 if (!div) {
-                    el = el.target;
-                    el.classList.add('activePreloader');
+                    try {
+                        el = el.target;
+                        el.classList.add('activePreloader');
+                    } catch {}
                 } else {
-                    wp = document.querySelector(div);
-                    wp.classList.add('activePreloader');
+                    try {
+                        wp = document.querySelector(div);
+                        wp.classList.add('activePreloader');
+                    } catch {}
                 }
-            } catch {
-
-            }
         },
         mobileMenuChangeStatus: function() {
             if (this.mobileMenu) {
@@ -604,27 +607,7 @@ function ajax(action, data) {
         if (req.readyState == XMLHttpRequest.DONE) {
             // XMLHttpRequest.DONE == 4
             if (req.status == 200) {
-                if (action=='getProductOptions') {
-                    app.getProductOptions_callback(req.response);
-                }
-                if (action=='booking') {
-                    if (app.paymentType!='card') {
-                        app.modalClose('booking');
-                        app.modal('tnx');
-                    }
-                    setTimeout(function() {
-                        // app.$refs.cartItems.clearCart();
-                    }, 1000)
-                }
-                if (action=='getBonus') {
-                    bonus={
-                        'bonus':req.response,
-                    };
-                    Object.freeze(bonus);
-                    if (Object.isFrozen(bonus) && bonus.bonus == req.response) {
-                        app.bonus = bonus;
-                    }
-                }
+                runAjaxCallback(req.response);
             }
         }
     };
@@ -632,6 +615,62 @@ function ajax(action, data) {
     req.open("POST", "" + window.location.protocol + "//" + window.location.hostname + "/js/ajax/main.php", true);
     req.send(data);
 }
+
+
+function runAjaxCallback(callbackObj) {
+    try {
+        callbackObj = JSON.parse(callbackObj);
+        callbackFunctionName = 'callback_'+callbackObj.callback;
+        callbackFunctionData = callbackObj.data;
+
+        window[callbackFunctionName](callbackFunctionData);
+
+    } catch {
+
+    }
+}
+
+// CALLBACKs //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function callback_getProductOptions(callbacData) {
+    app.getProductOptions_callback(callbacData);
+}
+
+function callback_booking(callbacData) {
+
+    if (app.paymentType!='card') {
+        app.modalClose('booking');
+        app.modal('tnx');
+    } else {
+        try {
+            setTimeout(function() {
+                window.location.href = callbacData.payment_url;
+            }, 1500)
+        } catch {
+            app.merchant_url=callbacData.payment_url;
+        }
+    }
+
+    setTimeout(function() {
+        // app.$refs.cartItems.clearCart();
+    }, 1000)
+}
+
+function callback_getBonus(callbacData) {
+    bonus={
+        'bonus':callbacData,
+    };
+    Object.freeze(bonus);
+    if (Object.isFrozen(bonus) && bonus.bonus == callbacData) {
+        app.bonus = bonus;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 function formatMoney(n, c, d, t) {
@@ -819,7 +858,7 @@ function inputsInit() {
     }
 }
 
-// app.modal('booking');
+app.modal('booking');
 
 window.onload = function() {
     inputsInit();

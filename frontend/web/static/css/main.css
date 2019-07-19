@@ -3372,7 +3372,7 @@ input[type='radio']:checked + label.label-btn {
      display: none;
      font-size: 0;
      -webkit-animation: outer 6600ms linear infinite;
-     animation: outer 6600ms linear infinite;
+     animation: outer 7200ms linear infinite;
      position: absolute;
      top: calc(50% - 30px);
      left: calc(50% - 30px);
