@@ -15,6 +15,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
+            'class' => frontend\components\multilang\Request::class,
             'csrfParam' => '_csrf',
         ],
         'user' => [
@@ -40,8 +41,11 @@ return [
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'fileMap' => [
-                        'app'       => 'app.php',
-                        'app/error' => 'error.php',
+                        'app'            => 'app.php',
+                        'app/product'    => 'app/product.php',
+                        'app/cart'       => 'app/cart.php',
+                        'app/search'     => 'app/search.php',
+                        'app/metafields' => 'app/metafields.php',
                     ],
                 ],
             ],
@@ -50,27 +54,30 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
+            'class' => frontend\components\multilang\UrlManager::class,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
                 '' => 'site/index',
                 'contacts' => 'site/contacts',
+                'sitemap' => 'sitemap/index',
                 'catalog' => 'catalog/index',
                 'catalog/search' => 'catalog/search',
                 'catalog/category/<path[\w\-]+>' => 'catalog/category',
+                'sale' => 'catalog/sale',
                 'article/<key:[\w\-]+>' => 'article/view',
                 'product/<key:[\w]+>' => 'product/index',
             ],
         ],
-        'formatter' => [
-            'numberFormatterOptions' => [
-                // NumberFormatter::MAX_FRACTION_DIGITS => 0,
-            ],
-            'numberFormatterSymbols' => [
-                // NumberFormatter::CURRENCY_SYMBOL => '₴',
-            ],
-        ],
+        //'formatter' => [
+        //   'numberFormatterOptions' => [
+        //       NumberFormatter::MAX_FRACTION_DIGITS => 0,
+        //   ],
+        //   'numberFormatterSymbols' => [
+        //       NumberFormatter::CURRENCY_SYMBOL => '₴',
+        //   ],
+        //],
         'priceSettings' => [
             'class' => frontend\components\PriceSettings::class,
         ],

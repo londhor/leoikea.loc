@@ -26,7 +26,12 @@ class ContactsForm extends Model
     /**
      * @var array
      */
-    public $address;
+    public $address_ru;
+
+    /**
+     * @var array
+     */
+    public $address_ua;
 
     /**
      * @var array
@@ -45,7 +50,8 @@ class ContactsForm extends Model
     {
         $this->email = (array) $this->getSetting('email', [], true);
         $this->phone = (array) $this->getSetting('phone', [], true);
-        $this->address = (array) $this->getSetting('address', [], true);
+        $this->address_ru = (array) $this->getSetting('address_ru', [], true);
+        $this->address_ua = (array) $this->getSetting('address_ua', [], true);
         $this->social = (array) $this->getSetting('social', [], true);
         $this->reviewsLink = (string) $this->getSetting('reviewsLink', '');
     }
@@ -58,7 +64,7 @@ class ContactsForm extends Model
         return [
             [['email'], 'validateEmails', 'skipOnEmpty' => false],
             [['phone'], 'validatePhones', 'skipOnEmpty' => false],
-            [['address'], 'validateAddress', 'skipOnEmpty' => false],
+            [['address_ru', 'address_ua'], 'validateAddress', 'skipOnEmpty' => false],
             [['social'], 'validateSocial', 'skipOnEmpty' => false],
             [['reviewsLink'], 'string'],
         ];
@@ -276,7 +282,8 @@ class ContactsForm extends Model
         return [
             'phone' => 'Телефони',
             'email' => 'Email адреса',
-            'address' => 'Фізичні адреса',
+            'address_ru' => 'Фізичні адреса [RU]',
+            'address_ua' => 'Фізичні адреса [UA]',
             'social' => 'Соціальні мережі',
             'reviewsLink' => 'Посилання на всі відгуки',
         ];
@@ -294,7 +301,8 @@ class ContactsForm extends Model
 
         $this->setSetting('email', $this->email, self::TYPE_JSON);
         $this->setSetting('phone', $this->phone, self::TYPE_JSON);
-        $this->setSetting('address', $this->address, self::TYPE_JSON);
+        $this->setSetting('address_ru', $this->address_ru, self::TYPE_JSON);
+        $this->setSetting('address_ua', $this->address_ua, self::TYPE_JSON);
         $this->setSetting('social', $this->social, self::TYPE_JSON);
         $this->setSetting('reviewsLink', $this->reviewsLink, SettingType::STRING_TYPE);
 

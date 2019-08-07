@@ -4,6 +4,7 @@ namespace frontend\widgets;
 
 use common\models\shop\Category;
 use frontend\components\ContentSettings;
+use frontend\components\multilang\Languages;
 use yii\base\Widget;
 use yii;
 
@@ -29,6 +30,8 @@ class HeaderWidget extends Widget
         return $this->render('header', [
             'categories' => $categories,
             'phone' => $phone,
+            'languages' => $this->multilang()->getLanguages(),
+            'currentLanguage' => $this->multilang()->getCurrent(),
         ]);
     }
 
@@ -38,5 +41,13 @@ class HeaderWidget extends Widget
     protected function contentSettings()
     {
         return Yii::$app->contentSettings;
+    }
+
+    /**
+     * @return Languages
+     */
+    protected function multilang()
+    {
+        return Yii::$app->languages;
     }
 }

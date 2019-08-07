@@ -2,21 +2,24 @@
 
 namespace common\models\shop;
 
+use frontend\components\multilang\AttributeBehavior;
 use Yii;
 
 /**
  * This is the model class for table "{{%documentations}}".
  *
- * @property int $id
- * @property string $title_pl
- * @property string $title
+ * @property string $title_pl [varchar(255)]
+ * @property string $title_ru [varchar(255)]
+ * @property string $title [varchar(255)]
  * @property string $url
  * @property string $product_id
- * @property string $title_ru [varchar(255)]
  *
  * @property string $titleLang
  *
  * @property Product $product
+ *
+ * @method mixed lang(string $attribute)
+ * @see AttributeBehavior::lang
  */
 class Documentation extends \yii\db\ActiveRecord
 {
@@ -34,6 +37,26 @@ class Documentation extends \yii\db\ActiveRecord
     public static function getDb()
     {
         return Yii::$app->dbIkea;
+    }
+
+    /**
+     * @inheritDoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'multilang' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    'title' => [
+                        'template' => 'title_{{code}}',
+                        'override' => ['uk-UA' => 'title'],
+                        'default' => 'title_pl',
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -72,6 +95,6 @@ class Documentation extends \yii\db\ActiveRecord
      */
     public function getTitleLang()
     {
-        return $this->title === null ? $this->title_pl : $this->title;
+        return $this->lang('title');
     }
 }

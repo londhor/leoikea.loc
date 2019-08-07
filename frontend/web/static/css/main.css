@@ -519,7 +519,7 @@ p b {
     top: 0;
     pointer-events: none;
     width: 100%;
-    height: 58px;
+    height: 56px;
     opacity: 0;
     transition: opacity .15s linear;
     z-index: -1;
@@ -531,8 +531,8 @@ p b {
 
 .header-logo {
     line-height: 0;
-    font-size: 24px;
-    color: #000;
+    font-size: 2.6em;
+    color: #192eaa;
 }
 .header-logo:hover {}
 
@@ -628,7 +628,7 @@ p b {
 .main-menu {
     display: none;
     position: fixed;
-    max-width: 1182px;
+    max-width: 1248px;
     width: calc(100% - 60px);
     top: 50px;
     height: auto;
@@ -637,6 +637,7 @@ p b {
     margin: 0 auto;
     left: 0;
     right: 0;
+    padding: 0;
 }
 .main-menu.active {
     display: flex;
@@ -723,7 +724,7 @@ p b {
     justify-content: flex-start;
     text-align: left;
     max-height: 100%;
-    overflow: visible;
+    overflow: auto;
     text-transform: lowercase;
     width: 60%;
 }
@@ -753,6 +754,7 @@ p b {
     -moz-transform: scale(0);
     -o-transform: scale(0);
     transform: scale(0);
+    animation: 1s fade cubic-bezier(0, 0, 0.2, 1) infinite alternate;
 }
 .cart-point.active {
     display: block;
@@ -1107,6 +1109,8 @@ p b {
     max-width: 94px;
     width: 36%;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
 }
 .cart-item-img {}
 
@@ -1114,6 +1118,7 @@ p b {
     padding-left: 16px;
     padding-top: 4px;
     width: calc(100% - 94px);
+    align-self: center;
 }
 
 .cart-item-title {
@@ -1441,7 +1446,7 @@ a.contact-link:focus:hover {}
 /************** hero ****************/
 .hero-article {
     overflow: visible;
-    margin-top: -30px;
+    /* margin-top: -30px; */
     background-image: url(../img/hero_bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -1491,7 +1496,7 @@ a.contact-link:focus:hover {}
     font-size: 18px;
     line-height: 1.4;
     z-index: 1;
-    max-width: 470px;
+    max-width: 480px;
 }
 
 .hero-btns-wp {
@@ -1676,6 +1681,9 @@ a.contact-link:focus:hover {}
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.item-card-img>img {
+    max-width: 172px;
 }
 .item-card-img-bg {
     background-color: var(--gray);
@@ -2276,6 +2284,10 @@ main>article:first-of-type>.container:not(.hero-container) {
     background-color: var(--gray);
 }
 
+.si-tabs-contaioner>.si-tabs:only-child .ic-arrow-down:before{
+    display: none;
+}
+
 .si-tabs-contaioner {}
 
 .si-tabs {
@@ -2832,6 +2844,8 @@ th {
     font-size: 18px;
     /* background-color: #fff; */
     border-radius: 10px;
+    line-height: .8;
+    padding: 8px;
 }
 
 .modal_close:hover,
@@ -2849,8 +2863,8 @@ th {
 }
 
 .modal-footer {
-    padding-top: 10px;
-    padding-bottom: 23px;
+    padding-top: 2px;
+    padding-bottom: 15px;
     /* background-color: #fff; */
     /* left: 0; */
     /* bottom: 0; */
@@ -2922,6 +2936,13 @@ th {
 }
 
 
+#modal_payment_error .modal_scroll {
+    background-color: var(--red);
+}
+
+#modal_payment_error .modal_close:hover {
+    color: #fff;
+}
 /************** skidka-box *****************/
 
 .skidka-box {
@@ -2954,6 +2975,11 @@ th {
 .input-wp~.input-wp.use-skidka-input {
     margin-left: 19px;
     margin-top: 20px;
+    word-break: break-word;
+}
+
+.input-wp~.input-wp.use-skidka-input>label>b {
+    white-space: nowrap;
 }
 
 /***************************************/
@@ -2964,9 +2990,9 @@ th {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
+    top: -2%;
     width: 100%;
-    height: 100%;
+    height: 104%;
     display: none;
     align-items: center;
     justify-content: center;
@@ -3385,8 +3411,8 @@ input[type='radio']:checked + label.label-btn {
 
 .md-preloader svg {
     stroke-width:3px;
-    -webkit-animation: inner 1320ms linear infinite;
-    animation: inner 1320ms linear infinite;
+    -webkit-animation: inner 2640ms linear infinite;
+    animation: inner 2640ms linear infinite;
     width: 60px;
     height: 60px;
 }

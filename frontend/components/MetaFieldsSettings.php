@@ -5,6 +5,7 @@ namespace frontend\components;
 use common\models\Article;
 use common\models\shop\Category;
 use common\models\shop\Product;
+use frontend\components\multilang\Languages;
 use yii;
 use yii2mod\settings\components\Settings;
 
@@ -15,19 +16,44 @@ class MetaFieldsSettings extends \yii\base\Component
 {
     const META_FIELDS_SECTION = 'metaFields';
 
-    public $defaultForProduct = '{{title}}. {{description}} - {{category}} | {{site_name}}';
+    public $defaultForProduct;
 
-    public $defaultForHome = 'Головна сторінка | {{site_name}}';
+    public $defaultForHome;
 
-    public $defaultForCatalog = 'Каталог товарів | {{site_name}}';
+    public $defaultForCatalog;
 
-    public $defaultForContacts = 'Контакти | {{site_name}}';
+    public $defaultForContacts;
 
-    public $defaultForCategory = '{{title}} | {{site_name}}';
+    public $defaultForCategory;
 
-    public $defaultForSearch = 'Пошук "{{query}}" | {{site_name}}';
+    public $defaultForSearch;
 
-    public $defaultForInformation = '{{meta}}';
+    public $defaultForInformation;
+
+    public function init()
+    {
+        if ($this->defaultForProduct === null) {
+            $this->defaultForProduct = Yii::t('app/metafields', '{{title}}. {{description}} - {{category}} | {{site_name}}');
+        }
+        if ($this->defaultForHome === null) {
+            $this->defaultForHome = Yii::t('app/metafields', 'Головна сторінка | {{site_name}}');
+        }
+        if ($this->defaultForCatalog === null) {
+            $this->defaultForCatalog = Yii::t('app/metafields', 'Каталог товарів | {{site_name}}');
+        }
+        if ($this->defaultForContacts === null) {
+            $this->defaultForContacts = Yii::t('app/metafields', 'Контакти | {{site_name}}');
+        }
+        if ($this->defaultForCategory === null) {
+            $this->defaultForCategory = Yii::t('app/metafields', '{{title}} | {{site_name}}');
+        }
+        if ($this->defaultForSearch === null) {
+            $this->defaultForSearch = Yii::t('app/metafields', 'Пошук "{{query}}" | {{site_name}}');
+        }
+        if ($this->defaultForInformation === null) {
+            $this->defaultForInformation = Yii::t('app/metafields', '{{meta}}');
+        }
+    }
 
     /**
      * @param Product $product
@@ -41,10 +67,11 @@ class MetaFieldsSettings extends \yii\base\Component
         $priceSettings = Yii::$app->priceSettings;
 
         try {
-            $price = Yii::$app->formatter->asCurrency($priceSettings->calcDiscount($product->price));
+            $price = Yii::$app->formatter->asCurrency($priceSettings->calcDiscount($product->price, $product->category->id));
         } catch (yii\base\InvalidConfigException $e) {
-            $price = $priceSettings->calcDiscount($product->price);
+            $price = $priceSettings->calcDiscount($product->price,$product->category->id);
         }
+
 
         $params = [
             '{{title}}' => $product->titleLang,
@@ -84,10 +111,10 @@ class MetaFieldsSettings extends \yii\base\Component
         $meta_description = $this->getField('informationTitle', '');
 
         $this->registerTitle($meta_title, [
-            '{{meta}}' => $article->meta_title ? strtr($article->meta_title, $this->mergeDefaultParams([])) : $article->title,
+            '{{meta}}' => ($field = $article->metaTitleLang) ? strtr($field, $this->mergeDefaultParams([])) : $article->titleLang,
         ]);
         $this->registerDescription($meta_description, [
-            '{{meta}}' => $article->meta_description ? strtr($article->meta_description, $this->mergeDefaultParams([])) : $article->title,
+            '{{meta}}' => ($field = $article->metaDescriptionLang) ? strtr($field, $this->mergeDefaultParams([])) : $article->titleLang,
         ]);
     }
 
@@ -147,8 +174,12 @@ class MetaFieldsSettings extends \yii\base\Component
 
         Yii::$app->view->registerMetaTag([
             'name' => 'description',
-            'content' => yii\helpers\Html::encode($description),
+            'content' => $description,
         ]);
+        // Yii::$app->view->registerMetaTag([
+            // 'property' => 'og:description',
+            // 'content' => $description,
+        // ]);
     }
 
     /**
@@ -162,8 +193,7 @@ class MetaFieldsSettings extends \yii\base\Component
         }
 
         $title = strtr($title, $this->mergeDefaultParams($params));
-
-        Yii::$app->view->title = yii\helpers\Html::encode($title);
+        Yii::$app->view->title = $title;
     }
 
     /**
@@ -184,6 +214,12 @@ class MetaFieldsSettings extends \yii\base\Component
      */
     protected function getField($name, $default = '')
     {
+        /** @var Languages $languagesComponent */
+        $languagesComponent = Yii::$app->languages;
+        if (($language = $languagesComponent->getCurrent()) !== null) {
+            $name .= '_' . $language->getDatabaseCode();
+        }
+
         /** @var Settings $settings */
         $settings = Yii::$app->settings;
         $field = $settings->get(self::META_FIELDS_SECTION, $name, $default);

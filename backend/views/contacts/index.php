@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $model \backend\forms\ContactsForm|null */
 /* @var $form ActiveForm */
+/* @var $languages \frontend\components\multilang\LanguageInterface[] */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -49,7 +50,6 @@ $horizontalOptions = [
     ]); ?>
     <input type="hidden" name="ContactsForm[email]" value="">
     <input type="hidden" name="ContactsForm[phone]" value="">
-    <input type="hidden" name="ContactsForm[address]" value="">
     <input type="hidden" name="ContactsForm[social]" value="">
         <div class="m-portlet__body">
             <div class="m-form__section m-form__section--first">
@@ -117,38 +117,71 @@ $horizontalOptions = [
                         </div>
                     </div>
                 </div>
-                <div id="ContactsForm__address">
-                    <div class="form-group form-group-last row">
-                        <label  class="col-lg-2 col-form-label"><?= $model->getAttributeLabel('address') ?>:</label>
-                        <div data-repeater-list="ContactsForm[address]" class="col-lg-6">
-                            <?php foreach ($model->address ?: [''] as $key => $address) { ?>
-                                <?php $hasError = $model->hasErrors('address.' . $key) ?>
-                                <div data-repeater-item="" class="m--margin-bottom-10 <?= $hasError ? 'has-danger' : '' ?>">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="la la-map-o"></i></span>
-                                        </div>
-                                        <textarea name="ContactsForm[address][]" rows="2" class="form-control form-control-danger" placeholder="Введіть адресу"><?= Html::getAttributeValue($model, 'address[' . $key . ']') ?></textarea>
-                                        <div class="input-group-append">
-                                            <button type="button" data-repeater-delete class="btn btn-danger btn-icon"><i class="la la-close"></i></button>
-                                        </div>
-                                    </div>
-                                    <?php if ($hasError) { ?>
-                                        <div class="form-control-feedback"><?= $model->getFirstError('address.' . $key) ?></div>
-                                    <?php } ?>
-                                </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-last row">
-                        <label class="col-lg-2 col-form-label"></label>
-                        <div class="col-lg-4">
-                            <button type="button" data-repeater-create class="btn btn-sm m-btn-bold btn-brand">
-                                <i class="la la-plus"></i> Додати
-                            </button>
-                        </div>
-                    </div>
+                <div class="m-form__group">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <?php foreach ($languages as $language) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab-<?= $language->getCode() ?>">
+                                    <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                    <?= Html::encode($language->getNativeName()) ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
+                <div class="tab-content">
+                    <?php foreach ($languages as $language) { ?>
+                        <?php $langCode = $language->getCode() ?>
+                        <?php $lang = $language->getDatabaseCode() ?>
+                        <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab-<?= $langCode ?>" role="tabpanel">
+                            <input type="hidden" name="ContactsForm[<?= "address_$lang" ?>]" value="">
+                            <div id="ContactsForm__address-<?= $langCode ?>">
+                                <div class="form-group form-group-last row">
+                                    <label  class="col-lg-2 col-form-label"><?= $model->getAttributeLabel("address_$lang") ?>:</label>
+                                    <div data-repeater-list="ContactsForm[<?= "address_$lang" ?>]" class="col-lg-6">
+                                        <?php foreach ($model->{"address_$lang"} ?: [''] as $key => $address) { ?>
+                                            <?php $hasError = $model->hasErrors("address_$lang.$key") ?>
+                                            <div data-repeater-item="" class="m--margin-bottom-10 <?= $hasError ? 'has-danger' : '' ?>">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="la la-map-o"></i></span>
+                                                    </div>
+                                                    <textarea name="ContactsForm[<?= "address_$lang" ?>][]" rows="2" class="form-control form-control-danger" placeholder="Введіть адресу"><?= Html::getAttributeValue($model, "address_{$lang}[$key]") ?></textarea>
+                                                    <div class="input-group-append">
+                                                        <button type="button" data-repeater-delete class="btn btn-danger btn-icon"><i class="la la-close"></i></button>
+                                                    </div>
+                                                </div>
+                                                <?php if ($hasError) { ?>
+                                                    <div class="form-control-feedback"><?= $model->getFirstError("address_$lang.$key") ?></div>
+                                                <?php } ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-last row">
+                                    <label class="col-lg-2 col-form-label"></label>
+                                    <div class="col-lg-4">
+                                        <button type="button" data-repeater-create class="btn btn-sm m-btn-bold btn-brand">
+                                            <i class="la la-plus"></i> Додати
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+
+                        $addressInitEmpty = count($model->{"address_$lang"}) > 0 ? 'false' : 'true';
+                        $this->registerJs(<<<JS
+                            $('#ContactsForm__address-$langCode').repeater({
+                                initEmpty: $addressInitEmpty,
+                            });
+JS
+                        );
+
+                        ?>
+                    <?php } ?>
+                </div>
+                <div class="m-form__seperator m-form__seperator--dashed m--margin-top-40 m--margin-bottom-40"></div>
                 <div id="ContactsForm__social">
                     <div class="form-group form-group-last row">
                         <label  class="col-lg-2 col-form-label"><?= $model->getAttributeLabel('social') ?>:</label>
@@ -240,7 +273,6 @@ $horizontalOptions = [
 
 $emailInitEmpty = count($model->email) > 0 ? 'false' : 'true';
 $phoneInitEmpty = count($model->phone) > 0 ? 'false' : 'true';
-$addressInitEmpty = count($model->address) > 0 ? 'false' : 'true';
 $socialInitEmpty = count($model->social) > 0 ? 'false' : 'true';
 
 $this->registerJs(<<<JS
@@ -249,9 +281,6 @@ $('#ContactsForm__email').repeater({
 });
 $('#ContactsForm__phone').repeater({
     initEmpty: $phoneInitEmpty,
-});
-$('#ContactsForm__address').repeater({
-    initEmpty: $addressInitEmpty,
 });
 $('#ContactsForm__social').repeater({
     initEmpty: $socialInitEmpty,

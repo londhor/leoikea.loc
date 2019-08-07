@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\forms\SearchQueriesForm;
+use frontend\components\multilang\Languages;
 use yii;
 use backend\components\Controller;
 
@@ -30,8 +31,12 @@ class SearchQueriesController extends Controller
             $this->modelError();
         }
 
+        /** @var Languages $languagesComponent */
+        $languagesComponent = Yii::$app->languages;
+
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+            'languages' => $languagesComponent->getLanguages(),
         ]);
     }
 }

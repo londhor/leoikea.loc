@@ -252,6 +252,7 @@ var vCart = Vue.component('vCart', {
         openBookingModal: function() {
             app.modalClose('cart');
             app.modal('booking');
+            inputsInit();
         },
     },
     computed: {
@@ -284,6 +285,7 @@ var app = new Vue({
         useBonus: false,
         bonus: false,
         paymentType: 'card',
+        merchant_url:'#',
         /////////////////
 
         //// hadrcode
@@ -293,6 +295,13 @@ var app = new Vue({
         //// hadrcode - end
     },
     methods: {
+        isRequiredBooking: function() {
+            if (this.paymentType=='magazin') {
+                return false;
+            } else {
+                return true;
+            }
+        },
         // Bonuses ///////////////////////
         getUserBonus: function(el) {
             try {
@@ -422,6 +431,10 @@ var app = new Vue({
                     name: 'Параметры',
                     value: data.options,
                 };
+            }
+
+            if (itemObject.header=='ul') {
+                itemObject.header = '';
             }
 
             try {
@@ -582,10 +595,18 @@ var app = new Vue({
     created: function() {
         window.addEventListener("scroll", this.headerFix);
         this.searchString = this.getParameterByName('query');
-        // this.pageSlug = this.getParameterByName('page-slug');
+        this.pageSlug = this.getParameterByName('page-slug');
     },
     mounted: function() {
         // this.getProductOptions();
+        inputsInit();
+        try {
+            if(getAllUrlParams().payment_status =='success') {
+                this.modal('tnx');
+            } else if (getAllUrlParams().payment_status =='error') {
+                this.modal('payment_error');
+            }
+        } catch {}
 
         this.pageScroll++; // hardcode
         try {
@@ -644,6 +665,7 @@ function callback_booking(callbacData) {
     } else {
         try {
             setTimeout(function() {
+                app.merchant_url=callbacData.payment_url;
                 window.location.href = callbacData.payment_url;
             }, 1500)
         } catch {
@@ -652,7 +674,11 @@ function callback_booking(callbacData) {
     }
 
     setTimeout(function() {
-        // app.$refs.cartItems.clearCart();
+        try {
+            app.$refs.cartItems.clearCart();
+        } catch {
+            console.log('Cart si not clear...');
+        }
     }, 1000)
 }
 
@@ -667,10 +693,6 @@ function callback_getBonus(callbacData) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
 function formatMoney(n, c, d, t) {
@@ -858,8 +880,71 @@ function inputsInit() {
     }
 }
 
-app.modal('booking');
+function getAllUrlParams(url) {
+
+  // get query string from url (optional) or window
+  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+  // we'll store the parameters here
+  var obj = {};
+
+  // if query string exists
+  if (queryString) {
+
+    // stuff after # is not part of query string, so get rid of it
+    queryString = queryString.split('#')[0];
+
+    // split our query string into its component parts
+    var arr = queryString.split('&');
+
+    for (var i = 0; i < arr.length; i++) {
+      // separate the keys and the values
+      var a = arr[i].split('=');
+
+      // set parameter name and value (use 'true' if empty)
+      var paramName = a[0];
+      var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+
+      // (optional) keep case consistent
+      paramName = paramName.toLowerCase();
+      if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+      // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+      if (paramName.match(/\[(\d+)?\]$/)) {
+
+        // create key if it doesn't exist
+        var key = paramName.replace(/\[(\d+)?\]/, '');
+        if (!obj[key]) obj[key] = [];
+
+        // if it's an indexed array e.g. colors[2]
+        if (paramName.match(/\[\d+\]$/)) {
+          // get the index value and add the entry at the appropriate position
+          var index = /\[(\d+)\]/.exec(paramName)[1];
+          obj[key][index] = paramValue;
+        } else {
+          // otherwise add the value to the end of the array
+          obj[key].push(paramValue);
+        }
+      } else {
+        // we're dealing with a string
+        if (!obj[paramName]) {
+          // if it doesn't exist, create property
+          obj[paramName] = paramValue;
+        } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+          // if property does exist and it's a string, convert it to an array
+          obj[paramName] = [obj[paramName]];
+          obj[paramName].push(paramValue);
+        } else {
+          // otherwise add the property
+          obj[paramName].push(paramValue);
+        }
+      }
+    }
+  }
+
+  return obj;
+}
 
 window.onload = function() {
-    inputsInit();
+//    inputsInit();
 }

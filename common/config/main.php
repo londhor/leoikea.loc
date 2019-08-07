@@ -64,5 +64,25 @@ return [
             'cache' => 'commonCache',
             'cacheKey' => 'app.settings',
         ],
+        'languages' => [
+            'class' => frontend\components\multilang\Languages::class,
+            'languages' => [
+                'uk-UA' => [
+                    'code' => 'uk-UA',
+                    'urlCode' => '',
+                    'databaseCode' => 'ua',
+                    'flag' => '/static/img/flag-ukraine.svg',
+                    'nativeName' => 'Українська',
+                    'current' => true,
+                ],
+                'ru-RU' => [
+                    'code' => 'ru-RU',
+                    'urlCode' => 'ru',
+                    'databaseCode' => 'ru',
+                    'flag' => '/static/img/flag-russia.svg',
+                    'nativeName' => 'Русский',
+                ],
+            ],
+        ],
     ],
 ];

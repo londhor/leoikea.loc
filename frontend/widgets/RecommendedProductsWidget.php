@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\models\shop\Product;
+use common\models\shop\ProductToCategory;
 use yii;
 
 /**
@@ -41,6 +42,7 @@ class RecommendedProductsWidget extends CarouselWidget
 
         $products = Product::find()
             ->with('image')
+            ->andWhere(['is','deleted', NULL])
             ->where(['id' => $recommendedIds])
             ->orderBy(['views' => SORT_DESC, 'id' => SORT_ASC])
             ->limit($this->limitProducts)
@@ -54,9 +56,21 @@ class RecommendedProductsWidget extends CarouselWidget
      */
     protected function getRecommendedProductIds()
     {
+        $categoryQuery = ProductToCategory::find()
+            ->select(['product_id'])
+            ->where(['category_id' => $this->product->category_id])
+            ->all();
+
+        $_ids = [];
+
+        foreach ($categoryQuery as $catq) {
+            $_ids[] = $catq->product_id;
+        }
+
         $productIds = Product::find()
             ->select('id')
-            ->where(['category_id' => $this->product->category_id])
+            ->where(['id' => $_ids])
+            ->andWhere(['is','deleted', NULL])
             ->column();
 
         $randomIds = [];

@@ -2,6 +2,7 @@
 
 namespace frontend\components;
 
+use frontend\components\multilang\Languages;
 use yii;
 use yii2mod\settings\components\Settings;
 
@@ -72,7 +73,7 @@ class PriceSettings extends \yii\base\Component
         }
 
         if ($this->_discountDescription === null) {
-            $this->_discountDescription = (string) $this->settings()->get(self::PRICE_SECTION, 'discountDescription', '');
+            $this->_discountDescription = (string) $this->settings()->get(self::PRICE_SECTION, $this->getLangField('discountDescription'), '');
             $this->_discountDescription = nl2br(strip_tags($this->_discountDescription));
         }
 
@@ -97,24 +98,26 @@ class PriceSettings extends \yii\base\Component
      * @param float $price Product price
      * @return float|int product price with discount ($price - N%)
      */
-    public function calcDiscount($price)
+    public function calcDiscount($price, $category=false)
     {
         if (!$this->hasDiscount()) {
-            return $this->calcPrice($price);
+            return $this->calcPrice($price,$category);
         }
 
-        return (1 - $this->_discount) * $this->calcPrice($price);
+        return (1 - $this->_discount) * $this->calcPrice($price,$category);
     }
 
     /**
      * @param float $price
      * @return float|int
      */
-    public function calcPrice($price)
+    public function calcPrice($price,$category=false)
     {
-        if ($this->_currencyRate === null) {
-            $rate = (float) $this->settings()->get(self::PRICE_SECTION, 'currencyRate', null);
+        $this->_currencyRate = null;
 
+        $rate = (float) $this->settings()->get(self::PRICE_SECTION, 'currencyRate', null);
+        if ($this->_currencyRate === null) {
+            
             if ($rate <= 0) {
                 $this->_currencyRate = 1;
             } else {
@@ -122,7 +125,12 @@ class PriceSettings extends \yii\base\Component
             }
         }
 
-        return $this->_currencyRate * $price;
+        if ($category=='2000' || $category=='2001') {
+            $this->_currencyRate = 1;   
+        }
+
+        $p = $this->_currencyRate * $price;
+        return $p;
     }
 
     /**
@@ -131,5 +139,26 @@ class PriceSettings extends \yii\base\Component
     protected function settings()
     {
         return Yii::$app->settings;
+    }
+
+    /**
+     * @return Languages
+     */
+    protected function languagesComponent()
+    {
+        return Yii::$app->languages;
+    }
+
+    /**
+     * @param string $field
+     * @return string
+     */
+    protected function getLangField($field)
+    {
+        if (($language = $this->languagesComponent()->getCurrent()) === null) {
+            return $field;
+        }
+
+        return $field . '_' . $language->getDatabaseCode();
     }
 }

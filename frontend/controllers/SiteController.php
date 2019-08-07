@@ -1,10 +1,10 @@
 <?php
 namespace frontend\controllers;
 
-use frontend\components\ContentSettings;
-use frontend\components\MetaFieldsSettings;
 use yii;
 use yii\web\Controller;
+use frontend\components\ContentSettings;
+use frontend\components\MetaFieldsSettings;
 
 /**
  * Site controller
@@ -18,6 +18,18 @@ class SiteController extends Controller
     {
         return [
         ];
+    }
+
+
+    public function beforeAction($action) {
+        if($action->id == 'index' && isset($_GET['payment_status']) && isset($_POST['order_status'])) {
+
+            Yii::$app->request->enableCsrfValidation = false;
+
+            include '../web/js/ajax/bootstrap.php';
+            updatePaymentStatus($_POST);
+        }
+        return parent::beforeAction($action);
     }
 
     /**
@@ -42,6 +54,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         /** @var MetaFieldsSettings $metaFieldsSettings */
+        $this->enableCsrfValidation = false;
         $metaFieldsSettings = Yii::$app->metaFieldsSettings;
         $metaFieldsSettings->generateForHome();
 
@@ -78,5 +91,13 @@ class SiteController extends Controller
     protected function contentSettings()
     {
         return Yii::$app->contentSettings;
+    }
+
+    /**
+     * Displays blog page.
+     */
+  public function actionBlog()
+    {
+        return $this->render('blog');
     }
 }

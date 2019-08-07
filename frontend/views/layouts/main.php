@@ -12,7 +12,6 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 AppAsset::register($this);
-$color = "#0B2EAA";
 ?>
 
 <?php $this->beginPage() ?>
@@ -22,24 +21,36 @@ $color = "#0B2EAA";
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="author" content="WYLE.studio | https://wyle.studio">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, max-scale=2">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="ya-dock" content="<?= $color ?>">
-    <meta name="ya-title" content="<?= $color ?>">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon-16x16.png">
-    <link rel="manifest" href="/static/img/icons/manifest.json">
-    <link rel="mask-icon" href="/static/img/icons/safari-pinned-tab.svg" color="<?= $color ?>">
+    <link rel="manifest" href="/static/img/icons/site.webmanifest">
+    <link rel="mask-icon" href="/static/img/icons/safari-pinned-tab.svg" color="#192eaa">
     <link rel="shortcut icon" href="/static/img/icons/favicon.ico">
-    <meta name="msapplication-TileColor" content="<?= $color ?>">
+    <meta name="msapplication-TileColor" content="#192eaa">
     <meta name="msapplication-TileImage" content="/static/img/icons/mstile-144x144.png">
     <meta name="msapplication-config" content="/static/img/icons/browserconfig.xml">
-    <meta name="theme-color" content="<?= $color ?>">
+    <meta name="theme-color" content="#192eaa">
+
+    <!-- OPEN GRAPH -->
+  
+    <meta property="og:site_name" content="LeoIkea — Доставка з IKEA" />
+    <meta property="og:title" content="<?= Html::encode($this->title) ?>" />
+    <meta property="og:locale" content="<?= Yii::$app->language ?>">    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<?='https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']?>" />
+    <meta property="og:image" content="/static/img/icons/apple-touch-icon.png" />
+
+    <!-- OPEN GRAPH - END -->
+
     <?php $this->head() ?>
+    <meta name="referrer" content="origin">
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -83,6 +94,32 @@ $color = "#0B2EAA";
 /></noscript>
 <!-- End Facebook Pixel Code -->
 
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v3.3'
+    });
+  };
+
+  (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ru_RU/sdk/xfbml.customerchat.js';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+  attribution=setup_tool
+  page_id="1798394557068844"
+  theme_color="#0b2daa"
+  logged_in_greeting="Привіт, це LeoIkea! Чим можу бути вам корисним?"
+  logged_out_greeting="Привіт, це LeoIkea! Чим можу бути вам корисним?">
+</div>
 
 </body>
 </html>

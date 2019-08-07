@@ -12,22 +12,31 @@ class BannerForm extends Model
     const SETTINGS_SECTION = 'banner';
 
     /**
-     * @var array
+     * @var string
      */
-    public $title;
-
+    public $title_ru;
     /**
-     * @var array
+     * @var string
      */
-    public $description;
+    public $title_ua;
+    /**
+     * @var string
+     */
+    public $description_ru;
+    /**
+     * @var string
+     */
+    public $description_ua;
 
     /**
      * Load settings from component
      */
     public function init()
     {
-        $this->title = (string) $this->getSetting('title', '');
-        $this->description = (string) $this->getSetting('description', '');
+        $this->title_ru = (string) $this->getSetting('title_ru', '');
+        $this->title_ua = (string) $this->getSetting('title_ua', '');
+        $this->description_ru = (string) $this->getSetting('description_ru', '');
+        $this->description_ua = (string) $this->getSetting('description_ua', '');
     }
 
     /**
@@ -36,16 +45,16 @@ class BannerForm extends Model
     public function rules()
     {
         return [
-            [['title', 'description'], 'trim'],
-            [['title', 'description'], 'filter',
+            [['title_ru', 'description_ru', 'title_ua', 'description_ua'], 'trim'],
+            [['title_ru', 'description_ru', 'title_ua', 'description_ua'], 'filter',
                 'filter' => 'strip_tags',
             ],
-            [['title'], 'required'],
-            [['title'], 'string',
+            [['title_ru', 'title_ua'], 'required'],
+            [['title_ru', 'title_ua'], 'string',
                 'min' => 2,
                 'max' => 255,
             ],
-            [['description'], 'string',
+            [['description_ru', 'description_ua'], 'string',
                 'min' => 2,
                 'max' => 500,
             ],
@@ -58,8 +67,10 @@ class BannerForm extends Model
     public function attributeLabels()
     {
         return [
-            'title' => 'Заголовок',
-            'description' => 'Підзаголовок',
+            'title_ru' => 'Заголовок [RU]',
+            'title_ua' => 'Заголовок [UA]',
+            'description_ru' => 'Підзаголовок [RU]',
+            'description_ua' => 'Підзаголовок [UA]',
         ];
     }
 
@@ -73,8 +84,10 @@ class BannerForm extends Model
             return false;
         }
 
-        $this->setSetting('title', $this->title, SettingType::STRING_TYPE);
-        $this->setSetting('description', $this->description, SettingType::STRING_TYPE);
+        $this->setSetting('title_ru', $this->title_ru, SettingType::STRING_TYPE);
+        $this->setSetting('title_ua', $this->title_ua, SettingType::STRING_TYPE);
+        $this->setSetting('description_ru', $this->description_ru, SettingType::STRING_TYPE);
+        $this->setSetting('description_ua', $this->description_ua, SettingType::STRING_TYPE);
 
         return true;
     }

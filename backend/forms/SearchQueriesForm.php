@@ -15,14 +15,19 @@ class SearchQueriesForm extends Model
     /**
      * @var array
      */
-    public $queries;
+    public $queries_ru;
+    /**
+     * @var array
+     */
+    public $queries_ua;
 
     /**
      * Load settings from component
      */
     public function init()
     {
-        $this->queries = (array) $this->getSetting('queries', [], true);
+        $this->queries_ru = (array) $this->getSetting('queries_ru', [], true);
+        $this->queries_ua = (array) $this->getSetting('queries_ua', [], true);
     }
 
     /**
@@ -31,7 +36,7 @@ class SearchQueriesForm extends Model
     public function rules()
     {
         return [
-            [['queries'], 'validateQueries', 'skipOnEmpty' => false],
+            [['queries_ru', 'queries_ua'], 'validateQueries', 'skipOnEmpty' => false],
         ];
     }
 
@@ -107,7 +112,8 @@ class SearchQueriesForm extends Model
     public function attributeLabels()
     {
         return [
-            'queries' => 'Заптити',
+            'queries_ru' => 'Заптити [RU]',
+            'queries_ua' => 'Заптити [UA]',
         ];
     }
 
@@ -121,7 +127,8 @@ class SearchQueriesForm extends Model
             return false;
         }
 
-        $this->setSetting('queries', $this->queries, self::TYPE_JSON);
+        $this->setSetting('queries_ru', $this->queries_ru, self::TYPE_JSON);
+        $this->setSetting('queries_ua', $this->queries_ua, self::TYPE_JSON);
 
         return true;
     }

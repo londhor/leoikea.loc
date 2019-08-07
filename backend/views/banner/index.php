@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $model \backend\forms\BannerForm|null */
 /* @var $form ActiveForm */
+/* @var $languages \frontend\components\multilang\LanguageInterface[] */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -46,11 +47,31 @@ $horizontalOptions = [
     ]); ?>
         <div class="m-portlet__body">
             <div class="m-form__section m-form__section--first">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <?= $form->field($model, 'title', $horizontalOptions)->textarea(['maxlength' => true, 'rows' => 2]) ?>
-                        <?= $form->field($model, 'description', $horizontalOptions)->textarea(['rows' => 4]) ?>
-                    </div>
+                <div class="m-form__group">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <?php foreach ($languages as $language) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab-<?= $language->getCode() ?>">
+                                    <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                    <?= Html::encode($language->getNativeName()) ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <?php foreach ($languages as $language) { ?>
+                        <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab-<?= $language->getCode() ?>" role="tabpanel">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <?= $form->field($model, 'title_' . $language->getDatabaseCode(), $horizontalOptions)
+                                        ->textarea(['maxlength' => true, 'rows' => 2]) ?>
+                                    <?= $form->field($model, 'description_' . $language->getDatabaseCode(), $horizontalOptions)
+                                        ->textarea(['rows' => 4]) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed m--margin-top-40 m--margin-bottom-40 m--visible-tablet-and-mobile"></div>
             </div>

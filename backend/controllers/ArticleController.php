@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use frontend\components\multilang\Languages;
 use yii;
 use common\models\Article;
 use backend\components\Controller;
@@ -20,7 +21,8 @@ class ArticleController extends Controller
                 'query'   => Article::find(),
                 'columns' => [
                     'Title'            => [
-                        'modelAlias' => 'title',
+                        'modelAlias' => 'titleLang',
+                        'queryAlias' => "CONCAT_WS(' ', title_ua, title_ru)",
                     ],
                     'Id'               => [
                         'modelAlias'     => 'id',
@@ -77,8 +79,12 @@ class ArticleController extends Controller
             $this->modelError();
         }
 
+        /** @var Languages $languagesComponent */
+        $languagesComponent = Yii::$app->languages;
+
         return $this->render('update', [
-            'model' => $model
+            'model' => $model,
+            'languages' => $languagesComponent->getLanguages(),
         ]);
     }
 

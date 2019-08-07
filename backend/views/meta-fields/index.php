@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $model backend\forms\MetaFieldsForm|null */
 /* @var $form ActiveForm */
+/* @var $languages \frontend\components\multilang\LanguageInterface[] */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -44,117 +45,136 @@ $horizontalOptions = [
     ]); ?>
     <div class="m-portlet__body">
         <div class="m-form__section m-form__section--first">
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Головна сторінка</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'homeTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('homeTitle')]) ?>
-                    <?= $form->field($model, 'homeDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('homeDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                </div>
+            <div class="m-form__group">
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php foreach ($languages as $language) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab-<?= $language->getCode() ?>">
+                                <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                <?= Html::encode($language->getNativeName()) ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
             </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Сторінка каталогу</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'catalogTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('catalogTitle')]) ?>
-                    <?= $form->field($model, 'catalogDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('catalogDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                </div>
-            </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Пошук</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'searchTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('searchTitle')]) ?>
-                    <?= $form->field($model, 'searchDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('searchDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                    <code>{{query}}</code> - Пошуковий запит<br>
-                </div>
-            </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Категорія</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'categoryTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('categoryTitle')]) ?>
-                    <?= $form->field($model, 'categoryDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('categoryDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                    <code>{{title}}</code> - Назва категорії<br>
-                </div>
-            </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Товар</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'productTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('productTitle')]) ?>
-                    <?= $form->field($model, 'productDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('productDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                    <code>{{title}}</code> - Назва товару<br>
-                    <code>{{description}}</code> - Опис товару<br>
-                    <code>{{price}}</code> - Ціна<br>
-                    <code>{{category}}</code> - Назва категорії<br>
-                </div>
-            </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Інформаційна сторінка</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'informationTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('informationTitle')]) ?>
-                    <?= $form->field($model, 'informationDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('informationDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                    <code>{{meta}}</code> (для Meta-title) - Назва статті, або meta-title статті якщо поле заповнено<br>
-                    <code>{{meta}}</code> (для Meta-description) - meta-description статті ящко поле заповнено, або назва статті<br>
-                </div>
-            </div>
-            <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
-            <div class="form-group form-group-last row">
-                <label  class="col-md-2 col-form-label">Контакти</label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'contactsTitle')
-                        ->label(false)
-                        ->textInput(['placeholder' => $model->getAttributeLabel('contactsTitle')]) ?>
-                    <?= $form->field($model, 'contactsDescription')
-                        ->label(false)
-                        ->textarea(['placeholder' => $model->getAttributeLabel('contactsDescription')]) ?>
-                </div>
-                <div class="col-md-3">
-                    <code>{{site_name}}</code> - Назва сайту<br>
-                </div>
+            <div class="tab-content">
+                <?php foreach ($languages as $language) { ?>
+                    <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab-<?= $language->getCode() ?>" role="tabpanel">
+                        <?php $lang = $language->getDatabaseCode() ?>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Головна сторінка</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "homeTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("homeTitle_$lang")]) ?>
+                                <?= $form->field($model, "homeDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("homeDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Сторінка каталогу</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "catalogTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("catalogTitle_$lang")]) ?>
+                                <?= $form->field($model, "catalogDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("catalogDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Пошук</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "searchTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("searchTitle_$lang")]) ?>
+                                <?= $form->field($model, "searchDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("searchDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                                <code>{{query}}</code> - Пошуковий запит<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Категорія</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "categoryTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("categoryTitle_$lang")]) ?>
+                                <?= $form->field($model, "categoryDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("categoryDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                                <code>{{title}}</code> - Назва категорії<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Товар</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "productTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("productTitle_$lang")]) ?>
+                                <?= $form->field($model, "productDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("productDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                                <code>{{title}}</code> - Назва товару<br>
+                                <code>{{description}}</code> - Опис товару<br>
+                                <code>{{price}}</code> - Ціна<br>
+                                <code>{{category}}</code> - Назва категорії<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Інформаційна сторінка</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "informationTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("informationTitle_$lang")]) ?>
+                                <?= $form->field($model, "informationDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("informationDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                                <code>{{meta}}</code> (для Meta-title) - Назва статті, або meta-title статті якщо поле заповнено<br>
+                                <code>{{meta}}</code> (для Meta-description) - meta-description статті ящко поле заповнено, або назва статті<br>
+                            </div>
+                        </div>
+                        <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
+                        <div class="form-group form-group-last row">
+                            <label  class="col-md-2 col-form-label">Контакти</label>
+                            <div class="col-md-6">
+                                <?= $form->field($model, "contactsTitle_$lang")
+                                    ->label(false)
+                                    ->textInput(['placeholder' => $model->getAttributeLabel("contactsTitle_$lang")]) ?>
+                                <?= $form->field($model, "contactsDescription_$lang")
+                                    ->label(false)
+                                    ->textarea(['placeholder' => $model->getAttributeLabel("contactsDescription_$lang")]) ?>
+                            </div>
+                            <div class="col-md-3">
+                                <code>{{site_name}}</code> - Назва сайту<br>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

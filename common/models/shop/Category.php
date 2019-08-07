@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use frontend\components\multilang\AttributeBehavior;
 use Yii;
 
 /**
@@ -9,6 +10,7 @@ use Yii;
  *
  * @property int $id
  * @property string $title_pl
+ * @property string $title_ru
  * @property string $title
  * @property string $url
  * @property string $slug
@@ -22,6 +24,9 @@ use Yii;
  * @property ProductUrl[] $productUrls
  * @property Category[] $subCategories
  * @property Category $parentCategory
+ *
+ * @method mixed lang(string $attribute)
+ * @see AttributeBehavior::lang
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -42,6 +47,26 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritDoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'multilang' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    'title' => [
+                        'template' => 'title_{{code}}',
+                        'override' => ['uk-UA' => 'title'],
+                        'default' => 'title_pl',
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
@@ -58,6 +83,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title_pl' => 'Title Pl',
+            'title_ru' => 'Title RU',
             'title' => 'Title',
             'url' => 'Url',
             'slug' => 'Slug',
@@ -79,7 +105,8 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::class, ['category_id' => 'id']);
+        return $this->hasMany(Product::class, ['id' => 'product_id'])
+            ->via('productToCategory');
     }
 
     /**
@@ -99,10 +126,18 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductToCategory()
+    {
+        return $this->hasMany(ProductToCategory::class, ['category_id' => 'id']);
+    }
+
+    /**
      * @return string
      */
     public function getTitleLang()
     {
-        return $this->title === null ? $this->title_pl : $this->title;
+        return $this->lang('title');
     }
 }

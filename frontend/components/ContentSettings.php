@@ -2,6 +2,7 @@
 
 namespace frontend\components;
 
+use frontend\components\multilang\Languages;
 use yii;
 use yii2mod\settings\components\Settings;
 use yii2mod\settings\models\enumerables\SettingType;
@@ -116,7 +117,7 @@ class ContentSettings extends \yii\base\Component
             return $this->_addresses;
         }
 
-        $list = $this->getSetting(self::CONTACTS_SECTION, 'address', []);
+        $list = $this->getSetting(self::CONTACTS_SECTION, $this->getLangField('address'), []);
         $this->_addresses = [];
 
         foreach ($list as $item) {
@@ -160,7 +161,7 @@ class ContentSettings extends \yii\base\Component
             return $this->_advantages;
         }
 
-        $list = $this->getSetting(self::ADVANTAGES_SECTION, 'advantages', []);
+        $list = $this->getSetting(self::ADVANTAGES_SECTION, $this->getLangField('advantages'), []);
         $this->_advantages = [];
 
         foreach ($list as $item) {
@@ -182,7 +183,7 @@ class ContentSettings extends \yii\base\Component
             return $this->_searchQueries;
         }
 
-        $list = $this->getSetting(self::SEARCH_QUERIES_SECTION, 'queries', []);
+        $list = $this->getSetting(self::SEARCH_QUERIES_SECTION, $this->getLangField('queries'), []);
         $this->_searchQueries = [];
 
         foreach ($list as $item) {
@@ -205,17 +206,21 @@ class ContentSettings extends \yii\base\Component
 
         $this->_footerArticles = [
             [
-                'label' => 'Політика конфіденційності',
+                'label' => Yii::t('app', 'Політика конфіденційності'),
                 'url' => ['/article/view', 'key' => 'privacy-policy'],
             ],
             [
-                'label' => 'Доставка та оплата',
+                'label' => Yii::t('app', 'Доставка та оплата'),
                 'url' => ['/article/view', 'key' => 'payment-and-delivery'],
             ],
-            [
-                'label' => 'Питання та відповіді',
-                'url' => ['/article/view', 'key' => 'faq'],
-            ],
+            // [
+            //     'label' => Yii::t('app', 'Питання та відповіді'),
+            //     'url' => ['/article/view', 'key' => 'faq'],
+            // ],
+            // [
+            //     'label' => Yii::t('app', 'Каталог'),
+            //     'url' => ['/article/view', 'key' => 'contacts'],
+            // ],
         ];
 
         return $this->_footerArticles;
@@ -239,8 +244,8 @@ class ContentSettings extends \yii\base\Component
         }
 
         $this->_banner = [
-            'title' => nl2br((string) $this->settings()->get(self::BANNER_SECTION, 'title', null)),
-            'description' => nl2br((string) $this->settings()->get(self::BANNER_SECTION, 'description', null)),
+            'title' => nl2br((string) $this->settings()->get(self::BANNER_SECTION, $this->getLangField('title'), null)),
+            'description' => nl2br((string) $this->settings()->get(self::BANNER_SECTION, $this->getLangField('description'), null)),
         ];
 
         return $this->_banner;
@@ -273,5 +278,26 @@ class ContentSettings extends \yii\base\Component
     protected function settings()
     {
         return Yii::$app->settings;
+    }
+
+    /**
+     * @return Languages
+     */
+    protected function languagesComponent()
+    {
+        return Yii::$app->languages;
+    }
+
+    /**
+     * @param string $field
+     * @return string
+     */
+    protected function getLangField($field)
+    {
+        if (($language = $this->languagesComponent()->getCurrent()) === null) {
+            return $field;
+        }
+
+        return $field . '_' . $language->getDatabaseCode();
     }
 }

@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $model \backend\forms\PriceForm|null */
 /* @var $form ActiveForm */
+/* @var $languages \frontend\components\multilang\LanguageInterface[] */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -49,8 +50,31 @@ $horizontalOptions = [
                     <div class="col-lg-6">
                         <?= $form->field($model, 'currencyRate', $horizontalOptions)->textInput(['placeholder' => '13.07']) ?>
                         <?= $form->field($model, 'discountPercent', $horizontalOptions)->textInput(['placeholder' => '5.5']) ?>
-                        <?= $form->field($model, 'discountDescription', $horizontalOptions)->textarea(['placeholder' => 'Розпродаж до дня незалежності! {{discount}} на все!']) ?>
                     </div>
+                </div>
+                <div class="m-form__group">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <?php foreach ($languages as $language) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab-<?= $language->getCode() ?>">
+                                    <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                    <?= Html::encode($language->getNativeName()) ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <?php foreach ($languages as $language) { ?>
+                        <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab-<?= $language->getCode() ?>" role="tabpanel">
+                            <?php $lang = $language->getDatabaseCode() ?>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <?= $form->field($model, "discountDescription_$lang", $horizontalOptions)->textarea(['placeholder' => 'Розпродаж до дня незалежності! {{discount}} на все!']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="m-form__seperator m-form__seperator--dashed m--margin-top-40 m--margin-bottom-40 m--visible-tablet-and-mobile"></div>
             </div>

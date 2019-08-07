@@ -16,7 +16,6 @@ class QueryBuilder extends PDO
 		$pass = DB_PASS;
 
 		$this->pdo = new PDO("$driver:host=$host;dbname=$dbname;charset=utf8",$user,$pass);
-		// return $this->pdo;
 	}
 
 	//  ******************** CRUD ********************  //
@@ -34,6 +33,7 @@ class QueryBuilder extends PDO
 		$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$tags})";
 		$stm = $this->pdo->prepare($sql);
 		$stm->execute($data);
+		return $this->pdo->lastInsertId();
 	}
 
 	public function getAll($table) {
@@ -43,8 +43,17 @@ class QueryBuilder extends PDO
 		$stm->execute();
 
 		$res = $stm->fetchAll();
-
 		return $res;
+	}
+
+	public function getOne($table,$where,$val) {
+		
+		$sql = "SELECT * FROM {$table} WHERE {$where}=:val";
+		$stm = $this->pdo->prepare($sql);
+		$stm->bindParam(':val', $val);
+		$stm->execute();
+
+		return $stm->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function getField($table='bookings', $field, $where, $val) {

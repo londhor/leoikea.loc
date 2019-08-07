@@ -41,7 +41,7 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
 
     <div class="modal-tnx-container modal-tnx-container-booking activePreloaderShow" v-if="paymentType=='card'">
         <div class="modal-tnx-subheader"><?= Yii::t('app/cart', 'Зараз вас буде перенаправлено на платіжну систему для оплати замовлення...') ?></div>
-        <a v-show="merchant_url" :href="merchant_url" class="btn btn-white sm"><?= Yii::t('app', 'Перейти до оплати') ?></a>
+        <a :href="merchant_url" class="btn btn-white sm"><?= Yii::t('app/cart', 'Перейти до оплати') ?></a>
     </div>
 
     <form class="booking-form activePreloaderHide" action="/" method="get" id="booking-form" @submit.prevent="ajaxForm('booking',$event);$root.initFormPreloader($event,'#modal_booking');fbp('Purchase')" v-if="cartHasItems()">
@@ -50,19 +50,19 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
         </div>
 
         <div class="input-wp">
-            <input type="text" name="fio" required value="Иван">
+            <input type="text" name="fio" required>
             <label><?= Yii::t('app/cart', 'Ім\'я та прізвище') ?></label>
         </div>
         <div class="input-wp">
-            <input type="text" name="phone" class="phonenumber" @keyup="getUserBonus($event)" required value="+380939104877">
+            <input type="text" name="phone" class="phonenumber" @keyup="getUserBonus($event)" required>
             <label><?= Yii::t('app/cart', 'Номер телефону') ?></label>
         </div>
         <div class="input-wp">
-            <input type="text" name="city" required value="Киев">
+            <input type="text" name="city" :required="isRequiredBooking()">
             <label><?= Yii::t('app/cart', 'Місто') ?></label>
         </div>
         <div class="input-wp">
-            <input type="text" name="number" required value="21">
+            <input type="text" name="number" :required="isRequiredBooking()">
             <label><?= Yii::t('app/cart', 'Номер відділення') ?></label>
         </div>
         <div class="input-wp">
@@ -86,6 +86,11 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
         <div class="input-wp">
             <input v-model="paymentType" type="radio" name="paymenttype" value="cash" required id="payment_type_cash">
             <label for="payment_type_cash" class="label-btn ic-p-cash"><?= Yii::t('app/cart', 'Накладний платіж') ?></label>
+        </div>
+
+        <div class="input-wp">
+            <input v-model="paymentType" type="radio" name="paymenttype" value="magazin" required id="payment_type_magazin">
+            <label for="payment_type_magazin" class="label-btn ic-ben-4"><?= Yii::t('app/cart', 'Самовивіз з магазину') ?></label>
         </div>
 
         <div class="input-wp use-skidka-input" v-if="getBonus()>0">
@@ -113,7 +118,7 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
     <div v-else="" class="empty-cart-wp">
         <div class="empty-cart-icon ic-cart"></div>
         <div class="empty-cart-text"><?= Yii::t('app/cart', 'Ваш кошик пустий...<br>Перейдіть у каталог, щоб продовжити шопінг') ?></div>
-        <button class="btn" type="button"><?= Yii::t('app', 'В каталог') ?></button>
+        <a href="<?= Url::to(['/catalog/index']) ?>" class="btn btn-white sm"><?= Yii::t('app', 'В каталог') ?></a>
     </div>
 </v-modal>
 
@@ -123,6 +128,15 @@ $popularQueries = Yii::$app->contentSettings->getSearchQueries();
         <div class="modal-tnx-header"><?= Yii::t('app/cart', 'Дякуємо за замовлення!') ?></div>
         <div class="modal-tnx-subheader"><?= Yii::t('app/cart', 'Наші менеджери зв\'яжуться<br>з вами найближчим часом') ?></div>
         <a href="<?= Url::to(['/catalog/index']) ?>" class="btn btn-white sm"><?= Yii::t('app', 'В каталог') ?></a>
+    </div>
+</v-modal>
+
+<v-modal ref="payment_error" name="payment_error">
+    <div class="modal-tnx-container">
+        <div class="modal-tnx-icon ic-close-bold"></div>
+        <div class="modal-tnx-header"><?= Yii::t('app/cart', 'Помилка оплати...') ?></div>
+        <div class="modal-tnx-subheader"><?= Yii::t('app/cart', 'Схоже ви відмінили оплату, або платіж не пройшов. Перевірте наявність коштів на карті чи ліміт оплати в інтернеті. Якщо кошти було списано з карти але ви бачите це вікно — звяжіться з нами.') ?></div>
+        <button @click="modalClose('payment_error')" type="button" class="btn btn-white sm"><?= Yii::t('app', 'Закрити') ?></button>
     </div>
 </v-modal>
 

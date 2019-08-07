@@ -2,6 +2,7 @@
 
 namespace common\models\shop;
 
+use frontend\components\multilang\AttributeBehavior;
 use Yii;
 use yii2tech\filestorage\BucketInterface;
 
@@ -51,6 +52,11 @@ use yii2tech\filestorage\BucketInterface;
  * @property Image[] $imagesZoom
  * @property Image $image
  * @property Category $category
+ * @property Category[] $categories
+ * @property ProductToCategory $productToCategory
+ *
+ * @method mixed lang(string $attribute)
+ * @see AttributeBehavior::lang
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -70,6 +76,56 @@ class Product extends \yii\db\ActiveRecord
     public static function getDb()
     {
         return Yii::$app->dbIkea;
+    }
+
+    /**
+     * @inheritDoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            'multilang' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    'title' => [
+                        'template' => 'title_{{code}}',
+                        'override' => ['uk-UA' => 'title'],
+                        'default' => 'title_pl',
+                    ],
+                    'descr' => [
+                        'template' => 'descr_{{code}}',
+                        'override' => ['uk-UA' => 'descr'],
+                        'default' => 'descr_pl',
+                    ],
+                    'info' => [
+                        'template' => 'info_{{code}}',
+                        'override' => ['uk-UA' => 'info'],
+                        'default' => 'info_pl',
+                    ],
+                    'materials' => [
+                        'template' => 'materials_{{code}}',
+                        'override' => ['uk-UA' => 'materials'],
+                        'default' => 'materials_pl',
+                    ],
+                    'package' => [
+                        'template' => 'package_{{code}}',
+                        'override' => ['uk-UA' => 'package'],
+                        'default' => 'package_pl',
+                    ],
+                    'variations' => [
+                        'template' => 'variations_{{code}}',
+                        'override' => ['uk-UA' => 'variations'],
+                        'default' => 'variations_pl',
+                    ],
+                    'variations_headings' => [
+                        'template' => 'variations_headings_{{code}}',
+                        'override' => ['uk-UA' => 'variations_headings'],
+                        'default' => 'variations_headings_pl',
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -114,7 +170,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function isNewProduct()
     {
-        return strtotime($this->parsed_at) > strtotime('1 month ago');
+        return strtotime($this->parsed_at) > strtotime('2 weeks ago');
     }
 
     /**
@@ -152,7 +208,25 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id'])
+            ->via('productToCategory');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategories()
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id'])
+            ->via('productToCategory');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductToCategory()
+    {
+        return $this->hasMany(ProductToCategory::class, ['product_id' => 'id']);
     }
 
     /**
@@ -179,7 +253,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getTitleLang()
     {
-        return $this->title === null ? $this->title_pl : $this->title;
+        return $this->lang('title');
     }
 
     /**
@@ -187,7 +261,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getDescrLang()
     {
-        return $this->descr === null ? $this->descr_pl : $this->descr;
+        return $this->lang('descr');
     }
 
     /**
@@ -195,7 +269,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getInfoLang()
     {
-        return $this->info === null ? $this->info_pl : $this->info;
+        return $this->lang('info');
     }
 
     /**
@@ -203,7 +277,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getMaterialsLang()
     {
-        return $this->materials === null ? $this->materials_pl : $this->materials;
+        return $this->lang('materials');
     }
 
     /**
@@ -211,7 +285,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getPackageLang()
     {
-        $package = $this->package === null ? $this->package_pl : $this->package;
+        $package = $this->lang('package');
         if ($package === null) {
             return null;
         }

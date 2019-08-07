@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $model \common\models\Article|null */
 /* @var $form ActiveForm */
+/* @var $languages \frontend\components\multilang\LanguageInterface[] */
 
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
@@ -47,9 +48,31 @@ $horizontalOptions = ['options' => ['class' => 'form-group m-form__group row'], 
                 <div class="m-form__heading">
                     <h3 class="m-form__heading-title">1. Інфо:</h3>
                 </div>
-                <?= $form->field($model, 'title', $horizontalOptions)->textInput(['autofocus' => true, 'maxlenght' => true]) ?>
-                <?= $form->field($model, 'meta_title', $horizontalOptions)->textInput(['maxlenght' => true]) ?>
-                <?= $form->field($model, 'meta_description', $horizontalOptions)->textarea(['rows' => 5]) ?>
+                <div class="m-form__group">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <?php foreach ($languages as $language) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab-<?= $language->getCode() ?>">
+                                    <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                    <?= Html::encode($language->getNativeName()) ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <?php foreach ($languages as $language) { ?>
+                        <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab-<?= $language->getCode() ?>" role="tabpanel">
+                            <?= $form->field($model, $model->getLangAttributeName('title', $language), $horizontalOptions)
+                                ->textInput(['autofocus' => true, 'maxlenght' => true]) ?>
+                            <?= $form->field($model, $model->getLangAttributeName('meta_title', $language), $horizontalOptions)
+                                ->textInput(['maxlenght' => true]) ?>
+                            <?= $form->field($model, $model->getLangAttributeName('meta_description', $language), $horizontalOptions)
+                                ->textarea(['rows' => 5]) ?>
+                        </div>
+                    <?php } ?>
+                </div>
+                <div class="m-form__seperator m-form__seperator--dashed m--margin-top-20 m--margin-bottom-20"></div>
                 <?= $form->field($model, 'slug', $horizontalOptions)->textInput(['maxlenght' => true]) ?>
                 <div class="m-form__seperator m-form__seperator--dashed m--margin-top-40 m--margin-bottom-40 m--visible-tablet-and-mobile"></div>
             </div>
@@ -63,7 +86,25 @@ $horizontalOptions = ['options' => ['class' => 'form-group m-form__group row'], 
                 //        'inline' => false,
                 //    ]),
                 //]); ?>
-                <?= $form->field($model, 'body', $horizontalOptions)->textarea(['class' => 'summernote']) ?>
+                <div class="m-form__group">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <?php foreach ($languages as $language) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $language->isCurrent() ? 'active' : '' ?>" data-toggle="tab" href="#" data-target="#language-tab2-<?= $language->getCode() ?>">
+                                    <i><img src="<?= $language->getFlag() ?>" alt="<?= $language->getCode() ?>" height="13"></i>
+                                    <?= Html::encode($language->getNativeName()) ?>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <?php foreach ($languages as $language) { ?>
+                        <div class="tab-pane <?= $language->isCurrent() ? 'active' : '' ?>" id="language-tab2-<?= $language->getCode() ?>" role="tabpanel">
+                            <?= $form->field($model, $model->getLangAttributeName('body', $language), $horizontalOptions)->textarea(['class' => 'summernote']) ?>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
         <div class="m-portlet__foot m-portlet__foot--fit text-center">

@@ -28,7 +28,7 @@ $priceSettings = Yii::$app->priceSettings;
         </div>
 
         <div class="single-item-content-container">
-            <?php $images = $isMobile ? $product->imagesZoom : $product->images ?>
+            <?php $images = $product->images ?>
             <div class="si-slider-container">
                 <div class="swiper-container si-slider">
                     <!-- Additional required wrapper -->
@@ -62,15 +62,17 @@ $priceSettings = Yii::$app->priceSettings;
             <div class="si-main-content-wp">
                 <div class="si-main-content-container">
                     <div class="si-main-content">
+                        <?php if ($product->article): ?>
                         <div class="si-article"><span><?= Yii::t('app/product', 'Артикул') ?></span><?= Html::encode($product->article) ?></div>
+                        <?php endif ?>
                         <h1 class="si-title"><?= Html::encode($product->titleLang) ?></h1>
                         <h2 class="si-subheader"><?= Html::encode($product->descrLang) ?></h2>
                         <div class="item-card-price-wp si-item-card-price-wp">
-                            <div class="item-card-price"><?= $formatter->asDecimal($priceSettings->calcDiscount($product->price)) ?><span>&#8372;</span></div>
+                            <div class="item-card-price"><?= $formatter->asDecimal($priceSettings->calcDiscount($product->price,$product->category->id)) ?><span>&#8372;</span></div>
                             <?php if ($priceSettings->hasDiscount()) { ?>
-                                <div class="item-card-price item-card-price-sale"><?= $formatter->asDecimal($priceSettings->calcPrice($product->price)) ?><span>&#8372;</span></div>
+                                <div class="item-card-price item-card-price-sale"><?= $formatter->asDecimal($priceSettings->calcPrice($product->price,$product->category->id)) ?><span>&#8372;</span></div>
                             <?php } elseif($product->old_price > $product->price) { ?>
-                                <div class="item-card-price item-card-price-sale"><?= $formatter->asDecimal($priceSettings->calcPrice($product->old_price)) ?><span>&#8372;</span></div>
+                                <div class="item-card-price item-card-price-sale"><?= $formatter->asDecimal($priceSettings->calcPrice($product->old_price,$product->category->id)) ?><span>&#8372;</span></div>
                             <?php } ?>
                         </div>
                     </div>
@@ -82,7 +84,7 @@ $priceSettings = Yii::$app->priceSettings;
                                     img: '<?= substr(Json::encode($product->bucket()->getFileUrl($product->image->path)), 1, -1) ?>',
                                     title: '<?= substr(Json::encode($product->titleLang), 1, -1) ?>',
                                     header: '<?= substr(Json::encode($product->descrLang), 1, -1) ?>',
-                                    price: <?= round($priceSettings->calcDiscount($product->price)) ?>,
+                                    price: <?= round($priceSettings->calcDiscount($product->price,$product->category->id)) ?>,
 								}
 							}, $event
 						);fbp('AddToCart')"
@@ -122,8 +124,10 @@ $priceSettings = Yii::$app->priceSettings;
         </div>
     </div>
 </article>
+<?php if ($product->infoLang || $product->documentations || $product->packageLang || $product->materialsLang): ?>
 <article class="si-tabs-article">
     <div class="container si-tabs-contaioner">
+        <?php if ($product->infoLang || $product->documentations || $product->packageLang || $product->materialsLang): ?>
         <div class="si-tab-header-pc-wp">
             <?php if ($product->infoLang) { ?>
                 <button @click="siTab=1" :class="{active:siTab==1}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Опис та розміри') ?></button>
@@ -138,13 +142,14 @@ $priceSettings = Yii::$app->priceSettings;
                 <button @click="siTab=4" :class="{active:siTab==4}" class="btn sm btn-white si-tab-header si-tab-header-pc" type="button"><?= Yii::t('app/product', 'Інше') ?></button>
             <?php } ?>
         </div>
+        <?php endif; ?>
         <div class="si-tabs">
 
             <?php if ($product->infoLang) { ?>
                 <div class="si-tab" :class="{active:siTab==1}">
                     <button type="button" @click="siTab=1" class="si-tab-btn si-tab-header ic-arrow-down"><?= Yii::t('app/product', 'Опис та розміри') ?></button>
                     <div class="content si-tab-container">
-                        <?= $product->infoLang ?>
+                        <?= str_replace('⠀','<br><br>',$product->infoLang) ?>
                     </div>
                 </div>
             <?php } ?>
@@ -219,6 +224,8 @@ $priceSettings = Yii::$app->priceSettings;
         </div><!-- si-tabs -->
     </div>
 </article>
+
+<?php endif; ?>
 
 <?= frontend\widgets\RecommendedProductsWidget::widget([
     'product' => $product,

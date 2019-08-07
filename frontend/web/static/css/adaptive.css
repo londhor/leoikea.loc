@@ -5,7 +5,16 @@
 
 /************** BEFORE ****************/
 
-@media all and (max-width: 374px) {
+@media all and (max-width: 360px) {
+    .input-wp~.input-wp.use-skidka-input {
+        margin-left: 0px;
+    }
+}
+
+@media all and (max-width: 375px) {
+    .header-logo {
+        font-size: 2em;
+    }
     .header-button {
         margin-left: 0px;
     }
@@ -139,14 +148,6 @@
 @media all and (min-width: 980px) {
     .product-grid>.item-card {
         width: calc(16.6666% - 16px);
-    }
-
-    .openMenuBtn {
-        display: none;
-    }
-
-    .header-menu {
-        display: flex;
     }
 
     .container-our-advantage {
@@ -308,6 +309,15 @@
     }
     .hero-header {
         font-size: 64px;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .openMenuBtn {
+        display: none;
+    }
+    .header-menu {
+        display: flex;
     }
 }
 

@@ -9,7 +9,7 @@ use yii\helpers\Html;
 ?>
 <article class="feedback-article" id="feedback-article">
     <div class="container">
-        <h2 class="container-header">Відгуки наших клієнтів</h2>
+        <h2 class="container-header"><?= Yii::t('app', 'Відгуки наших клієнтів') ?></h2>
         <div class="swiper-container feedback-slider">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
@@ -25,7 +25,7 @@ use yii\helpers\Html;
                 <button type="button" class="swiper-pagi-btn-next ic-arrow-right"></button>
             </div>
             <?php if ($reviewsLink) { ?>
-                <a href="<?= $reviewsLink ?>" target="blank" class="btn ic-instagram">Всі відгуки</a>
+                <a href="<?= $reviewsLink ?>" target="blank" class="btn ic-instagram"><?= Yii::t('app', 'Всі відгуки') ?></a>
             <?php } ?>
         </div>
     </div>

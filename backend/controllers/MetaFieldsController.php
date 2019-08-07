@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use frontend\components\multilang\Languages;
 use yii;
 use backend\components\Controller;
 use backend\forms\MetaFieldsForm;
@@ -32,8 +33,12 @@ class MetaFieldsController extends Controller
             $this->modelError();
         }
 
+        /** @var Languages $languagesComponent */
+        $languagesComponent = Yii::$app->languages;
+
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+            'languages' => $languagesComponent->getLanguages(),
         ]);
     }
 }

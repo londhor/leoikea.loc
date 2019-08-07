@@ -16,14 +16,20 @@ class AdvantagesForm extends Model
     /**
      * @var array
      */
-    public $advantages;
+    public $advantages_ru;
+
+    /**
+     * @var array
+     */
+    public $advantages_ua;
 
     /**
      * Load settings from component
      */
     public function init()
     {
-        $this->advantages = (array) $this->getSetting('advantages', [], true);
+        $this->advantages_ru = (array) $this->getSetting('advantages_ru', [], true);
+        $this->advantages_ua = (array) $this->getSetting('advantages_ua', [], true);
     }
 
     /**
@@ -32,7 +38,7 @@ class AdvantagesForm extends Model
     public function rules()
     {
         return [
-            [['advantages'], 'validateAdvantages', 'skipOnEmpty' => false],
+            [['advantages_ru', 'advantages_ua'], 'validateAdvantages', 'skipOnEmpty' => false],
         ];
     }
 
@@ -127,7 +133,8 @@ class AdvantagesForm extends Model
     public function attributeLabels()
     {
         return [
-            'advantages' => 'Переваги',
+            'advantages_ru' => 'Переваги [RU]',
+            'advantages_ua' => 'Переваги [UA]',
         ];
     }
 
@@ -141,7 +148,8 @@ class AdvantagesForm extends Model
             return false;
         }
 
-        $this->setSetting('advantages', $this->advantages, self::TYPE_JSON);
+        $this->setSetting('advantages_ru', $this->advantages_ru, self::TYPE_JSON);
+        $this->setSetting('advantages_ua', $this->advantages_ua, self::TYPE_JSON);
 
         return true;
     }

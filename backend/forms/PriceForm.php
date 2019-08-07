@@ -22,9 +22,14 @@ class PriceForm extends Model
     public $discountPercent;
 
     /**
-     * @var array
+     * @var string
      */
-    public $discountDescription;
+    public $discountDescription_ru;
+
+    /**
+     * @var string
+     */
+    public $discountDescription_ua;
 
     /**
      * Load settings from component
@@ -33,7 +38,8 @@ class PriceForm extends Model
     {
         $this->currencyRate = (string) $this->getSetting('currencyRate', '');
         $this->discountPercent = (string) $this->getSetting('discountPercent', '');
-        $this->discountDescription = (string) $this->getSetting('discountDescription', '');
+        $this->discountDescription_ru = (string) $this->getSetting('discountDescription_ru', '');
+        $this->discountDescription_ua = (string) $this->getSetting('discountDescription_ua', '');
     }
 
     /**
@@ -43,7 +49,7 @@ class PriceForm extends Model
     {
         return [
             [['currencyRate'], 'required'],
-            [['discountDescription'], 'filter',
+            [['discountDescription_ru', 'discountDescription_ua'], 'filter',
                 'filter' => 'strip_tags',
             ],
             [['currencyRate'], 'number',
@@ -53,7 +59,7 @@ class PriceForm extends Model
                 'min' => 0,
                 'max' => 99,
             ],
-            [['discountDescription'], 'string',
+            [['discountDescription_ru', 'discountDescription_ua'], 'string',
                 'min' => 0,
                 'max' => 500,
             ],
@@ -68,7 +74,8 @@ class PriceForm extends Model
         return [
             'currencyRate' => 'Коефіцієнт ціни',
             'discountPercent' => 'Акційна пропозиція',
-            'discountDescription' => 'Акційний текст',
+            'discountDescription_ru' => 'Акційний текст [RU]',
+            'discountDescription_ua' => 'Акційний текст [UA]',
         ];
     }
 
@@ -79,7 +86,8 @@ class PriceForm extends Model
     {
         return [
             'discountPercent' => 'Відсоток знижки (якщо 5, тоді знижка 5%)',
-            'discountDescription' => 'Замість {{discount}} підставиться відсоток знижки',
+            'discountDescription_ru' => 'Замість {{discount}} підставиться відсоток знижки',
+            'discountDescription_ua' => 'Замість {{discount}} підставиться відсоток знижки',
         ];
     }
 
@@ -95,7 +103,8 @@ class PriceForm extends Model
 
         $this->setSetting('currencyRate', $this->currencyRate, SettingType::FLOAT_TYPE);
         $this->setSetting('discountPercent', $this->discountPercent, SettingType::FLOAT_TYPE);
-        $this->setSetting('discountDescription', $this->discountDescription, SettingType::STRING_TYPE);
+        $this->setSetting('discountDescription_ru', $this->discountDescription_ru, SettingType::STRING_TYPE);
+        $this->setSetting('discountDescription_ua', $this->discountDescription_ua, SettingType::STRING_TYPE);
 
         return true;
     }

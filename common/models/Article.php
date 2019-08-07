@@ -3,6 +3,8 @@
 namespace common\models;
 
 use dosamigos\transliterator\TransliteratorHelper;
+use frontend\components\multilang\AttributeBehavior;
+use frontend\components\multilang\LanguageInterface;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -12,12 +14,25 @@ use yii\db\Expression;
  *
  * @property string $id
  * @property string $slug
- * @property string $title
- * @property string $meta_title
- * @property string $meta_description
- * @property string $body
+ * @property string $title_ua [varchar(255)]
+ * @property string $title_ru [varchar(255)]
+ * @property string $meta_title_ua [varchar(255)]
+ * @property string $meta_title_ru [varchar(255)]
+ * @property string $meta_description_ua [varchar(500)]
+ * @property string $meta_description_ru [varchar(500)]
+ * @property string $body_ua
+ * @property string $body_ru
  * @property string $updated_at
  * @property string $created_at
+ *
+ * @property string $titleLang
+ * @property string $metaTitleLang
+ * @property string $metaDescriptionLang
+ * @property string $bodyLang
+ *
+ * @method mixed lang(string $attribute)
+ * @method string|null getLangAttributeName(string $attribute, LanguageInterface $language = null)
+ * @see AttributeBehavior::lang
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -39,6 +54,27 @@ class Article extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            'multilang' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    'title' => [
+                        'template' => 'title_{{code}}',
+                        'default' => 'title_ua',
+                    ],
+                    'meta_title' => [
+                        'template' => 'meta_title_{{code}}',
+                        'default' => 'meta_title_ua',
+                    ],
+                    'meta_description' => [
+                        'template' => 'meta_description_{{code}}',
+                        'default' => 'meta_description_ua',
+                    ],
+                    'body' => [
+                        'template' => 'body_{{code}}',
+                        'default' => 'body_ua',
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -53,18 +89,18 @@ class Article extends \yii\db\ActiveRecord
                     return strtolower(preg_replace('/[^\w\_\-]/im', '', $value));
                 }
             ],
-            [['title', 'meta_title', 'meta_description'], 'filter',
+            [['title_ua', 'meta_title_ua', 'meta_description_ua', 'title_ru', 'meta_title_ru', 'meta_description_ru'], 'filter',
                 'filter' => 'strip_tags'
             ],
-            [['body'], 'filter',
+            [['body_ua', 'body_ru'], 'filter',
                 'filter' => '\yii\helpers\HtmlPurifier::process',
             ],
-            [['title', 'body'], 'required'],
-            [['meta_description'], 'string',
+            [['title_ua', 'body_ua', 'title_ru', 'body_ru'], 'required'],
+            [['meta_description_ua', 'meta_description_ru'], 'string',
                 'max' => 500
             ],
-            [['body'], 'string'],
-            [['title', 'meta_title'], 'string',
+            [['body_ua', 'body_ru'], 'string'],
+            [['title_ua', 'meta_title_ua', 'title_ru', 'meta_title_ru'], 'string',
                 'max' => 255
             ],
             [['slug'], 'string',
@@ -82,10 +118,14 @@ class Article extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'slug' => 'Аліас',
-            'title' => 'Заголовок',
-            'meta_title' => 'Meta Title',
-            'meta_description' => 'Meta Description',
-            'body' => 'Текст сторінки',
+            'title_ua' => 'Заголовок [UA]',
+            'title_ru' => 'Заголовок [RU]',
+            'meta_title_ua' => 'Meta Title [UA]',
+            'meta_title_ru' => 'Meta Title [RU]',
+            'meta_description_ua' => 'Meta Description [UA]',
+            'meta_description_ru' => 'Meta Description [RU]',
+            'body_ua' => 'Текст сторінки [UA]',
+            'body_ru' => 'Текст сторінки [RU]',
             'updated_at' => 'Відновлено',
             'created_at' => 'Створено',
         ];
@@ -94,8 +134,10 @@ class Article extends \yii\db\ActiveRecord
     public function attributeHints()
     {
         return [
-            'meta_title' => '<code>{{site_name}}</code> - Назва сайту',
-            'meta_description' => '<code>{{site_name}}</code> - Назва сайту',
+            'meta_title_ua' => '<code>{{site_name}}</code> - Назва сайту',
+            'meta_title_ru' => '<code>{{site_name}}</code> - Назва сайту',
+            'meta_description_ua' => '<code>{{site_name}}</code> - Назва сайту',
+            'meta_description_ru' => '<code>{{site_name}}</code> - Назва сайту',
         ];
     }
 
@@ -128,7 +170,7 @@ class Article extends \yii\db\ActiveRecord
      */
     private function generateAlias($useRandom = false)
     {
-        $slug = TransliteratorHelper::process($this->title);
+        $slug = TransliteratorHelper::process($this->titleLang);
         $slug = trim(preg_replace('/\W+/i', '-', $slug), '-');
 
         if ($useRandom) {
@@ -136,5 +178,37 @@ class Article extends \yii\db\ActiveRecord
         }
 
         return strtolower($slug);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTitleLang()
+    {
+        return $this->lang('title');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMetaTitleLang()
+    {
+        return $this->lang('meta_title');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMetaDescriptionLang()
+    {
+        return $this->lang('meta_description');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBodyLang()
+    {
+        return $this->lang('body');
     }
 }

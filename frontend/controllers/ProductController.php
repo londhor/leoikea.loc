@@ -33,7 +33,7 @@ class ProductController extends Controller
         $product = Product::findOne(['id' => $key]);
 
         if ($product === null) {
-            throw new NotFoundHttpException('Страница не найдена');
+            throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена'));
         }
 
         return $product;
