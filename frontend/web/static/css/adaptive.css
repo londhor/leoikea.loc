@@ -81,9 +81,15 @@
     .item-card.item-card-last-item {
         min-height: 288px;
     }
+    .hero-article {
+        background-image: url(../img/hero_bg.jpg);
+        background-position: center bottom;
+        background-size: cover;
+    }
+    .hero-container {
+        justify-content: center;
+    }
 }
-
-@media all and (min-width: 480px) {}
 
 @media all and (min-width: 640px) {
     .product-grid>.item-card {

@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['SERVER_NAME']=='beta.leoikea.loc' || $_SERVER['SERVER_NAME']=='beta.ikea.lviv.ua') {
+if ($_SERVER['SERVER_NAME']=='beta.leoikea.loc' || $_SERVER['SERVER_NAME']=='ikea.lviv.ua') {
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 } else {

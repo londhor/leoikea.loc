@@ -146,6 +146,7 @@ class CatalogController extends Controller
 
     public function actionSearch($query)
     {
+        $query = trim($query);
         // $query = mb_strtolower($query);
         /** @var MetaFieldsSettings $metaFieldsSettings */
         $metaFieldsSettings = Yii::$app->metaFieldsSettings;
@@ -173,8 +174,9 @@ class CatalogController extends Controller
             $productsQuery->where(['id' => $queryArticle]);
             $productsQuery->orWhere(['id' => 'S'.$queryArticle]);
         } elseif (count($queryWords)>1) {
+            print_r($query);
             $productsQuery->orFilterWhere(['or',
-                ['regexp', "LOWER(CONCAT_WS(' ', descr, descr_ru, descr_pl))", '[[:<:]]' . $query . '[[:>:]]'],
+                ['regexp', "CONCAT_WS(' ', descr, descr_ru, descr_pl)", $query],
             ]);
         } else {
             foreach ($queryWords as $word) {

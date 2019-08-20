@@ -83,7 +83,7 @@ $priceSettings = Yii::$app->priceSettings;
 								'<?= $product->id ?>':{
                                     img: '<?= substr(Json::encode($product->bucket()->getFileUrl($product->image->path)), 1, -1) ?>',
                                     title: '<?= substr(Json::encode($product->titleLang), 1, -1) ?>',
-                                    header: '<?= substr(Json::encode($product->descrLang), 1, -1) ?>',
+                                    header: '<?= addslashes(substr(Json::encode($product->descrLang), 1, -1)) ?>',
                                     price: <?= round($priceSettings->calcDiscount($product->price,$product->category->id)) ?>,
 								}
 							}, $event

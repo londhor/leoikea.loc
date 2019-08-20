@@ -19,16 +19,16 @@ return [
         'dbIkea' => [
             'class' => 'yii\db\Connection',
         ],
-        //'formatter' => [
-        //    'class' => \yii\i18n\Formatter::class,
-        //    'numberFormatterOptions' => [
-        //        NumberFormatter::MIN_FRACTION_DIGITS => 0,
-        //        NumberFormatter::MAX_FRACTION_DIGITS => 2,
-        //    ],
-        //    'numberFormatterSymbols' => [
-        //        NumberFormatter::CURRENCY_SYMBOL => '₴',
-        //    ],
-        //],
+        'formatter' => [
+            'class' => \yii\i18n\Formatter::class,
+            'numberFormatterOptions' => [
+                NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                NumberFormatter::MAX_FRACTION_DIGITS => 2,
+            ],
+            'numberFormatterSymbols' => [
+                NumberFormatter::CURRENCY_SYMBOL => '₴',
+            ],
+        ],
         'fileStorage' => [
             'class' => \yii2tech\filestorage\hub\Storage::class,
             'storages' => [

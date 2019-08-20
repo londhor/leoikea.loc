@@ -14,21 +14,21 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web/static';
 
     public $css = [
-        'css/normalize.css',
-        'css/main.css',
-        'css/adaptive.css',
-        'css/animations.css',
-        'css/icons.css',
-        'css/swiper.min.css',
-        'css/slimselect.css',
+        'css/normalize.css?ver=1.12',
+        'css/main.css?ver=1.12',
+        'css/adaptive.css?ver=1.12',
+        'css/animations.css?ver=1.12',
+        'css/icons.css?ver=1.12',
+        'css/swiper.min.css?ver=1.12',
+        'css/slimselect.css?ver=1.12',
     ];
 
     public $js = [
-        'js/vue.js',
-        'js/slimselect.js',
-        'js/swiper.min.js',
-        'js/scripts.js',
-        'js/scrollLock.min.js',
-        'js/phoneFormat.js',
+        'js/vue.js?ver=1.12',
+        'js/slimselect.js?ver=1.12',
+        'js/swiper.min.js?ver=1.12',
+        'js/scripts.js?ver=1.12',
+        'js/scrollLock.min.js?ver=1.12',
+        'js/phoneFormat.js?ver=1.12',
     ];
 }

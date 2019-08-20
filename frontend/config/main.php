@@ -67,17 +67,18 @@ return [
                 'catalog/category/<path[\w\-]+>' => 'catalog/category',
                 'sale' => 'catalog/sale',
                 'article/<key:[\w\-]+>' => 'article/view',
-                'product/<key:[\w]+>' => 'product/index',
+                // 'product/<key:[\w]+>' => 'product/index',
+                'product/<key:[\w\-]+>' => 'product/index',
             ],
         ],
-        //'formatter' => [
-        //   'numberFormatterOptions' => [
-        //       NumberFormatter::MAX_FRACTION_DIGITS => 0,
-        //   ],
-        //   'numberFormatterSymbols' => [
-        //       NumberFormatter::CURRENCY_SYMBOL => '₴',
-        //   ],
-        //],
+        'formatter' => [
+          'numberFormatterOptions' => [
+              NumberFormatter::MAX_FRACTION_DIGITS => 0,
+          ],
+          'numberFormatterSymbols' => [
+              NumberFormatter::CURRENCY_SYMBOL => '₴',
+          ],
+        ],
         'priceSettings' => [
             'class' => frontend\components\PriceSettings::class,
         ],

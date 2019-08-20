@@ -9,7 +9,7 @@ if ($_SERVER['SERVER_NAME']=='crm.ikea.lviv.ua.loc') {
 	define('DB_NAME','leoikea_crm');
 	define('DB_USER','user');
 	define('DB_PASS','pass');
-} else if ($_SERVER['SERVER_NAME']=='beta.ikea.lviv.ua' || $_SERVER['SERVER_NAME']=='betacrm.ikea.lviv.ua') {
+} else if ($_SERVER['SERVER_NAME']=='beta.ikea.lviv.ua' || $_SERVER['SERVER_NAME']=='betacrm.ikea.lviv.ua' || $_SERVER['SERVER_NAME']=='ikea.lviv.ua') {
 	// BETA
 	define('DB_DRIVER','mysql');
 	define('DB_HOST','localhost');
